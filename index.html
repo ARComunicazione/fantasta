@@ -110,9 +110,15 @@ section,aside{scroll-margin-top:calc(var(--hdr) + 14px)}
 .sugg .cell{position:relative;display:flex;flex-direction:column;gap:3px;padding:10px 12px 10px 14px;background:var(--glass-2);border:1px solid var(--stroke-2);border-radius:16px;overflow:hidden}
 .sugg .cell::before{content:'';position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:3px;background:var(--line)}
 .sugg .cell.P::before{background:var(--P)}.sugg .cell.D::before{background:var(--D)}.sugg .cell.C::before{background:var(--C)}.sugg .cell.A::before{background:var(--A)}
-.sugg .cell .t{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.sugg .cell .v{font-size:24px;font-weight:700;line-height:1.1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.sugg .cell .t{display:flex;justify-content:space-between;gap:6px;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.sugg .cell .t .cnt{letter-spacing:0;color:var(--ink);font-variant-numeric:tabular-nums}
+.sugg .cell .v{font-size:26px;font-weight:700;line-height:1.1;letter-spacing:-.03em;font-variant-numeric:tabular-nums;transition:color .2s}
+.sugg .cell.ok .v{color:var(--accent)}
+.sugg .cell.bad .v{color:var(--bad)}
 .sugg .cell .v small{font-size:12px;font-weight:500;color:var(--muted);letter-spacing:0;margin-left:5px}
+.sugg .cell .bar{height:5px;border-radius:3px;background:var(--stroke-2);overflow:hidden;margin:4px 0 2px}
+.sugg .cell .bar i{display:block;height:100%;border-radius:3px;background:var(--accent);transition:width .35s cubic-bezier(.2,.8,.2,1)}
+.sugg .cell.bad .bar i{background:var(--bad)}
 .sugg .cell .d{font-size:12px;color:var(--muted)}
 .hint{padding:8px 20px 0;font-size:13px;color:var(--muted);line-height:1.5}
 .hint b{color:var(--ink);font-weight:600}
@@ -555,10 +561,14 @@ function render(){
   $('#sugg').innerHTML = ROLES.map(r=>{
     const x=c.roles[r];
     const over = x.rem<0;
-    return `<div class="cell ${r}">
-      <div class="t">${RNAME[r]}</div>
-      <div class="v" style="${over?'color:var(--bad)':''}">${x.left>0?fmt(Math.max(0,x.avg)):'✓'}<small>${x.left>0?'a testa · '+x.left+' da prendere':'completo'}</small></div>
-      <div class="d">${over?'sforato di '+fmt(-x.rem):'restano '+fmt(x.rem)+' su '+fmt(x.budget)}</div>
+    const sp = spentRole(r), n = +S.slots[r]||0, took = countRole(r);
+    const pct = x.budget>0 ? Math.min(100, sp/x.budget*100) : (sp>0?100:0);
+    const cls = over ? 'bad' : (sp>0 ? 'ok' : '');
+    return `<div class="cell ${r} ${cls}">
+      <div class="t"><span>${RNAME[r]}</span><span class="cnt">${took}/${n}</span></div>
+      <div class="v">${over?'−'+fmt(-x.rem):fmt(x.rem)}<small>${over?'oltre il budget':'su '+fmt(x.budget)}</small></div>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+      <div class="d">spesi ${fmt(sp)} · quota ${S.pct[r]||0}%${took>=n&&n>0?' · completo':''}</div>
     </div>`;
   }).join('');
 
