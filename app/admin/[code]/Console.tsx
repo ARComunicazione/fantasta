@@ -42,6 +42,7 @@ export function Console({ code, joinUrl, qr }: { code: string; joinUrl: string; 
         </div>
         <div style={{ display: 'flex', gap: 6 }}>
           <Link className="ghost" href={`/a/${code}/board`} target="_blank"><I n="monitor" /><span className="hide-m">Proiettore</span></Link>
+          <Link className="ghost" href={`/admin/${code}/riepilogo`}><span>Riepilogo</span></Link>
           {a.status === 'setup' && <button className="buy" onClick={() => act({ action: 'status', status: 'live' }, 'Asta avviata')}><I n="play" />Avvia asta</button>}
           {a.status === 'live' && <button className="ghost" onClick={() => confirm('Chiudere l\'asta? I partecipanti non potranno più puntare.') && act({ action: 'status', status: 'done' }, 'Asta chiusa')}>Termina</button>}
           {a.status === 'done' && <button className="ghost" onClick={() => act({ action: 'status', status: 'live' }, 'Asta riaperta')}>Riapri</button>}
