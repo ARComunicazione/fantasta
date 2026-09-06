@@ -575,8 +575,12 @@ function render(){
   const pctSum = ROLES.reduce((a,r)=>a+(+S.pct[r]||0),0);
   let hint='';
   if(c.left>0){
-    hint = `Con <b>${fmt(c.rem)}</b> crediti per <b>${c.left}</b> giocatori puoi spendere in media <b>${fmt(c.avg)}</b> a testa. `+
-           `Per un singolo colpo puoi arrivare al massimo a <b>${fmt(Math.max(0,c.maxNow))}</b> lasciando 1 credito a ciascuno degli altri.`;
+    const overs = ROLES.filter(r=>c.roles[r].rem<0).map(r=>`${RNAME[r].toLowerCase()} di <b>${fmt(-c.roles[r].rem)}</b>`);
+    const done = ROLES.filter(r=>c.roles[r].left<=0 && c.roles[r].rem>=0 && (+S.slots[r]||0)>0).map(r=>`${RNAME[r].toLowerCase()} con <b>${fmt(c.roles[r].rem)}</b> avanzati`);
+    hint = `Hai <b>${fmt(c.rem)}</b> crediti per gli ultimi <b>${c.left}</b> giocatori. `+
+           `Su un singolo colpo puoi arrivare a <b>${fmt(Math.max(0,c.maxNow))}</b>, lasciando 1 credito a ciascuno degli altri.`;
+    if(overs.length) hint += ` <span style="color:var(--bad)">Budget superato: ${overs.join(', ')}.</span>`;
+    if(done.length) hint += ` Reparto completo: ${done.join(', ')}.`;
   } else if (S.bought.length>=totalSlots() && totalSlots()>0){
     hint = `Rosa completa. ${c.rem>=0?'Ti avanzano <b>'+fmt(c.rem)+'</b> crediti.':'Hai sforato di <b>'+fmt(-c.rem)+'</b> crediti.'}`;
   }
@@ -647,13 +651,13 @@ function pick(p){
   $('#results').innerHTML=''; $('#q').value='';
   const c = calc(); const rr = c.roles[p.role];
   const exist = S.wish.find(w=>w.key===p.key);
-  const sugg = exist && exist.plan ? exist.plan : (rr.left>0 ? Math.round(rr.avg) : Math.round(c.avg));
+  const sugg = Math.min(Math.max(1, exist && exist.plan ? exist.plan : (+p.q||1)), Math.max(1,c.maxNow));
   $('#picked').innerHTML = `<div class="picked">
       <div class="who"><span class="chip ${p.role}">${p.role}</span><span class="nm">${esc(p.name)}</span><small>${esc(p.team||'')}</small></div>
       <button class="x" data-unpick title="Chiudi">${ico('x')}</button>
       ${p.row?`<div class="meta">Qt.A <b>${p.row[3]}</b> · Qt.I <b>${p.row[4]}</b> · FVM <b>${p.row[5]}</b> · Mantra <b>${esc(p.row[6])}</b></div>
       <div class="meta meta-line">${p.row[7]?`Rating <span class="${ratingCls(p.row[7])}">${p.row[7]}</span>`:''}${p.row[8]?`<span class="stars">${stars(p.row[8])}</span>`:''}${p.row[9]?`<span class="tag ${p.row[9]===1?'top':''}">${FASCIA[p.row[9]]}</span>`:''}${p.row[10]?`<span class="tag">${TIT[p.row[10]]}</span>`:''}${p.row[11]?`<span class="tag">${RIG[p.row[11]]}</span>`:''}${p.row[12]===2?'<span class="tag obj">Obiettivo del socio</span>':''}${!p.row[7]&&!p.row[8]?'Non valutato nello studio':''}${p.row.mine?'<span class="tag mine">mia valutazione</span>':''}</div>`:''}
-      <div class="meta">Suggerito per un ${RNAME[p.role].toLowerCase().replace(/i$/,'e')} <b>${rr.left>0?fmt(Math.max(1,rr.avg)):'ruolo completo'}</b> · max offerta <b>${fmt(Math.max(0,c.maxNow))}</b></div>
+      <div class="meta">Budget ${RNAME[p.role].toLowerCase()}: ${rr.rem<0?'<b style="color:var(--bad)">superato di '+fmt(-rr.rem)+'</b>':'restano <b>'+fmt(rr.rem)+'</b> su '+fmt(rr.budget)}${rr.left<=0?' · <b>reparto completo</b>':' · '+rr.left+' da prendere'} · max offerta <b>${fmt(Math.max(0,c.maxNow))}</b></div>
       <div class="act">
         <div class="stepper"><button type="button" data-step="-1" aria-label="Meno">${ico('minus')}</button><input id="pPrice" type="number" min="1" step="1" value="${Math.max(1,sugg||1)}" aria-label="Prezzo"><button type="button" data-step="1" aria-label="Più">${ico('plus')}</button></div>
         <button class="buy" data-buynow>Preso</button><button class="ghost" data-wish>${exist?'Aggiorna in lista':'In lista'}</button>
