@@ -1,216 +1,352 @@
 <title>FantAsta 26/27</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#EDF0F3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A0C10" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 <style>
 :root{
-  --bg:#F5F7F3; --panel:#FFFFFF; --ink:#152019; --muted:#66746C; --line:#DCE3DD; --line2:#EDF1EC;
-  --accent:#1E7A4C; --accent-ink:#FFFFFF; --accent-soft:#E3F1E8;
-  --warn:#B7791F; --warn-soft:#FBF1DC; --bad:#BF3A2B; --bad-soft:#FAE3DF;
-  --P:#E3B800; --D:#2E9E5B; --C:#2F80D6; --A:#D84A3A;
-  --shadow:0 1px 2px rgba(20,32,25,.06),0 6px 20px rgba(20,32,25,.05);
+  color-scheme:light dark;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,"Segoe UI",Roboto,sans-serif;
+  --bg:#F0F1F3;
+  --ink:#0C1117; --muted:#5F6B78; --muted2:#8A95A1;
+  --glass:rgba(255,255,255,.72); --glass-2:rgba(255,255,255,.55); --glass-strong:rgba(255,255,255,.9);
+  --stroke:rgba(255,255,255,.9); --stroke-2:rgba(12,17,23,.08); --hair:rgba(12,17,23,.07);
+  --spec:rgba(255,255,255,.55); --inset:rgba(255,255,255,.7);
+  --accent:#0E9F5B; --accent-2:#34C759; --accent-ink:#FFFFFF; --accent-soft:rgba(52,199,89,.14);
+  --warn:#A65A00; --warn-soft:rgba(255,159,10,.16);
+  --bad:#C7311F; --bad-soft:rgba(255,69,58,.13);
+  --gold:#DB9E00;
+  --P:#F2B705; --D:#2FBF71; --C:#3A86FF; --A:#FF4D4D;
+  --panel:#FFFFFF;
+  --shadow:0 1px 1px rgba(12,17,23,.04),0 12px 32px -12px rgba(12,17,23,.22);
+  --shadow-lg:0 24px 64px -20px rgba(12,17,23,.4);
+  --r:24px; --r-sm:14px;
+  --blur:saturate(180%) blur(28px);
+  --hdr:88px;
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
-  --bg:#111815; --panel:#18211D; --ink:#EEF3EF; --muted:#94A39A; --line:#2A3630; --line2:#202B25;
-  --accent:#3FB477; --accent-ink:#0D1611; --accent-soft:#1B3328;
-  --warn:#E0A63B; --warn-soft:#3A2E14; --bad:#F06A5A; --bad-soft:#40201B;
-  --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 20px rgba(0,0,0,.3);
+  --bg:#0A0C10;
+  --ink:#F2F4F7; --muted:#9AA4B1; --muted2:#6C7682;
+  --glass:rgba(22,25,31,.62); --glass-2:rgba(255,255,255,.05); --glass-strong:rgba(28,31,38,.86);
+  --stroke:rgba(255,255,255,.11); --stroke-2:rgba(255,255,255,.08); --hair:rgba(255,255,255,.07);
+  --spec:rgba(255,255,255,.10); --inset:rgba(255,255,255,.07);
+  --accent:#30D158; --accent-2:#3EE06A; --accent-ink:#04240F; --accent-soft:rgba(48,209,88,.16);
+  --warn:#FFB340; --warn-soft:rgba(255,179,64,.16);
+  --bad:#FF6B5B; --bad-soft:rgba(255,107,91,.16);
+  --gold:#FFD60A;
+  --panel:#15181D;
+  --shadow:0 1px 1px rgba(0,0,0,.35),0 12px 32px -12px rgba(0,0,0,.65);
+  --shadow-lg:0 24px 64px -20px rgba(0,0,0,.8);
 }}
 :root[data-theme="dark"]{
-  --bg:#111815; --panel:#18211D; --ink:#EEF3EF; --muted:#94A39A; --line:#2A3630; --line2:#202B25;
-  --accent:#3FB477; --accent-ink:#0D1611; --accent-soft:#1B3328;
-  --warn:#E0A63B; --warn-soft:#3A2E14; --bad:#F06A5A; --bad-soft:#40201B;
-  --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 20px rgba(0,0,0,.3);
+  --bg:#0A0C10;
+  --ink:#F2F4F7; --muted:#9AA4B1; --muted2:#6C7682;
+  --glass:rgba(22,25,31,.62); --glass-2:rgba(255,255,255,.05); --glass-strong:rgba(28,31,38,.86);
+  --stroke:rgba(255,255,255,.11); --stroke-2:rgba(255,255,255,.08); --hair:rgba(255,255,255,.07);
+  --spec:rgba(255,255,255,.10); --inset:rgba(255,255,255,.07);
+  --accent:#30D158; --accent-2:#3EE06A; --accent-ink:#04240F; --accent-soft:rgba(48,209,88,.16);
+  --warn:#FFB340; --warn-soft:rgba(255,179,64,.16);
+  --bad:#FF6B5B; --bad-soft:rgba(255,107,91,.16);
+  --gold:#FFD60A;
+  --panel:#15181D;
+  --shadow:0 1px 1px rgba(0,0,0,.35),0 12px 32px -12px rgba(0,0,0,.65);
+  --shadow-lg:0 24px 64px -20px rgba(0,0,0,.8);
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 "Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
-button,input,select{font:inherit;color:inherit}
-button{cursor:pointer}
-h1,h2,h3{margin:0;font-family:"Barlow Condensed","Barlow",system-ui,sans-serif;text-wrap:balance}
-.num{font-family:"Barlow Condensed","Barlow",sans-serif;font-variant-numeric:tabular-nums}
-.tab{font-variant-numeric:tabular-nums}
-.eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 var(--font);-webkit-font-smoothing:antialiased;font-feature-settings:"cv11","ss01","tnum" 0;overflow-x:hidden}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+h1,h2,h3{margin:0;text-wrap:balance;letter-spacing:-.01em}
+svg.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.num,.tab{font-variant-numeric:tabular-nums}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
 
-/* ---------- top ---------- */
-header{position:sticky;top:0;z-index:10;background:var(--panel);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
-.head-in{max-width:1180px;margin:0 auto;padding:12px 18px;display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center}
-.brand{display:flex;align-items:baseline;gap:8px;margin-right:auto}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* ---------- vetro ---------- */
+.glass{background:linear-gradient(135deg,var(--spec),rgba(255,255,255,0) 42%),var(--glass);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid var(--stroke);box-shadow:var(--shadow),inset 0 1px 0 var(--inset)}
+.panel{position:relative;border-radius:var(--r)}
+.panel-h{display:flex;align-items:center;gap:10px;padding:18px 20px 12px}
+.panel-h h2{font-size:21px;font-weight:700;letter-spacing:-.02em}
+.panel-h .sub{color:var(--muted);font-size:13px;margin-left:auto;font-weight:500;text-align:right}
+.panel-b{padding:4px 20px 18px}
+
+/* ---------- testata ---------- */
+header{position:sticky;top:10px;z-index:20;max-width:1180px;margin:10px auto 0;padding:0 14px}
+.head-in{border-radius:22px;padding:12px 18px;display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto}
+.logo{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(160deg,var(--accent-2),var(--accent));color:#fff;font-weight:800;font-size:15px;letter-spacing:-.04em;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 6px 16px -6px rgba(14,159,91,.7)}
+.brand h1{font-size:19px;font-weight:700;letter-spacing:-.02em;line-height:1.05}
+.brand div span{display:block;font-size:11px;color:var(--muted);font-weight:500;letter-spacing:.02em}
 .head-actions{display:flex;gap:6px}
-.brand h1{font-size:26px;font-weight:700;letter-spacing:.01em;line-height:1}
-.brand span{font-size:12px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
-.stats{display:flex;gap:6px 22px;flex-wrap:wrap}
-.stat{display:flex;flex-direction:column;min-width:74px}
-.stat .v{font-family:"Barlow Condensed",sans-serif;font-size:32px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
-.stat.big .v{font-size:44px;color:var(--accent)}
+.stats{display:flex;gap:4px 22px;flex-wrap:wrap;align-items:flex-end}
+.stat{display:flex;flex-direction:column;gap:3px;min-width:60px}
+.stat .v{font-size:22px;font-weight:700;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;transition:color .2s}
+.stat.big .v{font-size:40px;letter-spacing:-.035em;color:var(--accent)}
 .stat.big .v.low{color:var(--warn)}
 .stat.big .v.neg{color:var(--bad)}
-.stat .l{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.iconbtn{border:1px solid var(--line);background:transparent;border-radius:8px;padding:7px 12px;font-weight:600;font-size:13px}
-.iconbtn:hover{background:var(--line2)}
+.stat .l{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;white-space:nowrap}
+
+/* ---------- bottoni ---------- */
+.btn,.iconbtn,.ghost,.buy{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--stroke-2);background:var(--glass-2);border-radius:999px;padding:8px 14px;font-weight:600;font-size:13px;color:var(--ink);line-height:1.2;transition:transform .15s cubic-bezier(.2,.8,.2,1),background .15s,box-shadow .15s;white-space:nowrap}
+.btn:hover,.iconbtn:hover,.ghost:hover{background:var(--glass-strong)}
+.btn:active,.iconbtn:active,.ghost:active,.buy:active,.x:active{transform:scale(.95)}
+.buy{background:linear-gradient(180deg,var(--accent-2),var(--accent));color:var(--accent-ink);border-color:transparent;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 8px 18px -8px rgba(14,159,91,.75)}
+.buy:hover{filter:brightness(1.05)}
+.icon{width:36px;height:36px;padding:0}
+.x{display:inline-flex;align-items:center;justify-content:center;border:0;background:transparent;color:var(--muted2);width:30px;height:30px;border-radius:999px;transition:background .15s,color .15s,transform .15s}
+.x:hover{background:var(--bad-soft);color:var(--bad)}
+.x svg.i{width:16px;height:16px}
 
 /* ---------- layout ---------- */
-main{max-width:1180px;margin:0 auto;padding:18px;display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:start}
-@media (max-width:880px){main{grid-template-columns:1fr;padding:12px;gap:12px}aside{order:-1}.stat .v{font-size:26px}.stat.big .v{font-size:34px}.head-in{padding:8px 12px;gap:6px 12px}.stat{min-width:52px}.brand{width:100%;margin-right:0;justify-content:space-between}.brand span{display:none}.head-actions{order:-1;margin-left:auto}.brand{width:auto;order:-2}.stats{width:100%;justify-content:space-between;gap:4px}.stat .l{font-size:9px;letter-spacing:.06em}.head-actions{display:flex;gap:6px}.iconbtn{padding:6px 9px;font-size:12px}.panel-b{padding:10px 12px 12px}.panel-h{padding:12px}.sugg{padding:10px 12px;gap:6px}.sugg .cell .v{font-size:22px}.filters{padding:8px 10px;gap:6px}.filters select{padding:5px 6px;font-size:12px}.seg button{padding:5px 8px;font-size:12px}.picked{padding:10px}.picked input{width:74px;font-size:20px}}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
-.panel-h{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
-.panel-h h2{font-size:22px;font-weight:600}
-.panel-h .sub{color:var(--muted);font-size:13px;margin-left:auto}
-.panel-b{padding:12px 16px 16px}
+main{max-width:1180px;margin:0 auto;padding:16px 14px;display:grid;grid-template-columns:1.15fr .85fr;gap:16px;align-items:start}
+section,aside{scroll-margin-top:calc(var(--hdr) + 14px)}
+.anchor{scroll-margin-top:calc(var(--hdr) + 14px)}
 
-/* ---------- suggestion strip ---------- */
-.sugg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--line2)}
-@media (max-width:520px){.sugg{grid-template-columns:repeat(2,1fr)}}
-.sugg .cell{display:flex;flex-direction:column;gap:2px;padding:8px 10px;background:var(--panel);border-radius:8px;border-left:4px solid var(--line)}
-.sugg .cell.P{border-color:var(--P)}.sugg .cell.D{border-color:var(--D)}.sugg .cell.C{border-color:var(--C)}.sugg .cell.A{border-color:var(--A)}
-.sugg .cell .t{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;display:flex;justify-content:space-between}
-.sugg .cell .v{font-family:"Barlow Condensed",sans-serif;font-size:26px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
-.sugg .cell .v small{font-size:13px;font-weight:500;color:var(--muted);font-family:"Barlow",sans-serif;margin-left:4px}
+/* ---------- suggerimenti ---------- */
+.sugg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 20px 6px}
+.sugg .cell{position:relative;display:flex;flex-direction:column;gap:3px;padding:10px 12px 10px 14px;background:var(--glass-2);border:1px solid var(--stroke-2);border-radius:16px;overflow:hidden}
+.sugg .cell::before{content:'';position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:3px;background:var(--line)}
+.sugg .cell.P::before{background:var(--P)}.sugg .cell.D::before{background:var(--D)}.sugg .cell.C::before{background:var(--C)}.sugg .cell.A::before{background:var(--A)}
+.sugg .cell .t{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.sugg .cell .v{font-size:24px;font-weight:700;line-height:1.1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.sugg .cell .v small{font-size:12px;font-weight:500;color:var(--muted);letter-spacing:0;margin-left:5px}
 .sugg .cell .d{font-size:12px;color:var(--muted)}
-.hint{padding:8px 16px 0;font-size:13px;color:var(--muted)}
-.hint b{color:var(--ink)}
+.hint{padding:8px 20px 0;font-size:13px;color:var(--muted);line-height:1.5}
+.hint b{color:var(--ink);font-weight:600}
 
-/* ---------- roster ---------- */
-.role-block{margin-top:10px}
-.role-block h3{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:6px 0;color:var(--muted)}
-.role-block h3 .cnt{margin-left:auto;font-family:"Barlow Condensed",sans-serif;font-size:16px;font-variant-numeric:tabular-nums;color:var(--ink)}
+/* ---------- rosa ---------- */
+.role-block{margin-top:12px}
+.role-block h3{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:6px 0;color:var(--muted)}
+.role-block h3 .cnt{margin-left:auto;font-size:13px;font-variant-numeric:tabular-nums;color:var(--ink);font-weight:700}
 .role-block h3 .spent{font-size:12px;font-weight:500;letter-spacing:0;text-transform:none}
-.chip{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:13px;color:#fff;flex:none}
-.chip.P{background:var(--P);color:#1a1400}.chip.D{background:var(--D)}.chip.C{background:var(--C)}.chip.A{background:var(--A)}
-.row{display:grid;grid-template-columns:22px 1fr auto auto;gap:10px;align-items:center;padding:7px 0;border-top:1px solid var(--line2)}
-.row .n{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:8px;font-weight:800;font-size:12px;color:#fff;flex:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 1px 2px rgba(0,0,0,.15)}
+.chip.P{background:linear-gradient(160deg,#FFD24A,var(--P));color:#3A2E00}.chip.D{background:linear-gradient(160deg,#5AD48F,var(--D))}.chip.C{background:linear-gradient(160deg,#69A4FF,var(--C))}.chip.A{background:linear-gradient(160deg,#FF7A7A,var(--A))}
+.chip.ghost-chip{background:var(--glass-2);color:var(--muted);box-shadow:none;border:1px solid var(--stroke-2)}
+.row{display:grid;grid-template-columns:24px 1fr auto auto;gap:10px;align-items:center;padding:7px 0;border-top:1px solid var(--hair)}
+.role-block .row:first-of-type{border-top:0}
+.row .n{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 .row .n small{color:var(--muted);font-weight:400;margin-left:6px}
-.row .price{width:64px;text-align:right;padding:4px 6px;border:1px solid transparent;border-radius:6px;background:transparent;font-family:"Barlow Condensed",sans-serif;font-size:19px;font-weight:600;font-variant-numeric:tabular-nums}
-.row .price:hover,.row .price:focus{border-color:var(--line);background:var(--bg);outline:none}
-.row.empty{color:var(--muted);font-style:italic}
-.row.empty .slot{height:6px;border-radius:3px;background:var(--line2);border:1px dashed var(--line)}
-.x{border:0;background:transparent;color:var(--muted);width:26px;height:26px;border-radius:6px;font-size:16px;line-height:1}
-.x:hover{background:var(--bad-soft);color:var(--bad)}
-.buy{border:0;background:var(--accent);color:var(--accent-ink);font-weight:600;padding:5px 10px;border-radius:6px;font-size:13px}
-.buy:hover{filter:brightness(1.08)}
-.ghost{border:1px solid var(--line);background:transparent;padding:5px 10px;border-radius:6px;font-size:13px;font-weight:600}
-.ghost:hover{background:var(--line2)}
+.row .price{width:66px;text-align:right;padding:5px 9px;border:1px solid transparent;border-radius:10px;background:var(--glass-2);font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.01em;transition:border-color .15s,background .15s}
+.row .price:hover{border-color:var(--stroke-2)}
+.row .price:focus{border-color:var(--accent);background:var(--glass-strong);outline:0;box-shadow:0 0 0 3px var(--accent-soft)}
+.row.empty{color:var(--muted2)}
+.row.empty .slot{height:8px;border-radius:4px;background:var(--glass-2);border:1px dashed var(--stroke-2)}
+.note{font-size:13px;color:var(--muted)}
 
-/* ---------- search ---------- */
+/* ---------- ricerca ---------- */
 .search{position:relative}
-.search input{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);font-size:15px}
-.search input:focus{outline:2px solid var(--accent);outline-offset:-1px}
-.results{position:absolute;left:0;right:0;top:calc(100% + 4px);background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);max-height:320px;overflow:auto;z-index:20}
+.search .lead{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted2);pointer-events:none}
+.search input{width:100%;padding:12px 14px 12px 42px;border:1px solid var(--stroke-2);border-radius:14px;background:var(--glass-2);font-size:16px;transition:border-color .15s,box-shadow .15s,background .15s;-webkit-appearance:none;appearance:none}
+.search input::placeholder{color:var(--muted2)}
+.search input:focus{outline:0;border-color:var(--accent);background:var(--glass-strong);box-shadow:0 0 0 4px var(--accent-soft)}
+.search input::-webkit-search-cancel-button{-webkit-appearance:none}
+.results{position:absolute;left:0;right:0;top:calc(100% + 6px);border-radius:16px;background:var(--panel) !important;max-height:340px;overflow:auto;z-index:25;padding:4px;overscroll-behavior:contain}
 .results:empty{display:none}
-.res{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:center;padding:8px 12px;border-top:1px solid var(--line2);cursor:pointer}
-.res:first-child{border-top:0}
+.res{display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:center;padding:8px 10px;border-radius:11px;cursor:pointer;transition:background .1s}
 .res:hover,.res.sel{background:var(--accent-soft)}
+.res .n{min-width:0}
 .res .n small{color:var(--muted);margin-left:6px}
-.res .q{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:17px;color:var(--muted);font-variant-numeric:tabular-nums}
+.res .q{font-weight:700;font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums}
 .res.new{color:var(--accent);font-weight:600}
 .res.new .roles{display:flex;gap:4px}
-.res.new .roles button{border:1px solid var(--line);background:var(--panel);border-radius:5px;padding:2px 7px;font-size:12px;font-weight:600}
+.res.new .roles button{border:1px solid var(--stroke-2);background:var(--glass-2);border-radius:8px;padding:3px 8px;font-size:12px;font-weight:700;color:var(--ink)}
 .res.new .roles button:hover{background:var(--accent-soft)}
 
-/* ---------- picked ---------- */
-.picked{margin-top:10px;padding:12px;border:1px solid var(--accent);border-radius:10px;background:var(--accent-soft);display:grid;grid-template-columns:1fr auto;gap:10px 14px;align-items:center}
-.picked .who{display:flex;align-items:center;gap:8px;font-weight:600;font-size:16px}
-.picked .who small{color:var(--muted);font-weight:400}
+/* ---------- scheda scelta ---------- */
+.picked{margin-top:12px;padding:14px;border:1px solid var(--stroke);border-radius:18px;background:linear-gradient(135deg,var(--accent-soft),transparent 60%),var(--glass-2);display:grid;grid-template-columns:1fr auto;gap:8px 12px;align-items:center;animation:pop .25s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{from{opacity:0;transform:translateY(6px) scale(.98)}}
+@media (prefers-reduced-motion:reduce){.picked{animation:none}}
+.picked .who{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;letter-spacing:-.01em;min-width:0}
+.picked .who span.nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.picked .who small{color:var(--muted);font-weight:500;font-size:13px}
 .picked .meta{font-size:13px;color:var(--muted);grid-column:1/-1}
-.picked .meta b{color:var(--ink)}
-.picked .act{display:flex;gap:8px;align-items:center;flex-wrap:wrap;grid-column:1/-1}
-.picked input{width:84px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);font-family:"Barlow Condensed",sans-serif;font-size:22px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
-.picked .buy{padding:9px 14px;font-size:14px}
-.picked .ghost{padding:8px 12px}
+.picked .meta b{color:var(--ink);font-weight:600}
+.picked .act{display:flex;gap:8px;align-items:center;flex-wrap:wrap;grid-column:1/-1;margin-top:4px}
+.stepper{display:inline-flex;align-items:center;border:1px solid var(--stroke-2);border-radius:999px;background:var(--glass-2);overflow:hidden}
+.stepper button{border:0;background:transparent;width:36px;height:40px;display:grid;place-items:center;color:var(--muted)}
+.stepper button:hover{background:var(--glass-strong);color:var(--ink)}
+.stepper input{width:70px;height:40px;border:0;background:transparent;font-size:20px;font-weight:700;text-align:center;font-variant-numeric:tabular-nums;letter-spacing:-.02em;-moz-appearance:textfield}
+.stepper input::-webkit-outer-spin-button,.stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.stepper input:focus{outline:0}
+.stepper:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.picked .buy{padding:10px 16px;font-size:14px}
+.picked .ghost{padding:9px 14px}
 .picked .x{margin-left:auto}
 
-/* ---------- wishlist ---------- */
-.wl .row{grid-template-columns:22px 1fr auto auto auto}
+/* ---------- obiettivi ---------- */
+.wl .row{grid-template-columns:24px 1fr auto auto auto}
 .wl .row .q{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
-.wl .row .price{width:56px}
-.wl-foot{display:flex;justify-content:space-between;gap:10px;padding-top:10px;margin-top:6px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
-.wl-foot b{color:var(--ink)}
+.wl .row .price{width:58px}
+.wl .row .buy{padding:6px 11px;font-size:12px}
+.wl-foot{display:flex;justify-content:space-between;gap:10px;padding-top:12px;margin-top:8px;border-top:1px solid var(--hair);font-size:13px;color:var(--muted)}
+.wl-foot b{color:var(--ink);font-weight:600}
 .wl-foot .over{color:var(--bad);font-weight:600}
-.empty-msg{color:var(--muted);font-size:14px;padding:14px 0;text-align:center}
+.empty-msg{color:var(--muted);font-size:14px;padding:16px 0;text-align:center}
 
-/* ---------- settings ---------- */
-dialog{border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--ink);padding:0;width:min(520px,94vw);box-shadow:var(--shadow)}
-dialog::backdrop{background:rgba(10,20,14,.5)}
-.dlg-h{padding:16px 20px;border-bottom:1px solid var(--line)}
-.dlg-h h2{font-size:24px;font-weight:600}
-.dlg-b{padding:16px 20px;display:grid;gap:14px}
-.field{display:grid;gap:4px}
-.field label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.field input{padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);font-family:"Barlow Condensed",sans-serif;font-size:20px;font-weight:600;font-variant-numeric:tabular-nums;width:100%}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.grid4 .field label{display:flex;align-items:center;gap:6px}
-.dlg-f{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:8px;justify-content:flex-end;align-items:center}
-.dlg-f .danger{margin-right:auto;color:var(--bad);border-color:transparent}
-.dlg-f .danger:hover{background:var(--bad-soft)}
-.note{font-size:13px;color:var(--muted)}
-.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;font-weight:500;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:50}
-.toast.on{opacity:1}
-@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+/* ---------- valutazioni ---------- */
+.stars{color:var(--gold);font-size:12px;letter-spacing:.02em;white-space:nowrap}
+.rating{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:24px;padding:0 6px;border-radius:8px;font-weight:700;font-size:13px;background:var(--glass-2);border:1px solid var(--stroke-2);color:var(--muted);font-variant-numeric:tabular-nums}
+.rating.hi{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.rating.mid{color:var(--ink)}
+.tag{display:inline-flex;align-items:center;font-size:11px;font-weight:600;letter-spacing:.01em;padding:2px 7px;border-radius:999px;background:var(--glass-2);border:1px solid var(--stroke-2);color:var(--muted);white-space:nowrap}
+.tag.top{background:var(--warn-soft);color:var(--warn);border-color:transparent}
+.tag.obj{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.tag.mine{background:var(--ink);color:var(--bg);border-color:transparent}
+.tag.add{background:var(--C);color:#fff;border-color:transparent;opacity:.85}
+.meta-line{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center;font-size:12px;color:var(--muted)}
+.meta-line.show-m{display:none}
+details.study{grid-column:1/-1;border-top:1px solid var(--hair);padding-top:10px;margin-top:4px}
+details.study summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--accent);list-style:none;display:flex;align-items:center;gap:6px}
+details.study summary::-webkit-details-marker{display:none}
+details.study summary::before{content:'';width:6px;height:6px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);transition:transform .15s;margin:0 4px}
+details.study[open] summary::before{transform:rotate(45deg)}
+.st-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px;margin-top:10px}
+.st-form label{display:grid;gap:4px;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.sel{-webkit-appearance:none;appearance:none;padding:8px 28px 8px 10px;border:1px solid var(--stroke-2);border-radius:11px;background:var(--glass-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 10px center;font-size:14px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--ink);width:100%}
+.sel:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.st-form .st-act{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
+.st-form .st-act .buy{padding:8px 12px;font-size:13px}
 
 /* ---------- studio ---------- */
 .studio{grid-column:1/-1}
-.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--line2)}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--panel)}
-.seg button{border:0;background:transparent;padding:6px 10px;font-weight:600;font-size:13px;border-left:1px solid var(--line)}
-.seg button:first-child{border-left:0}
-.seg button.on{background:var(--accent);color:var(--accent-ink)}
-.filters select{padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);font-size:13px;font-weight:600}
-.filters label{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:500}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:0 20px 12px}
+.seg{display:inline-flex;padding:3px;border:1px solid var(--stroke-2);border-radius:999px;background:var(--glass-2);gap:2px}
+.seg button{border:0;background:transparent;padding:6px 12px;font-weight:600;font-size:13px;border-radius:999px;color:var(--muted);transition:background .15s,color .15s,box-shadow .15s}
+.seg button.on{background:var(--glass-strong);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.6)}
+.filters .sel{width:auto;font-size:13px;font-weight:600;padding:7px 28px 7px 12px;border-radius:999px}
 .filters .sp{flex:1}
-.stars{font-size:11px;letter-spacing:-1px;white-space:nowrap}
-.rating{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 5px;border-radius:6px;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:14px;background:var(--line2);color:var(--muted);font-variant-numeric:tabular-nums}
-.rating.hi{background:var(--accent-soft);color:var(--accent)}
-.rating.mid{background:var(--line2);color:var(--ink)}
-.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.03em;padding:1px 6px;border-radius:4px;background:var(--line2);color:var(--muted);white-space:nowrap}
-.tag.top{background:var(--warn-soft);color:var(--warn)}
-.tag.obj{background:var(--accent-soft);color:var(--accent)}
-.tag.mine{background:var(--accent);color:var(--accent-ink)}
-details.study{grid-column:1/-1;border-top:1px solid var(--line);padding-top:8px;margin-top:2px}
-details.study summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--accent);list-style:none;display:flex;align-items:center;gap:6px}
-details.study summary::before{content:'▸';font-size:12px;transition:transform .15s}
-details.study[open] summary::before{transform:rotate(90deg)}
-.st-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px;margin-top:8px}
-.st-form label{display:grid;gap:3px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.st-form select{width:100%;padding:7px 8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);font-size:14px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--ink)}
-.st-form .st-act{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
-.st-form .st-act .buy{padding:8px 12px;font-size:13px}
-#fBackup{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);font:12px/1.4 ui-monospace,Menlo,monospace;color:var(--ink);resize:vertical}
-.meta-line{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;font-size:12px;color:var(--muted)}
-.meta-line.show-m{display:none}
-.st-table{display:grid;grid-template-columns:22px minmax(0,1.4fr) minmax(0,1fr) auto auto auto;gap:6px 10px;align-items:center;padding:0 16px 12px;max-height:560px;overflow:auto}
+.switch{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;cursor:pointer;user-select:none}
+.switch input{position:absolute;opacity:0;width:0;height:0}
+.switch .tr{width:40px;height:24px;border-radius:999px;background:var(--stroke-2);position:relative;transition:background .2s;box-shadow:inset 0 1px 2px rgba(0,0,0,.12)}
+.switch .tr::after{content:'';position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s cubic-bezier(.2,.8,.2,1)}
+.switch input:checked + .tr{background:var(--accent)}
+.switch input:checked + .tr::after{transform:translateX(16px)}
+.switch input:focus-visible + .tr{box-shadow:0 0 0 3px var(--accent-soft)}
+.st-search{position:relative;flex:1 1 220px;min-width:180px}
+.st-search .lead{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted2);pointer-events:none}
+.st-search input{width:100%;padding:8px 32px 8px 36px;border:1px solid var(--stroke-2);border-radius:999px;background:var(--glass-2);font-size:14px;-webkit-appearance:none;appearance:none}
+.st-search input:focus{outline:0;border-color:var(--accent);background:var(--glass-strong);box-shadow:0 0 0 3px var(--accent-soft)}
+.st-search input::-webkit-search-cancel-button{-webkit-appearance:none}
+.st-search .clr{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:26px;height:26px}
+.st-search .clr svg.i{width:14px;height:14px}
+.st-table{display:grid;grid-template-columns:24px minmax(0,1.4fr) minmax(0,1fr) auto auto auto;gap:0;align-items:center;padding:0 20px 16px}
 .st-table > div{display:contents}
-.st-table > div > *{padding:7px 0;border-top:1px solid var(--line2)}
-.st-table .n{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.st-table > div > *{padding:7px 10px 7px 0;border-top:1px solid var(--hair);align-self:stretch;display:flex;align-items:center}
+.st-table > div > .n{display:block}
+.st-table > div > .qa{justify-content:flex-end}
+.st-table > div > .act{padding-right:0}
+.st-table .n{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;cursor:pointer}
+.st-table .n:hover{color:var(--accent)}
 .st-table .n small{color:var(--muted);font-weight:400;margin-left:6px}
-.st-table .qa{font-family:"Barlow Condensed",sans-serif;font-size:18px;font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
-.st-table .act{display:flex;gap:4px;justify-content:flex-end}
-.st-table .done{font-size:12px;color:var(--muted);text-align:right;white-space:nowrap}
-.st-head{position:sticky;top:0;background:var(--panel);z-index:1}
-.st-head > *{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;border-top:0 !important}
-.more{display:block;width:100%;margin:8px 0 0;text-align:center}
+.st-table .qa{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;text-align:right;letter-spacing:-.01em}
+.st-table .act{display:flex;gap:4px;justify-content:flex-end;align-items:center}
+.st-table .act .buy{padding:6px 11px;font-size:12px}
+.st-table .act .icon{width:30px;height:30px}
+.st-table .act .icon.on{color:var(--accent);background:var(--accent-soft);border-color:transparent}
+.st-table .act .icon svg.i{width:15px;height:15px}
+.st-table .done{font-size:12px;color:var(--muted);text-align:right;white-space:nowrap;padding-right:6px}
+.st-head > *{position:sticky;top:calc(var(--hdr) + 6px);z-index:2;background:var(--glass-strong);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;border-top:0 !important;padding:8px 10px 8px 0;display:flex;align-items:center}
+.st-empty{grid-column:1/-1;padding:24px 0;text-align:center;color:var(--muted);font-size:14px}
 .res .extra{display:flex;gap:6px;align-items:center;justify-content:flex-end}
-@media (max-width:600px){.st-table{grid-template-columns:22px minmax(0,1fr) auto auto auto;max-height:70vh;gap:4px 8px;padding:0 10px 10px}.hide-m{display:none !important}.meta-line.show-m{display:flex}.st-table .act .ghost{padding:5px 8px}.st-table .act .buy{padding:5px 8px}}
+
+/* ---------- dock mobile ---------- */
+.dock{display:none}
+
+/* ---------- impostazioni ---------- */
+dialog{border:1px solid var(--stroke);border-radius:26px;background:var(--panel);color:var(--ink);padding:0;width:min(540px,94vw);box-shadow:var(--shadow-lg);max-height:calc(100vh - 32px)}
+dialog::backdrop{background:rgba(8,12,16,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+dialog[open]{animation:pop .25s cubic-bezier(.2,.8,.2,1)}
+.dlg-h{padding:20px 22px 12px}
+.dlg-h h2{font-size:22px;font-weight:700;letter-spacing:-.02em}
+.dlg-b{padding:10px 22px;display:grid;gap:16px}
+.field{display:grid;gap:5px}
+.field label{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.field input{padding:9px 12px;border:1px solid var(--stroke-2);border-radius:12px;background:var(--glass-2);font-size:18px;font-weight:700;font-variant-numeric:tabular-nums;width:100%;letter-spacing:-.01em}
+.field input:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.grid4 .field label{display:flex;align-items:center;gap:6px}
+.dlg-f{padding:14px 22px 20px;display:flex;gap:8px;justify-content:flex-end;align-items:center}
+.dlg-f .danger{margin-right:auto;color:var(--bad);border-color:transparent;background:transparent}
+.dlg-f .danger:hover{background:var(--bad-soft)}
+#fBackup{width:100%;padding:10px 12px;border:1px solid var(--stroke-2);border-radius:12px;background:var(--glass-2);font:12px/1.4 ui-monospace,Menlo,monospace;color:var(--ink);resize:vertical}
+#fBackup:focus{outline:0;border-color:var(--accent)}
+
+/* ---------- toast ---------- */
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,16px);display:flex;align-items:center;gap:12px;background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:999px;font-weight:500;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .3s cubic-bezier(.2,.8,.2,1);z-index:50;box-shadow:var(--shadow-lg);max-width:calc(100vw - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.toast button{border:0;background:rgba(255,255,255,.15);color:inherit;border-radius:999px;padding:5px 11px;font-weight:700;font-size:13px}
+.toast button:hover{background:rgba(255,255,255,.25)}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}dialog[open]{animation:none}}
+
+footer{max-width:1180px;margin:0 auto;padding:6px 20px 32px;font-size:12px;color:var(--muted)}
+
+/* ---------- mobile ---------- */
+@media (max-width:880px){
+  :root{--r:22px;--blur:saturate(160%) blur(20px)}
+  header{top:8px;margin-top:8px;padding:0 10px}
+  .head-in{padding:10px 14px;gap:8px 12px}
+  .brand{order:-2}
+  .brand div span{display:none}
+  .head-actions{order:-1;margin-left:auto}
+  .stats{width:100%;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:4px;align-items:end}
+  .stat{min-width:0}
+  .stat .v{font-size:19px}
+  .stat.big .v{font-size:32px}
+  .stat .l{font-size:9px;letter-spacing:.04em}
+  .hide-m{display:none !important}
+  main{grid-template-columns:1fr;padding:12px 10px;gap:12px}
+  aside{order:-1}
+  .panel-h{padding:16px 16px 10px}
+  .panel-h h2{font-size:19px}
+  .panel-b{padding:4px 16px 16px}
+  .sugg{padding:0 16px 6px;gap:6px}
+  .sugg .cell{padding:8px 10px 8px 12px}
+  .sugg .cell .v{font-size:21px}
+  .hint{padding:8px 16px 0}
+  .filters{padding:0 16px 10px;gap:6px}
+  .seg button{padding:6px 10px;font-size:12px}
+  .filters .sel{font-size:12px;padding:6px 26px 6px 10px}
+  .st-search{flex-basis:100%}
+  .st-table{grid-template-columns:24px minmax(0,1fr) auto auto auto;padding:0 12px 12px}.st-table > div > *{padding-right:8px}
+  .meta-line.show-m{display:flex;margin-top:2px}
+  .st-table .act .buy{padding:6px 9px}
+  .st-table .act{gap:2px}
+  .picked{padding:12px}
+  .dock{display:flex;position:fixed;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:30;gap:2px;padding:5px;border-radius:999px;background:var(--glass-strong);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid var(--stroke);box-shadow:var(--shadow-lg),inset 0 1px 0 var(--inset)}
+  .dock button{border:0;background:transparent;border-radius:999px;padding:7px 13px;font-size:11px;font-weight:600;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px;transition:background .2s,color .2s}
+  .dock button svg.i{width:19px;height:19px}
+  .dock button.on{background:var(--accent-soft);color:var(--accent)}
+  body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+  .toast{bottom:calc(88px + env(safe-area-inset-bottom))}
+  dialog{width:100vw;max-width:none;margin:auto 0 0;border-radius:26px 26px 0 0;max-height:92vh;border-bottom:0}
+  .grid4{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:520px){.sugg{grid-template-columns:repeat(2,1fr)}}
 
 /* ---------- stampa / PDF ---------- */
 #printView{display:none}
 @media print{
   @page{margin:14mm}
-  header,main,footer,.toast,dialog{display:none !important}
-  body{background:#fff;color:#000;font-size:12px}
+  header,main,footer,.toast,dialog,.dock{display:none !important}
+  body{background:#fff;color:#000;font-size:12px;padding:0}
   #printView{display:block;max-width:100%}
   .pv-h{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid #000;padding-bottom:6px;margin-bottom:10px}
   .pv-h h1{font-size:22px;font-weight:700}
   .pv-h .d{font-size:11px;color:#555}
   .pv-sum{display:flex;gap:22px;margin-bottom:14px}
   .pv-sum div{display:flex;flex-direction:column}
-  .pv-sum b{font-family:"Barlow Condensed",sans-serif;font-size:22px;font-variant-numeric:tabular-nums;line-height:1}
+  .pv-sum b{font-size:22px;font-variant-numeric:tabular-nums;line-height:1}
   .pv-sum span{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#555}
   .pv-role{margin-bottom:10px;break-inside:avoid}
   .pv-role h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;display:flex;gap:8px;align-items:center;margin:0 0 3px;padding-top:6px}
-  .pv-role h2 .chip{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .pv-role h2 .chip{-webkit-print-color-adjust:exact;print-color-adjust:exact;box-shadow:none}
   .pv-role h2 .r{margin-left:auto;font-weight:500;font-size:11px;color:#555;text-transform:none;letter-spacing:0}
   table.pv{width:100%;border-collapse:collapse}
   table.pv td,table.pv th{padding:3px 6px;border-bottom:1px solid #ddd;text-align:left;font-variant-numeric:tabular-nums}
   table.pv th{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#555;font-weight:600;border-bottom:1px solid #999}
-  table.pv td.n{width:auto}
   table.pv td.num,table.pv th.num{text-align:right;width:56px;white-space:nowrap}
   table.pv td.team{color:#555;width:110px}
   table.pv tr.empty td{color:#999;font-style:italic}
@@ -223,59 +359,90 @@ details.study[open] summary::before{transform:rotate(90deg)}
   .pv-wl li{break-inside:avoid}
   .pv-foot{margin-top:18px;font-size:10px;color:#777}
 }
-footer{max-width:1180px;margin:0 auto;padding:6px 18px 28px;font-size:12px;color:var(--muted)}
 </style>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 12h3M11 12h9M4 17h11M19 17h1"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="17" r="2"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8.5 3.5L12 5l3.5-1.5L21 7l-2.5 3.5L16 9v12H8V9l-2.5 1.5L3 7z"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h12M9 12h12M9 18h12M4 6h.01M4 12h.01M4 18h.01"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+  </defs>
+</svg>
+
 <header>
-  <div class="head-in">
-    <div class="brand"><h1>FantAsta</h1><span>Serie A 2026/27</span></div>
+  <div class="head-in glass">
+    <div class="brand"><span class="logo">FA</span><div><h1>FantAsta</h1><span>Serie A 2026/27</span></div></div>
     <div class="stats">
-      <div class="stat big"><div class="v" id="sRem">500</div><div class="l">Crediti rimasti</div></div>
+      <div class="stat big"><div class="v" id="sRem">500</div><div class="l">Crediti<span class="hide-m"> rimasti</span></div></div>
       <div class="stat"><div class="v" id="sSpent">0</div><div class="l">Spesi</div></div>
       <div class="stat"><div class="v" id="sSlots">0/25</div><div class="l">Giocatori</div></div>
-      <div class="stat"><div class="v" id="sAvg">20</div><div class="l">Media a testa</div></div>
-      <div class="stat"><div class="v" id="sMax">476</div><div class="l">Max offerta ora</div></div>
+      <div class="stat"><div class="v" id="sAvg">20</div><div class="l">Media<span class="hide-m"> a testa</span></div></div>
+      <div class="stat"><div class="v" id="sMax">476</div><div class="l">Max<span class="hide-m"> offerta</span></div></div>
     </div>
-    <div class="head-actions"><button class="iconbtn" id="btnPdf">⤓ <span class="hide-m">Esporta </span>PDF</button>
-    <button class="iconbtn" id="btnSettings">⚙<span class="hide-m"> Impostazioni</span></button></div>
+    <div class="head-actions">
+      <button class="iconbtn" id="btnPdf" title="Esporta PDF"><svg class="i"><use href="#i-download"/></svg><span class="hide-m">PDF</span></button>
+      <button class="iconbtn" id="btnSettings" title="Impostazioni"><svg class="i"><use href="#i-sliders"/></svg><span class="hide-m">Impostazioni</span></button>
+    </div>
   </div>
 </header>
 
 <main>
-  <section class="panel">
+  <section class="panel glass" id="secRosa">
     <div class="panel-h"><h2>La mia rosa</h2><span class="sub" id="rosterSub"></span></div>
     <div class="sugg" id="sugg"></div>
     <div class="hint" id="hint"></div>
     <div class="panel-b" id="roster"></div>
   </section>
 
-  <aside class="panel">
+  <aside class="panel glass" id="secCerca">
     <div class="panel-h"><h2>Cerca e compra</h2><span class="sub" id="dbCount"></span></div>
     <div class="panel-b">
       <div class="search">
+        <svg class="i lead"><use href="#i-search"/></svg>
         <input id="q" type="search" placeholder="Nome giocatore o squadra…" autocomplete="off" spellcheck="false">
-        <div class="results" id="results"></div>
+        <div class="results glass" id="results"></div>
       </div>
       <div id="picked"></div>
     </div>
-    <div class="panel-h"><h2>Lista obiettivi</h2><span class="sub" id="wlSub"></span></div>
+    <div class="panel-h anchor" id="secObiettivi"><h2>Lista obiettivi</h2><span class="sub" id="wlSub"></span></div>
     <div class="panel-b wl" id="wishlist"></div>
   </aside>
 
-  <section class="panel studio">
+  <section class="panel glass studio" id="secStudio">
     <div class="panel-h"><h2>Studio del socio</h2><span class="sub" id="stSub"></span></div>
     <div class="filters">
       <div class="seg" id="fRole"><button data-r="" class="on">Tutti</button><button data-r="P">P</button><button data-r="D">D</button><button data-r="C">C</button><button data-r="A">A</button></div>
-      <select id="fStars"><option value="0">Tutte le stelle</option><option value="1">⭐ e oltre</option><option value="2">⭐⭐ e oltre</option><option value="3">solo ⭐⭐⭐</option></select>
-      <select id="fFascia"><option value="0">Tutte le fasce</option><option value="1">Top</option><option value="2">1ª fascia</option><option value="3">2ª fascia</option><option value="4">Scommessa</option><option value="5">Low cost</option></select>
-      <label><input type="checkbox" id="fRated" checked> solo valutati</label>
+      <select class="sel" id="fStars"><option value="0">Tutte le stelle</option><option value="1">★ e oltre</option><option value="2">★★ e oltre</option><option value="3">solo ★★★</option></select>
+      <select class="sel" id="fFascia"><option value="0">Tutte le fasce</option><option value="1">Top</option><option value="2">1ª fascia</option><option value="3">2ª fascia</option><option value="4">Scommessa</option><option value="5">Low cost</option></select>
+      <select class="sel" id="fSort"><option value="rating">Per rating</option><option value="qa">Per Qt.A</option><option value="fvm">Per FVM</option><option value="name">Per nome</option><option value="team">Per squadra</option></select>
+      <label class="switch"><input type="checkbox" id="fRated" checked><span class="tr"></span>Solo la mia lista</label>
       <span class="sp"></span>
+      <div class="st-search">
+        <svg class="i lead"><use href="#i-search"/></svg>
+        <input id="stQ" type="search" placeholder="Cerca nel listone o aggiungi alla lista…" autocomplete="off" spellcheck="false">
+        <button class="x clr" id="stQClr" title="Pulisci" hidden><svg class="i"><use href="#i-x"/></svg></button>
+      </div>
       <button class="ghost" id="btnObj">Metti in lista gli Obiettivi</button>
     </div>
     <div class="st-table" id="stTable"></div>
   </section>
 </main>
 <footer>Listone ufficiale Fantacalcio.it (Qt.A, Qt.I, FVM, ruoli Mantra) e studio personale dal file «Fantacalcio 26/27» del socio. I dati dell'asta restano salvati in questo browser.</footer>
+
+<nav class="dock" aria-label="Sezioni">
+  <button data-go="secRosa" class="on"><svg class="i"><use href="#i-shirt"/></svg>Rosa</button>
+  <button data-go="secCerca"><svg class="i"><use href="#i-search"/></svg>Cerca</button>
+  <button data-go="secObiettivi"><svg class="i"><use href="#i-target"/></svg>Obiettivi</button>
+  <button data-go="secStudio"><svg class="i"><use href="#i-list"/></svg>Studio</button>
+</nav>
 
 <div id="printView"></div>
 
@@ -284,7 +451,7 @@ footer{max-width:1180px;margin:0 auto;padding:6px 18px 28px;font-size:12px;color
   <div class="dlg-b">
     <div class="field"><label for="fBudget">Crediti totali</label><input id="fBudget" type="number" min="1" step="1"></div>
     <div>
-      <div class="eyebrow" style="margin-bottom:6px">Giocatori per ruolo (num. max)</div>
+      <div class="eyebrow" style="margin-bottom:8px">Giocatori per ruolo (num. max)</div>
       <div class="grid4">
         <div class="field"><label><span class="chip P">P</span>Portieri</label><input id="fP" type="number" min="0" step="1"></div>
         <div class="field"><label><span class="chip D">D</span>Difensori</label><input id="fD" type="number" min="0" step="1"></div>
@@ -293,21 +460,19 @@ footer{max-width:1180px;margin:0 auto;padding:6px 18px 28px;font-size:12px;color
       </div>
     </div>
     <div>
-      <div class="eyebrow" style="margin-bottom:6px">Quota budget per ruolo (%)</div>
+      <div class="eyebrow" style="margin-bottom:8px">Quota budget per ruolo (%)</div>
       <div class="grid4">
         <div class="field"><label>P</label><input id="fpP" type="number" min="0" max="100" step="1"></div>
         <div class="field"><label>D</label><input id="fpD" type="number" min="0" max="100" step="1"></div>
         <div class="field"><label>C</label><input id="fpC" type="number" min="0" max="100" step="1"></div>
         <div class="field"><label>A</label><input id="fpA" type="number" min="0" max="100" step="1"></div>
       </div>
-      <div class="note" id="pctNote">Serve solo per il suggerimento per ruolo. La media generale usa sempre tutti i crediti rimasti.</div>
+      <div class="note" id="pctNote" style="margin-top:6px">Serve solo per il suggerimento per ruolo. La media generale usa sempre tutti i crediti rimasti.</div>
     </div>
-  </div>
-  <div class="dlg-b" style="padding-top:0">
     <div>
-      <div class="eyebrow" style="margin-bottom:6px">Backup (rosa, lista, valutazioni)</div>
+      <div class="eyebrow" style="margin-bottom:8px">Backup (rosa, lista, valutazioni, studio)</div>
       <textarea id="fBackup" rows="3" spellcheck="false" placeholder="Premi «Copia» per ottenere il testo da inviare al socio, oppure incolla qui un backup e premi «Carica»."></textarea>
-      <div style="display:flex;gap:8px;margin-top:6px"><button class="ghost" id="btnBkCopy">Copia</button><button class="ghost" id="btnBkLoad">Carica</button></div>
+      <div style="display:flex;gap:8px;margin-top:8px"><button class="ghost" id="btnBkCopy">Copia</button><button class="ghost" id="btnBkLoad">Carica</button></div>
     </div>
   </div>
   <div class="dlg-f">
@@ -316,7 +481,7 @@ footer{max-width:1180px;margin:0 auto;padding:6px 18px 28px;font-size:12px;color
     <button class="buy" id="btnSave">Salva</button>
   </div>
 </dialog>
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="status"><span id="toastMsg"></span></div>
 
 <script>
 const DB = [["P","Svilar","Roma",19,18,85,"Por",10,3,2,0,0,0,5841],["P","Carnesecchi","Atalanta",17,16,55,"Por",10,3,2,0,0,0,4431],["P","Martinez Jo.","Inter",17,17,68,"Por",8,2,2,0,0,0,5116],["P","Vicario","Juventus",17,16,70,"Por",9,3,2,0,0,0,4964],["P","Butez","Como",15,16,50,"Por",9,3,2,1,0,0,6966],["P","Maignan","Milan",15,15,52,"Por",9,3,1,1,0,0,4312],["P","De Gea","Fiorentina",11,13,30,"Por",8,1,2,1,0,0,2521],["P","Meret","Napoli",11,11,48,"Por",10,3,2,0,0,0,572],["P","Caprile","Cagliari",10,9,25,"Por",7,2,3,0,0,0,4360],["P","Mandas","Lazio",10,9,36,"Por",7,2,3,0,0,0,6482],["P","Skorupski","Bologna",10,10,32,"Por",7,1,3,0,0,0,133],["P","Okoye","Udinese",9,9,28,"Por",7,2,3,0,0,0,6462],["P","Perri","Torino",9,9,26,"Por",0,0,0,0,0,0,6534],["P","Bijlow","Genoa",8,8,15,"Por",0,0,0,0,0,0,7332],["P","Falcone","Lecce",8,8,26,"Por",0,0,0,0,0,0,2134],["P","Sanchez Ro.","Como",8,8,25,"Por",7,3,5,0,0,0,6344],["P","Muric","Sassuolo",7,7,15,"Por",0,0,0,0,0,0,4236],["P","Daffara","Parma",6,7,7,"Por",0,0,0,0,0,0,7411],["P","Stankovic F.","Venezia",6,6,11,"Por",0,0,0,0,0,0,6248],["P","Milinkovic-Savic V.","Napoli",5,5,5,"Por",10,3,3,0,0,0,2170],["P","Palmisani","Frosinone",5,4,12,"Por",0,0,0,0,0,0,6415],["P","Thiam","Monza",4,5,5,"Por",0,0,0,0,0,0,4485],["P","Corvi","Parma",2,1,10,"Por",0,0,0,0,0,0,6662],["P","Desplanches","Frosinone",2,2,1,"Por",0,0,0,0,0,0,7463],["P","Provedel","Inter",2,2,5,"Por",0,0,0,0,0,0,2814],["P","Bleve","Lecce",1,1,1,"Por",0,0,0,0,0,0,4468],["P","Christensen O.","Fiorentina",1,1,1,"Por",0,0,0,0,0,0,6403],["P","Contini","Napoli",1,1,1,"Por",0,0,0,0,0,0,2845],["P","De Marzi","Roma",1,1,1,"Por",0,0,0,0,0,0,7048],["P","Di Gennaro","Inter",1,1,1,"Por",0,0,0,0,0,0,1926],["P","Ghidotti","Parma",1,1,1,"Por",0,0,0,0,0,0,2874],["P","Gollini","Roma",1,1,1,"Por",0,0,0,0,0,0,610],["P","Grabara","Juventus",1,1,1,"Por",9,3,4,0,0,0,7603],["P","Grandi","Venezia",1,1,1,"Por",0,0,0,0,0,0,6671],["P","Happonen","Bologna",1,1,1,"Por",0,0,0,0,0,0,7533],["P","Lezzerini","Fiorentina",1,1,1,"Por",0,0,0,0,0,0,158],["P","Lolic","Frosinone",1,1,1,"Por",0,0,0,0,0,0,7466],["P","Mascardi","Torino",1,1,5,"Por",0,0,0,0,0,0,7457],["P","Montipò","Venezia",1,1,1,"Por",0,0,0,0,0,0,4957],["P","Motta","Lazio",1,1,1,"Por",0,0,0,0,0,0,7337],["P","Mrozek","Udinese",1,1,1,"Por",0,0,0,0,0,0,7611],["P","Padelli","Udinese",1,1,1,"Por",0,0,0,0,0,0,543],["P","Paleari","Torino",1,1,1,"Por",0,0,0,0,0,0,5320],["P","Penev","Lecce",1,1,1,"Por",0,0,0,0,0,0,7557],["P","Pessina Mas.","Bologna",1,1,1,"Por",0,0,0,0,0,0,7172],["P","Piana","Udinese",1,1,1,"Por",0,0,0,0,0,0,5707],["P","Pinsoglio","Juventus",1,1,1,"Por",0,0,0,0,0,0,1930],["P","Pisseri","Frosinone",1,1,1,"Por",0,0,0,0,0,0,7560],["P","Pozzi","Venezia",1,1,1,"Por",0,0,0,0,0,0,7531],["P","Radunovic","Cagliari",1,1,1,"Por",0,0,0,0,0,0,3],["P","Renzetti","Lazio",1,1,1,"Por",0,0,0,0,0,0,7534],["P","Russo A.","Sassuolo",1,1,1,"Por",0,0,0,0,0,0,4518],["P","Satalino","Sassuolo",1,1,1,"Por",0,0,0,0,0,0,2127],["P","Sherri","Cagliari",1,1,1,"Por",0,0,0,0,0,0,6650],["P","Siviero","Torino",1,1,1,"Por",0,0,0,0,0,0,7363],["P","Sommariva","Genoa",1,1,1,"Por",0,0,0,0,0,0,219],["P","Sportiello","Atalanta",1,1,1,"Por",0,0,0,0,0,0,4],["P","Stolz","Genoa",1,1,1,"Por",0,0,0,0,0,0,6569],["P","Strajnar","Monza",1,1,1,"Por",0,0,0,0,0,0,7475],["P","Terracciano","Milan",1,1,1,"Por",0,0,0,0,0,0,2815],["P","Tornqvist","Monza",1,1,10,"Por",0,0,0,0,0,0,7301],["P","Torriani","Milan",1,1,1,"Por",0,0,0,0,0,0,6813],["P","Turati","Sassuolo",1,1,1,"Por",0,0,0,0,0,0,4867],["P","Vigorito","Como",1,1,1,"Por",0,0,0,0,0,0,2809],["D","Dimarco","Inter",31,32,240,"E;W",10,3,1,0,0,0,254],["D","Molina N.","Roma",18,18,78,"E",9,3,2,0,0,0,4998],["D","Wesley","Roma",18,17,87,"E",9,3,1,0,0,0,7181],["D","Bremer","Juventus",16,15,60,"Dc",8,3,1,0,0,0,2788],["D","Mancini","Roma",16,15,50,"Dc",6,1,0,0,0,0,2296],["D","Akanji","Inter",15,16,47,"Dc",10,3,2,0,0,0,4159],["D","Rrahmani","Napoli",15,14,51,"Dc",7,2,0,0,0,0,4409],["D","Bastoni","Inter",14,14,43,"Dc",1,1,0,0,0,0,2120],["D","Kalulu","Juventus",14,13,47,"Dd;Dc",10,3,2,1,0,0,4976],["D","Pavlovic","Milan",14,14,49,"Dc",6,1,0,0,0,0,5022],["D","Gila","Milan",13,12,31,"Dc",10,3,2,1,0,0,5833],["D","N'Dicka","Roma",13,13,42,"Dc",6,1,0,0,0,0,4317],["D","Solet","Udinese",13,13,46,"Dc",9,3,2,1,2,0,6956],["D","Bisseck","Inter",12,11,36,"Dc",7,2,3,0,0,0,6217],["D","Di Lorenzo","Napoli",12,12,39,"Dd;E",8,2,2,0,0,0,2816],["D","Stones","Inter",12,12,25,"Dc",9,3,2,0,0,0,2514],["D","Hermoso","Roma",11,10,26,"Dc",7,2,2,0,0,0,4807],["D","Ostigard","Genoa",11,11,41,"Dc",7,1,3,0,0,0,5750],["D","Spence","Inter",11,12,37,"E",9,2,3,0,0,0,5982],["D","Chalobah T.","Como",10,9,32,"Dd;Dc",8,3,3,0,0,0,5641],["D","Ramon","Como",10,10,31,"Dc",9,3,3,0,0,0,6869],["D","Scalvini","Atalanta",10,10,28,"Dc",5,2,3,0,0,0,5526],["D","Dodò","Fiorentina",9,10,20,"Dd;E",8,2,2,1,0,0,5885],["D","Kamara H.","Udinese",9,6,12,"Ds;E",9,3,4,1,0,0,5555],["D","Vasquez","Genoa",9,9,30,"Ds;Dc",0,0,0,0,0,0,5514],["D","Vojvoda","Udinese",9,8,19,"Dd;E",6,2,5,0,0,0,4994],["D","Bartesaghi","Milan",8,8,22,"Ds;E",0,0,0,0,0,0,6496],["D","Cambiaso","Juventus",8,9,18,"Dd;Ds;E",6,2,3,0,0,0,5520],["D","Celik","Juventus",8,8,16,"B;Dd;E",8,3,5,1,0,0,4657],["D","Comuzzo","Torino",8,6,13,"Dc",0,0,0,0,0,0,6495],["D","Couto","Como",8,8,25,"Dd;E",9,3,4,0,0,0,6727],["D","Delprato","Parma",8,8,21,"B;Dd;E",6,2,3,0,0,0,6664],["D","Diego Carlos","Parma",8,8,26,"Dc",0,0,0,0,0,0,4137],["D","Doekhi","Lazio",8,7,16,"Dc",0,0,0,0,0,0,6320],["D","Koulierakis","Roma",8,8,15,"Dc",0,0,0,0,0,0,7529],["D","Miranda J.","Bologna",8,8,23,"Ds;E",0,0,0,0,0,0,4734],["D","Spinazzola","Napoli",8,8,25,"Ds;E",0,0,0,0,0,0,1852],["D","Theate","Bologna",8,8,20,"Ds;Dc",0,0,0,0,0,0,5675],["D","Tiago Gabriel","Lecce",8,7,20,"Dc",7,2,3,0,0,0,6989],["D","Valeri","Parma",8,8,22,"Ds;E",0,0,0,0,0,0,5862],["D","Zappacosta","Atalanta",8,8,19,"Dd;E",7,2,3,0,0,0,554],["D","Badiashile","Napoli",7,7,18,"Dc",0,0,0,0,0,0,4664],["D","Belghali","Torino",7,7,20,"Dd;E",0,0,0,0,0,0,7220],["D","Bracaglia","Frosinone",7,5,15,"Ds;Dc",0,0,0,0,0,0,7469],["D","Coco","Torino",7,7,14,"Dc",6,1,3,1,0,0,6642],["D","Dragusin","Fiorentina",7,8,20,"Dc",7,1,4,0,0,0,5365],["D","Gabbia","Milan",7,7,15,"Dc",0,0,0,0,0,0,4401],["D","Hien","Atalanta",7,8,11,"Dc",0,0,0,0,0,0,6046],["D","Idzes","Sassuolo",7,7,19,"Dc",0,0,0,0,0,0,6672],["D","Ismajli","Torino",7,7,13,"Dc",0,0,0,0,0,0,5010],["D","Jimenez A.","Fiorentina",7,8,18,"Dd;Ds;E",7,1,4,2,0,0,6531],["D","Lucumì","Juventus",7,8,17,"Dc",7,2,3,0,0,0,6042],["D","Mangas","Monza",7,6,15,"Ds;E",0,0,0,0,0,0,7485],["D","Mina","Cagliari",7,8,20,"Dc",7,2,5,0,0,0,4210],["D","Obert","Cagliari",7,7,15,"B;Ds;E",0,0,0,0,0,0,5701],["D","Sutalo J.","Lazio",7,7,19,"Dc",0,0,0,0,0,0,7580],["D","Tavares N.","Lazio",7,6,25,"Ds;E",0,0,0,0,0,0,5620],["D","Zortea","Bologna",7,6,19,"Dd;E",0,0,0,0,0,0,4433],["D","Balerdi","Roma",6,6,11,"Dc",0,0,0,0,0,0,4705],["D","Bellanova","Atalanta",6,6,17,"Dd;E",0,0,0,0,0,0,4887],["D","Bernasconi","Atalanta",6,6,18,"Ds;E",0,0,0,0,0,0,7219],["D","Beukema","Napoli",6,6,12,"Dc",0,0,0,0,0,0,6202],["D","Buongiorno","Napoli",6,7,15,"Dc",0,0,0,0,0,0,2724],["D","Caleta-Car","Sassuolo",6,6,15,"Dc",0,0,0,0,0,0,4147],["D","Carlos Augusto","Inter",6,7,20,"B;Ds;E",6,2,3,2,0,0,5877],["D","Fortini","Torino",6,5,12,"E",0,0,0,0,0,0,7069],["D","Gallo","Lecce",6,6,12,"Ds;E",0,0,0,0,0,0,4502],["D","Heggem","Bologna",6,6,15,"Ds;Dc",0,0,0,0,0,0,7212],["D","Holm","Bologna",6,5,13,"Dd;E",0,0,0,0,0,0,5678],["D","Kaiki","Como",6,7,13,"Ds;E",0,0,0,0,0,0,7414],["D","Kolasinac","Atalanta",6,5,8,"Ds;Dc",0,0,0,0,0,0,2640],["D","Kristensen T.","Atalanta",6,7,20,"Dd;Dc",0,0,0,0,0,0,6485],["D","Leysen F.","Sassuolo",6,5,12,"Ds;Dc",0,0,0,0,0,0,7564],["D","Marcandalli","Genoa",6,6,14,"Dc",0,0,0,0,0,0,6660],["D","Marusic","Lazio",6,6,20,"Dd;Ds;E",0,0,0,0,0,0,2188],["D","Monterisi","Frosinone",6,6,13,"Dc",0,0,0,0,0,0,4952],["D","Obrador","Sassuolo",6,6,13,"Ds;E",0,0,0,0,0,0,7329],["D","Oyono A.","Frosinone",6,5,10,"Dd;E",0,0,0,0,0,0,6238],["D","Pavard","Inter",6,6,14,"Dd;Dc",0,0,0,0,0,0,4177],["D","Pedraza","Lazio",6,5,14,"Ds;E",0,0,0,0,0,0,4817],["D","Romagnoli","Lazio",6,7,20,"Dc",0,0,0,0,0,0,460],["D","Sugawara","Cagliari",6,6,15,"Dd;E",0,0,0,0,0,0,7621],["D","Tomori","Milan",6,7,8,"Dc",0,0,0,0,0,0,4751],["D","Valle","Como",6,6,21,"Ds;E",0,0,0,0,0,0,6867],["D","Veiga D.","Lecce",6,5,12,"Dd;E",0,0,0,0,0,0,6990],["D","Viery","Fiorentina",6,6,12,"Ds;Dc",0,0,0,0,0,0,7410],["D","Bella-Kotchap","Venezia",5,6,13,"Dc",0,0,0,0,0,0,7253],["D","Calvani","Frosinone",5,4,13,"Dc",0,0,0,0,0,0,7467],["D","Correia T.","Venezia",5,4,12,"Dd;Ds;E",0,0,0,0,0,0,4845],["D","De Winter","Milan",5,3,20,"Dd;Dc",0,0,0,0,0,0,5739],["D","Doig","Sassuolo",5,4,10,"Ds;E",0,0,0,0,0,0,5851],["D","Gaspar K.","Lecce",5,5,12,"Dc",0,0,0,0,0,0,6632],["D","Ghilardi","Roma",5,4,10,"Dc",0,0,0,0,0,0,6631],["D","Haps","Venezia",5,5,10,"Ds;E",0,0,0,0,0,0,5695],["D","Kelly L.","Juventus",5,5,12,"Ds;Dc",0,0,0,0,0,0,6766],["D","Kempf","Como",5,5,13,"Dc",0,0,0,0,0,0,6893],["D","Kofler","Cagliari",5,5,8,"Dc",0,0,0,0,0,0,7532],["D","Olivera","Napoli",5,5,13,"B;Ds;E",0,0,0,0,0,0,5840],["D","Patterson","Torino",5,5,12,"Dd;E",0,0,0,0,0,0,5751],["D","Valdepenas","Fiorentina",5,6,16,"Ds;Dc",8,3,3,2,0,0,7294],["D","Zè Pedro","Cagliari",5,5,13,"Dd;Dc",0,0,0,0,0,0,7274],["D","Arizala","Udinese",4,4,8,"Ds;E",0,0,0,0,0,0,7312],["D","Bertola","Udinese",4,4,10,"Dd;Ds;Dc",0,0,0,0,0,0,5820],["D","Birindelli","Monza",4,4,12,"Dd;Ds;E",0,0,0,0,0,0,5838],["D","Cittadini","Frosinone",4,3,8,"Dc",0,0,0,0,0,0,5757],["D","Comert","Torino",4,4,12,"Dc",0,0,0,0,0,0,7526],["D","Favasuli","Napoli",4,4,11,"Dd;Ds;E",0,0,0,0,0,0,7563],["D","Floriani Mussolini","Lazio",4,3,10,"Dd;E",5,0,5,0,0,0,7131],["D","Gatti","Juventus",4,4,10,"Dc",0,0,0,0,0,0,5831],["D","Hainaut","Venezia",4,3,12,"Dd;E",0,0,0,0,0,0,6821],["D","Juan Jesus","Venezia",4,4,10,"Ds;Dc",0,0,0,0,0,0,256],["D","Kabasele","Udinese",4,4,12,"Dc",0,0,0,0,0,0,4263],["D","Kossounou","Atalanta",4,3,12,"Dd;Dc",0,0,0,0,0,0,5578],["D","Mitaj","Genoa",4,4,10,"Ds;E",0,0,0,0,0,0,7537],["D","Moreno M.","Venezia",4,5,6,"Dc",0,0,0,0,0,0,6890],["D","Parisi","Fiorentina",4,5,10,"Ds;E",0,0,0,0,0,0,5449],["D","Pongracic","Fiorentina",4,4,8,"Dc",0,0,0,0,0,0,5603],["D","Provstgaard","Lazio",4,3,13,"Dc",0,0,0,0,0,0,7012],["D","Rensch","Roma",4,5,14,"B;Dd;E",0,0,0,0,0,0,6986],["D","Rodriguez Ju.","Cagliari",4,3,14,"Ds;Dc",0,0,0,0,0,0,7268],["D","Siebert","Lecce",4,4,12,"Dc",0,0,0,0,0,0,7240],["D","Smolcic I.","Como",4,4,10,"Dd;E",0,0,0,0,0,0,7014],["D","Terzic","Frosinone",4,4,8,"Ds;E",0,0,0,0,0,0,4375],["D","Valenti","Parma",4,4,10,"Dc",0,0,0,0,0,0,5307],["D","Vitik","Bologna",4,5,10,"Dc",0,0,0,0,0,0,7068],["D","Walukiewicz","Sassuolo",4,4,10,"Dd;Dc",0,0,0,0,0,0,4374],["D","Zanoli","Udinese",4,4,10,"Dd;E",0,0,0,0,0,0,5527],["D","Akpoguma","Frosinone",3,3,6,"Dc",0,0,0,0,0,0,7540],["D","Britschgi","Parma",3,3,10,"Dd;Ds;E",0,0,0,0,0,0,7255],["D","Candè","Sassuolo",3,3,7,"Ds;Dc",0,0,0,0,0,0,6985],["D","Carboni A.","Monza",3,3,9,"Ds;Dc",0,0,0,0,0,0,4925],["D","Casale","Bologna",3,3,5,"Dc",0,0,0,0,0,0,5498],["D","Drameh","Genoa",3,3,10,"Dd;Ds;E",0,0,0,0,0,0,5742],["D","Ebosse","Udinese",3,2,5,"Ds;Dc",0,0,0,0,0,0,5994],["D","Estupinan","Milan",3,3,13,"Ds;E",0,0,0,0,0,0,5273],["D","Franjic","Venezia",3,2,7,"B;Ds;E",0,0,0,0,0,0,7478],["D","Halhal","Venezia",3,4,10,"Dc",0,0,0,0,0,0,7538],["D","Helland","Bologna",3,2,12,"Dd;Dc",0,0,0,0,0,0,7326],["D","Idrissi R.","Cagliari",3,3,3,"Ds;E",0,0,0,0,0,0,7125],["D","Joao Mario","Fiorentina",3,3,12,"Dd;E",0,0,0,0,0,0,7175],["D","Kambwala","Como",3,3,8,"Dd;Dc",0,0,0,0,0,0,6601],["D","Kouadio","Monza",3,3,14,"Dd;Dc",0,0,0,0,0,0,7238],["D","Lucchesi","Monza",3,4,11,"Dc",0,0,0,0,0,0,6659],["D","Odenthal","Sassuolo",3,1,8,"Dc",0,0,0,0,0,0,7154],["D","Palma","Udinese",3,2,11,"Dc",0,0,0,0,0,0,6925],["D","Ranieri L.","Fiorentina",3,3,10,"Ds;Dc",0,0,0,0,0,0,4378],["D","Schingtienne","Venezia",3,3,10,"Dc",0,0,0,0,0,0,6892],["D","Sverko","Venezia",3,3,7,"Ds;Dc",0,0,0,0,0,0,6673],["D","Tchato","Frosinone",3,3,8,"Dd;E",0,0,0,0,0,0,7605],["D","Troilo","Parma",3,3,14,"Dc",0,0,0,0,0,0,7235],["D","Abankwah","Udinese",2,1,10,"Dd;Dc",0,0,0,0,0,0,6021],["D","Alhassane","Bologna",2,2,6,"Ds;E",0,0,0,0,0,0,7483],["D","Aurelio","Cagliari",2,2,5,"Ds;E",0,0,0,0,0,0,7548],["D","Bakoune","Monza",2,1,4,"Dd;E",0,0,0,0,0,0,7476],["D","Biraghi","Torino",2,2,5,"B;Ds;E",0,0,0,0,0,0,252],["D","Cinquegrano","Sassuolo",2,1,4,"Dd;E",0,0,0,0,0,0,7573],["D","Diawara S.","Milan",2,2,4,"Ds;Dc",0,0,0,0,0,0,7525],["D","Drobnic","Parma",2,1,1,"Dc",0,0,0,0,0,0,7615],["D","Goglichidze","Monza",2,2,5,"Dd;Dc",0,0,0,0,0,0,6537],["D","Jean","Lecce",2,2,4,"Dc",0,0,0,0,0,0,6883],["D","Lazzari","Lazio",2,2,5,"Dd;E",0,0,0,0,0,0,2263],["D","Lulli","Roma",2,1,10,"E",0,0,0,0,0,0,7599],["D","Marin R.","Napoli",2,2,8,"Dc",0,0,0,0,0,0,6638],["D","Ndaba","Lecce",2,1,5,"Ds;E",0,0,0,0,0,0,7182],["D","Ndiaye","Parma",2,1,8,"Dc",0,0,0,0,0,0,7202],["D","Otoa","Genoa",2,2,5,"Dc",0,0,0,0,0,0,6977],["D","Pellegrini Lu.","Lazio",2,2,7,"Ds;E",0,0,0,0,0,0,2728],["D","Puczka","Genoa",2,2,3,"Ds;E",0,0,0,0,0,0,7413],["D","Sabelli","Genoa",2,2,5,"Dd;Ds;E",0,0,0,0,0,0,791],["D","Sagrado","Venezia",2,2,4,"Dd;E",0,0,0,0,0,0,6681],["D","Terracciano F.","Milan",2,2,4,"B;Dd;Ds",0,0,0,0,0,0,5812],["D","Van Der Brempt","Sassuolo",2,2,11,"Dd;E",0,0,0,0,0,0,6896],["D","Amey","Frosinone",1,1,1,"Dc",0,0,0,0,0,0,5424],["D","Antov","Monza",1,1,2,"Dc",0,0,0,0,0,0,5399],["D","Cabal","Juventus",1,1,4,"B;Ds;E",0,0,0,0,0,0,6039],["D","Carboni F.","Parma",1,1,3,"Ds;E",0,0,0,0,0,0,6149],["D","De Silvestri","Bologna",1,1,4,"Dd;E",0,0,0,0,0,0,487],["D","Dembelè A.","Lecce",1,1,2,"Dd;E",0,0,0,0,0,0,6826],["D","Goldaniga","Como",1,1,1,"Dc",0,0,0,0,0,0,418],["D","Gomes","Venezia",1,1,1,"Ds;Dc",0,0,0,0,0,0,7454],["D","Marianucci","Napoli",1,1,3,"Dc",0,0,0,0,0,0,6809],["D","Maye","Monza",1,1,1,"Ds;Dc",0,0,0,0,0,0,7604],["D","Mazzocchi","Venezia",1,1,10,"Dd;Ds;E",0,0,0,0,0,0,5481],["D","Omar Fayed","Frosinone",1,1,1,"Dc",0,0,0,0,0,0,7553],["D","Patric","Lazio",1,1,1,"Dd;Dc",0,0,0,0,0,0,327],["D","Pieragnolo","Sassuolo",1,1,1,"Ds;E",0,0,0,0,0,0,7156],["D","Rugani","Juventus",1,1,3,"Dc",0,0,0,0,0,0,294],["D","Ziolkowski","Monza",1,1,8,"Dc",0,0,0,0,0,0,7260],["C","Paz N.","Como",29,30,245,"T;A",9,2,1,1,1,2,6875],["C","Calhanoglu","Inter",28,27,243,"M;C",9,3,1,1,0,1,2194],["C","McTominay","Napoli",27,28,220,"C;T",10,3,1,0,0,1,4777],["C","Orsolini","Bologna",25,26,177,"W;A",7,2,2,0,0,1,2167],["C","Pulisic","Milan",24,25,150,"T;A",7,2,2,0,0,1,2423],["C","Rabiot","Milan",23,22,145,"C;T",10,3,1,1,0,2,2379],["C","Baturina","Como",20,19,105,"T",8,2,3,0,0,1,7126],["C","Mora","Roma",20,19,100,"T",7,3,3,0,0,1,7556],["C","Barella","Inter",18,17,81,"C",8,2,2,0,0,1,1870],["C","Da Cunha","Como",18,18,87,"C;T",10,3,3,1,1,2,5559],["C","Zaniolo","Udinese",18,18,80,"T;A",6,1,3,0,0,1,2766],["C","De Bruyne","Napoli",17,15,108,"T",9,3,1,0,0,1,2517],["C","McKennie","Juventus",17,17,70,"C;T",8,2,3,0,0,1,4973],["C","Zaccagni","Lazio",16,16,87,"W;A",6,1,2,0,0,2,632],["C","Atta","Fiorentina",15,17,78,"C;T",8,2,2,1,0,1,6908],["C","Conceicao","Juventus",13,12,68,"W;A",9,3,2,0,0,1,6884],["C","Samardzic","Atalanta",13,12,44,"C;T",8,3,3,0,0,1,5119],["C","Taylor K.","Lazio",13,13,53,"C;T",0,0,0,0,0,1,7314],["C","Vlasic","Torino",13,14,73,"T",8,3,3,1,1,2,5687],["C","Ederson D.S.","Atalanta",12,12,46,"M;C",6,2,3,0,0,1,5792],["C","Ekkelenkamp","Udinese",12,10,57,"C;T",7,2,3,0,0,1,6684],["C","Goncalves P.","Fiorentina",12,12,50,"W;T",0,0,0,0,0,0,7625],["C","Gonzalez N.","Juventus",12,11,45,"W;A",10,3,3,0,0,0,4179],["C","Gudmundsson A.","Lazio",12,13,40,"T;A",7,2,2,0,0,1,5800],["C","Jones C.","Inter",12,12,47,"C",8,2,3,0,0,1,5172],["C","Kessiè","Atalanta",12,12,47,"C",7,2,3,0,0,0,1850],["C","Modric","Milan",12,12,45,"M;C",0,0,0,0,0,1,2606],["C","Zielinski","Inter",12,10,45,"C",9,3,3,0,0,1,152],["C","Alajbegovic","Juventus",11,12,42,"W;T",9,3,4,2,0,1,7436],["C","Baldanzi","Genoa",11,11,28,"T",0,0,0,0,0,1,5823],["C","Mastantuono","Fiorentina",11,12,50,"W;T",10,2,4,1,0,1,7078],["C","Moreira","Milan",11,12,45,"E;W",0,0,0,0,0,1,6372],["C","Rodriguez Je.","Como",11,12,31,"W;A",8,3,3,1,0,1,7129],["C","Saelemaekers","Milan",11,10,35,"E;W",8,2,3,0,0,1,4892],["C","Bernardeschi","Bologna",10,9,27,"W;T",8,2,3,1,0,1,184],["C","Frattesi","Lazio",10,7,75,"C;T",8,3,2,0,0,1,2848],["C","Konè M.","Roma",10,10,42,"M;C",8,3,2,0,0,1,5589],["C","Perrone","Como",10,10,34,"M;C",0,0,0,0,0,1,6151],["C","Rowe","Atalanta",10,11,40,"W;T",7,2,3,0,0,1,6844],["C","Thorstvedt","Sassuolo",10,10,39,"C;T",0,0,0,0,0,1,5844],["C","Vergara","Napoli",10,8,35,"W;T",6,1,4,0,0,1,7223],["C","Zambo Anguissa","Napoli",10,11,41,"C",0,0,0,0,0,1,4220],["C","Cancellieri","Lazio",9,9,25,"W;A",0,0,0,0,0,1,5500],["C","Casadei","Torino",9,10,27,"C;T",0,0,0,0,0,1,5888],["C","Colpani","Monza",9,8,15,"T",6,1,5,0,0,1,5878],["C","Cristante","Roma",9,8,29,"M;C",7,2,5,0,0,1,779],["C","Diouf","Inter",9,8,43,"E;C",7,1,4,0,0,1,6274],["C","Isaksen","Lazio",9,9,22,"W;A",0,0,0,0,0,1,6398],["C","Locatelli","Juventus",9,8,33,"M;C",8,2,3,0,0,1,827],["C","Pellegrini Lo.","Roma",9,10,20,"C;T",0,0,0,0,0,1,530],["C","Politano","Napoli",9,10,37,"W",0,0,0,0,0,1,536],["C","Sucic P.","Inter",9,8,21,"C",7,2,4,2,0,1,7070],["C","Thuram K.","Juventus",9,10,25,"C",0,0,0,0,0,1,5562],["C","Volpato","Sassuolo",9,7,25,"W;T",8,2,4,2,0,1,5735],["C","Calò","Frosinone",8,7,27,"M;C",0,0,0,0,0,1,7472],["C","Cambiaghi","Bologna",8,8,25,"W;A",0,0,0,0,0,1,4436],["C","Chukwueze","Milan",8,6,22,"E;W",7,2,5,0,0,1,4856],["C","Hutchinson","Milan",8,8,25,"W;A",0,0,0,0,0,0,7618],["C","Konè I.","Sassuolo",8,9,20,"C",0,0,0,0,0,1,6717],["C","Lobotka","Napoli",8,7,23,"M;C",0,0,0,0,0,1,4287],["C","Mandragora","Torino",8,9,23,"C",7,1,3,0,0,1,1933],["C","Mbangula","Bologna",8,8,28,"W;A",0,0,0,0,0,0,6833],["C","Odgaard","Bologna",8,8,17,"T",8,2,5,0,0,1,2765],["C","Pasalic","Atalanta",8,9,22,"C;T",0,0,0,0,0,1,2077],["C","Schmid","Frosinone",8,8,25,"W;T",0,0,0,0,0,1,7551],["C","Adopo","Cagliari",7,6,13,"M;C",0,0,0,0,0,1,4870],["C","Akinsanmiro","Monza",7,6,11,"C",0,0,0,0,0,1,6593],["C","Bernabè","Parma",7,7,34,"C",0,0,0,0,0,1,6666],["C","Coulibaly L.","Lecce",7,6,17,"M;C",0,0,0,0,0,1,5504],["C","Elmas","Atalanta",7,7,22,"W;T",0,0,0,0,0,1,4479],["C","Fagioli","Fiorentina",7,8,20,"M;C",0,0,0,0,0,1,4465],["C","Ferguson","Bologna",7,7,23,"M;C",0,0,0,0,0,1,5858],["C","Frendrup","Genoa",7,7,19,"M;C",0,0,0,0,0,1,5791],["C","Gaetano","Atalanta",7,7,30,"M;C",7,2,5,0,0,1,4364],["C","Karlstrom","Udinese",7,6,20,"M;C",0,0,0,0,0,1,6680],["C","Koopmeiners","Juventus",7,5,15,"C;T",0,0,0,0,0,1,5685],["C","Monteiro J.","Lecce",7,7,23,"W;A",0,0,0,0,0,0,7619],["C","Ndour","Fiorentina",7,8,22,"C",0,0,0,0,0,1,6294],["C","Pisilli","Roma",7,5,19,"C",0,0,0,0,0,1,6190],["C","Romano","Cagliari",7,5,21,"M;C",0,0,0,0,0,1,7311],["C","Rovella","Lazio",7,6,16,"M;C",0,0,0,0,0,1,4459],["C","Sarr P.","Juventus",7,7,25,"M;C",0,0,0,0,0,0,5680],["C","Sow","Genoa",7,7,15,"M;C",0,0,0,0,0,1,5946],["C","Unai Gomez","Udinese",7,7,16,"T",0,0,0,0,0,1,6783],["C","Zalewski","Atalanta",7,6,18,"W",9,3,5,0,0,1,5422],["C","Adzic","Sassuolo",6,5,16,"C;T",8,2,4,2,0,1,6677],["C","Bakola","Sassuolo",6,5,14,"C;T",0,0,0,0,0,1,7036],["C","Basic","Venezia",6,6,19,"M;C",0,0,0,0,0,1,5674],["C","Braganca","Torino",6,6,20,"C",0,0,0,0,0,0,7624],["C","Cacciamani","Torino",6,5,24,"E;W",0,0,0,0,0,1,7060],["C","Caqueret","Como",6,6,17,"C;T",0,0,0,0,0,1,5036],["C","Ellertsson","Genoa",6,6,16,"E;C",0,0,0,0,0,1,6020],["C","Fazzini","Cagliari",6,7,23,"C;T",0,0,0,0,0,1,6010],["C","Liberali","Como",6,6,21,"T",8,3,4,2,0,1,6678],["C","Matic","Sassuolo",6,5,15,"M;C",0,0,0,0,0,1,2528],["C","Milla","Como",6,5,30,"M;C",7,2,4,2,0,1,7412],["C","Nicolussi Caviglia","Parma",6,6,16,"M;C",0,0,0,0,0,1,4349],["C","Oristanio","Torino",6,7,12,"W;T",0,0,0,0,0,1,6218],["C","Oulai","Fiorentina",6,6,18,"M;C",0,0,0,0,0,1,7464],["C","Pessina","Monza",6,7,15,"M;C",0,0,0,0,0,1,2741],["C","Pierotti","Lecce",6,6,19,"W",0,0,0,0,0,1,6549],["C","Piotrowski","Udinese",6,5,15,"M;C",0,0,0,0,0,1,7198],["C","Pobega","Bologna",6,6,12,"M;C",0,0,0,0,0,1,5298],["C","Tourè I.","Monza",6,6,14,"E;M",0,0,0,0,0,1,7146],["C","Winks","Cagliari",6,6,15,"M;C",0,0,0,0,0,1,4260],["C","Zerbin","Frosinone",6,5,12,"W",0,0,0,0,0,1,5998],["C","Zhegrova","Juventus",6,6,17,"W",6,1,5,0,0,1,5761],["C","Amondarain","Bologna",5,5,10,"M;C",0,0,0,0,0,1,7528],["C","Busio","Venezia",5,5,14,"M;C",0,0,0,0,0,1,5507],["C","Cissè A.","Milan",5,3,24,"W;T",0,0,0,0,0,1,6618],["C","Dele-Bashiru","Lazio",5,5,13,"C;T",0,0,0,0,0,1,6629],["C","Felici","Cagliari",5,5,7,"W",0,0,0,0,0,1,6640],["C","Fitz-Jim","Torino",5,4,18,"M;C",0,0,0,0,0,1,7535],["C","Gineitis","Torino",5,5,12,"M;C",0,0,0,0,0,1,6170],["C","Jashari","Milan",5,4,13,"M;C",0,0,0,0,0,1,7203],["C","Keita M.","Parma",5,5,15,"M;C",0,0,0,0,0,1,6898],["C","Luis Henrique","Inter",5,4,12,"E;W",0,0,0,0,0,1,5301],["C","Meichtry","Genoa",5,5,11,"W;T",0,0,0,0,0,1,7409],["C","Perez K.","Venezia",5,5,15,"C;T",0,0,0,0,0,1,6994],["C","Sohm","Venezia",5,5,11,"C",0,0,0,0,0,1,5319],["C","Addai","Como",4,5,10,"W;A",0,0,0,0,0,1,7127],["C","Almqvist","Parma",4,4,11,"W;A",0,0,0,0,0,1,6207],["C","Amorim","Genoa",4,4,11,"M;C",0,0,0,0,0,1,7341],["C","Berisha M.","Lecce",4,5,12,"C;T",0,0,0,0,0,1,6015],["C","Cataldi","Lazio",4,4,12,"M;C",0,0,0,0,0,1,333],["C","Cichella","Frosinone",4,4,12,"M;C",0,0,0,0,0,1,7473],["C","De Roon","Roma",4,4,10,"M;C",0,0,0,0,0,1,22],["C","Dominguez B.","Sassuolo",4,3,12,"W;A",0,0,0,0,0,1,6895],["C","Douglas Luiz","Juventus",4,4,15,"C",9,2,5,2,0,2,4911],["C","Fabbian","Parma",4,4,8,"C;T",0,0,0,0,0,1,6206],["C","Fini ","Frosinone",4,3,13,"W",0,0,0,0,0,1,6506],["C","Folorunsho","Monza",4,4,17,"C;T",0,0,0,0,0,1,6252],["C","Gandelman","Lecce",4,5,10,"C;T",0,0,0,0,0,1,7318],["C","Grillitsch","Frosinone",4,5,10,"M;C",0,0,0,0,0,1,7550],["C","Ilkhan","Torino",4,4,8,"M;C",0,0,0,0,0,1,6005],["C","Koutsoupias","Frosinone",4,4,11,"C",0,0,0,0,0,1,7474],["C","Loftus-Cheek","Milan",4,4,16,"C;T",0,0,0,0,0,1,4199],["C","Massolin","Cagliari",4,4,12,"C;T",0,0,0,0,0,0,7579],["C","Messias","Genoa",4,3,8,"W;T",0,0,0,0,0,1,4970],["C","Miller L.","Udinese",4,3,12,"M;C",0,0,0,0,0,1,7208],["C","Mkhitaryan","Inter",4,5,9,"C",0,0,0,0,0,1,2529],["C","Moro N.","Bologna",4,4,14,"M;C",0,0,0,0,0,1,6054],["C","Ngom","Lecce",4,4,12,"M;C",0,0,0,0,0,1,7322],["C","Njie","Fiorentina",4,4,28,"W;A",0,0,0,0,0,1,6827],["C","Ricci S.","Como",4,4,12,"M;C",8,1,5,0,0,1,5453],["C","Traorè Hj.","Genoa",4,5,11,"W;T",0,0,0,0,0,1,2857],["C","Aboukhlal","Torino",3,3,5,"W;A",0,0,0,0,0,1,7183],["C","Brescianini","Fiorentina",3,3,11,"C;T",0,0,0,0,0,1,4947],["C","Colombo L.","Monza",3,3,4,"M;C",0,0,0,0,0,1,7477],["C","Deiola","Cagliari",3,3,8,"M;C",0,0,0,0,0,1,1871],["C","Diallo O.","Parma",3,3,12,"W;A",0,0,0,0,0,1,7536],["C","Fernandez T.","Venezia",3,3,8,"T;A",0,0,0,0,0,0,7232],["C","Gagliardini","Cagliari",3,3,8,"M;C",0,0,0,0,0,0,801],["C","Gelli F.","Frosinone",3,3,6,"C;T",0,0,0,0,0,1,6241],["C","Gilmour","Napoli",3,3,10,"M;C",0,0,0,0,0,1,5131],["C","Gorter","Lecce",3,1,12,"M;C",0,0,0,0,0,1,7248],["C","Helgason","Venezia",3,3,3,"C;T",0,0,0,0,0,1,5872],["C","Maleh","Lecce",3,2,7,"M;C",0,0,0,0,0,1,5457],["C","Masini","Frosinone",3,2,8,"M;C",0,0,0,0,0,1,6917],["C","Musah","Milan",3,2,15,"C;W",0,0,0,0,0,1,5295],["C","Ordonez C.","Parma",3,2,10,"M;C",0,0,0,0,0,1,7138],["C","Stankovic A.","Inter",3,3,7,"M;C",7,3,4,0,0,1,6503],["C","Sulemana I.","Sassuolo",3,3,7,"M;C",0,0,0,0,0,1,6024],["C","Belahyane","Lazio",2,1,3,"M;C",0,0,0,0,0,1,6191],["C","Boloca","Sassuolo",2,2,5,"M;C",0,0,0,0,0,1,6219],["C","Chakvetadze","Udinese",2,2,6,"W;T",0,0,0,0,0,1,7418],["C","Ciurria","Monza",2,2,6,"E;W",0,0,0,0,0,1,5880],["C","Cremaschi","Parma",2,1,3,"E;C",0,0,0,0,0,1,7276],["C","Duncan","Venezia",2,2,4,"C",0,0,0,0,0,1,526],["C","El Azzouzi O.","Bologna",2,2,10,"M;C",0,0,0,0,0,1,6225],["C","Fadera","Cagliari",2,2,12,"W",0,0,0,0,0,1,6815],["C","Foe Ondoa","Monza",2,1,2,"C",0,0,0,0,0,1,7574],["C","Forson O.","Monza",2,1,1,"W;T",0,0,0,0,0,1,6592],["C","Hasa","Frosinone",2,2,5,"C;T",0,0,0,0,0,1,6903],["C","Jovanovic","Udinese",2,2,5,"W;T",0,0,0,0,0,0,7092],["C","Lipani","Sassuolo",2,2,5,"M;C",0,0,0,0,0,1,6246],["C","Venturino","Genoa",2,2,4,"W",0,0,0,0,0,1,6980],["C","Zarraga","Udinese",2,1,4,"M;C",0,0,0,0,0,1,6212],["C","Anjorin","Torino",1,1,4,"C;T",0,0,0,0,0,1,6889],["C","Ciervo","Cagliari",1,1,1,"W",0,0,0,0,0,0,5462],["C","Comotto","Milan",1,1,1,"M;C",0,0,0,0,0,1,7572],["C","Dagasso","Venezia",1,1,1,"C",0,0,0,0,0,1,7481],["C","El Azzouzi A.","Frosinone",1,1,1,"M;C",0,0,0,0,0,1,7456],["C","Fofana Sa.","Lecce",1,1,1,"M;C",0,0,0,0,0,1,7319],["C","Ilic","Lecce",1,1,10,"M;C",0,0,0,0,0,1,5007],["C","Kaba","Lecce",1,1,2,"M;C",0,0,0,0,0,1,6410],["C","Kone B.","Frosinone",1,1,3,"C",0,0,0,0,0,1,5725],["C","Laerke","Lecce",1,1,1,"W;A",0,0,0,0,0,1,7571],["C","Lahdo","Como",1,1,1,"C;T",0,0,0,0,0,1,7357],["C","Liteta","Cagliari",1,1,1,"M;C",0,0,0,0,0,1,7165],["C","Mout","Monza",1,1,12,"C",0,0,0,0,0,1,7575],["C","Przyborek","Lazio",1,1,5,"W;T",0,0,0,0,0,1,7345],["A","Malen","Roma",38,34,450,"Pc",10,3,1,1,2,0,5585],["A","Martinez L.","Inter",33,35,361,"Pc",10,3,1,0,0,0,2764],["A","Hojlund","Napoli",28,28,260,"Pc",9,3,1,1,0,0,6052],["A","Thuram","Inter",28,29,249,"Pc",7,2,2,0,0,0,4871],["A","Ramos G.","Milan",27,27,237,"Pc",8,2,1,1,0,0,6397],["A","Kolo Muani","Juventus",25,26,165,"Pc",7,2,2,2,0,0,5951],["A","Kean","Como",24,25,183,"Pc",9,3,1,1,0,0,2097],["A","Woltemade","Juventus",23,23,160,"A",7,2,2,2,0,0,6752],["A","Douvikas","Como",22,20,185,"Pc",8,2,2,0,0,0,7017],["A","Yildiz","Juventus",22,23,100,"A",8,2,2,0,0,0,6434],["A","Berardi","Sassuolo",19,18,106,"A",8,3,3,0,0,0,531],["A","Davis K.","Udinese",19,19,108,"Pc",8,3,3,0,0,0,5637],["A","Scamacca","Atalanta",19,19,110,"Pc",7,2,3,0,0,0,2137],["A","Krstovic","Atalanta",18,18,98,"Pc",7,2,3,0,0,0,6435],["A","De Ketelaere","Atalanta",17,17,95,"A",8,2,3,0,0,0,5995],["A","Esposito F.P.","Inter",17,16,105,"Pc",8,2,2,0,0,0,7071],["A","Dybala","Roma",16,14,100,"A",9,3,2,0,0,0,309],["A","Dovbyk","Bologna",15,16,51,"Pc",6,2,5,0,0,0,6675],["A","Laurientè","Sassuolo",15,15,83,"A",8,3,3,0,0,0,6060],["A","Beto","Fiorentina",14,14,50,"Pc",7,1,3,0,0,0,5694],["A","Castro S.","Roma",14,14,70,"Pc",8,3,3,0,0,0,6572],["A","Pellegrino M.","Fiorentina",14,15,40,"Pc",6,2,3,0,0,0,7023],["A","Raspadori","Atalanta",14,13,73,"A",7,2,3,0,0,0,4371],["A","Santos A.","Napoli",14,14,61,"W;A",6,2,3,0,0,0,7351],["A","Simeone","Torino",14,15,80,"Pc",7,2,3,0,0,0,2061],["A","Soulè","Roma",13,12,48,"A",7,1,3,0,0,0,5734],["A","Diao","Como",12,11,50,"W;A",8,2,3,0,0,0,6967],["A","Esposito Se.","Sassuolo",12,13,40,"A",7,1,3,0,0,0,4463],["A","Kevin Carlos","Cagliari",12,13,36,"Pc",0,0,0,0,0,0,7547],["A","Pinamonti","Lazio",12,13,53,"Pc",8,3,3,0,0,0,2038],["A","Adams A.","Venezia",11,12,35,"Pc",0,0,0,0,0,0,7484],["A","Colombo","Genoa",11,11,52,"Pc",0,0,0,0,0,0,4923],["A","Adams C.","Torino",10,9,33,"A",8,2,3,0,0,0,6646],["A","Romero D.","Parma",10,10,37,"Pc",8,3,5,0,0,0,7554],["A","Tourè E.","Parma",10,11,37,"Pc",0,0,0,0,0,0,6229],["A","Bobcek","Frosinone",9,9,31,"Pc",0,0,0,0,0,0,7612],["A","Bowie","Sassuolo",9,10,32,"Pc",0,0,0,0,0,0,7347],["A","Cutrone","Monza",9,9,23,"Pc",0,0,0,0,0,0,2155],["A","Raimondo","Frosinone",9,7,27,"Pc",7,2,4,1,0,0,5436],["A","Yeboah J.","Venezia",9,8,27,"A",7,2,4,0,0,0,6904],["A","Geubbels","Lecce",8,9,23,"Pc",0,0,0,0,0,0,5029],["A","Ghedjemis","Frosinone",8,9,23,"W;A",0,0,0,0,0,0,6530],["A","Osmajic","Genoa",8,8,28,"Pc",0,0,0,0,0,0,7600],["A","Piccoli","Bologna",8,8,29,"Pc",7,2,5,0,0,0,4359],["A","Vitinha O.","Genoa",8,8,13,"A",0,0,0,0,0,0,6164],["A","Boga","Juventus",7,6,27,"W;A",6,1,5,0,0,0,2832],["A","Bonny","Inter",7,7,15,"Pc",0,0,0,0,0,0,6669],["A","Gnonto","Fiorentina",7,7,25,"W;A",0,0,0,0,0,0,7623],["A","Rrahmani Al.","Venezia",7,8,13,"Pc",0,0,0,0,0,0,7449],["A","Varela G.","Monza",7,3,40,"Pc",8,2,4,1,0,2,7523],["A","Kvernadze","Frosinone",6,4,24,"W;A",0,0,0,0,0,0,6204],["A","Mutandwa","Cagliari",6,6,7,"Pc",0,0,0,0,0,0,6598],["A","Neres","Napoli",6,6,20,"W;A",6,2,5,0,0,0,6831],["A","Noslin","Lazio",6,6,8,"A",0,0,0,0,0,0,6556],["A","Stulic","Lecce",6,7,11,"Pc",0,0,0,0,0,0,7252],["A","Sulemana K.","Atalanta",6,6,8,"A",0,0,0,0,0,0,5918],["A","Zapata D.","Torino",6,7,12,"Pc",0,0,0,0,0,0,608],["A","Zeballos","Monza",6,6,18,"A",0,0,0,0,0,0,7620],["A","Birligea","Frosinone",5,5,11,"Pc",0,0,0,0,0,0,7610],["A","Maldini","Cagliari",5,5,21,"T;A",9,3,5,0,0,0,4896],["A","Ngonge","Monza",5,5,13,"A",0,0,0,0,0,0,6145],["A","Adorante","Venezia",4,5,8,"Pc",0,0,0,0,0,0,4387],["A","Borrelli","Cagliari",4,4,9,"Pc",0,0,0,0,0,0,6243],["A","Camarda","Milan",4,5,20,"Pc",8,3,5,0,0,0,6519],["A","Fatah","Lecce",4,4,14,"W;A",0,0,0,0,0,0,7602],["A","Frigan","Parma",4,5,6,"A",0,0,0,0,0,0,7213],["A","Giovane","Napoli",4,4,7,"A",0,0,0,0,0,0,7162],["A","Gueye","Udinese",4,4,7,"Pc",0,0,0,0,0,0,7272],["A","Havel","Genoa",4,4,5,"Pc",0,0,0,0,0,0,7453],["A","Kulenovic","Torino",4,4,9,"Pc",0,0,0,0,0,0,7349],["A","Lang","Napoli",4,3,14,"A",7,1,4,0,0,0,7120],["A","Lucca","Napoli",4,3,12,"Pc",0,0,0,0,0,0,6215],["A","Mendy P.","Cagliari",4,4,12,"Pc",0,0,0,0,0,0,7374],["A","Milik","Juventus",4,5,10,"Pc",0,0,0,0,0,0,2012],["A","Mota","Monza",4,5,8,"A",0,0,0,0,0,0,5882],["A","N'Dri","Lecce",4,3,12,"W;A",0,0,0,0,0,0,7001],["A","Nzola","Cagliari",4,4,10,"Pc",0,0,0,0,0,0,5336],["A","Robinson J.","Monza",4,4,5,"A",0,0,0,0,0,0,7546],["A","Ekhator","Juventus",3,3,10,"A",0,0,0,0,0,0,6822],["A","Elphege","Parma",3,3,11,"Pc",0,0,0,0,0,0,7342],["A","Lontani","Parma",3,1,11,"A",0,0,0,0,0,0,7561],["A","Bayo V.","Udinese",1,1,3,"Pc",0,0,0,0,0,0,7161],["A","De Martis","Parma",1,1,1,"Pc",0,0,0,0,0,0,7568],["A","Lauberbach","Venezia",1,1,1,"Pc",0,0,0,0,0,0,7482],["A","Lisman","Venezia",1,1,1,"W;A",0,0,0,0,0,0,7408],["A","Robinho Junior","Genoa",1,1,3,"A",0,0,0,0,0,0,7622],["A","Trepy","Cagliari",1,1,2,"Pc",0,0,0,0,0,0,7317]];
@@ -326,19 +491,22 @@ const FASCIA = ['','Top','1ª fascia','2ª fascia','Scommessa','Low cost'];
 const TIT = ['','Titolare','Prob. titolare','Riserva'];
 const RIG = ['','Rigorista','Poss. rigorista','No rigori'];
 const STATO = ['','Da studiare','Obiettivo','Preso','Scartato'];
-const stars = n => n ? '⭐'.repeat(n) : '';
+const stars = n => n ? '★'.repeat(n) : '';
 const ratingCls = r => r>=9?'rating hi':(r>=7?'rating mid':'rating');
+const ico = (n,cls='') => `<svg class="i ${cls}"><use href="#i-${n}"/></svg>`;
 const byKey = {};
 // riga effettiva: dati del socio + valutazione personale (S.study[key] = {rating,stars,fascia,tit,rig})
 function eff(p){ const o = S.study['fc'+p[13]]; if(!o) return p; const q = p.slice(); q[7]=o.rating??p[7]; q[8]=o.stars??p[8]; q[9]=o.fascia??p[9]; q[10]=o.tit??p[10]; q[11]=o.rig??p[11]; q.mine=true; return q; }
 
 const RNAME = {P:'Portieri',D:'Difensori',C:'Centrocampisti',A:'Attaccanti'};
-const DEF = {budget:500, slots:{P:3,D:8,C:8,A:6}, pct:{P:8,D:15,C:27,A:50}, bought:[], wish:[], study:{}};
+// stList[key]: true = aggiunto da me allo studio, false = rimosso dallo studio
+const DEF = {budget:500, slots:{P:3,D:8,C:8,A:6}, pct:{P:8,D:15,C:27,A:50}, bought:[], wish:[], study:{}, stList:{}};
 let S;
 const KEY='fantasta-2627';
 try { S = JSON.parse(localStorage.getItem(KEY)) || null; } catch(e){ S = null; }
 if(!S || !S.slots) S = JSON.parse(JSON.stringify(DEF));
 if(!S.study) S.study = {};
+if(!S.stList) S.stList = {};
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
 
 const $ = s => document.querySelector(s);
@@ -349,7 +517,12 @@ const spentRole = r => S.bought.filter(p=>p.role===r).reduce((a,p)=>a+(+p.price|
 const countRole = r => S.bought.filter(p=>p.role===r).length;
 const uid = () => Math.random().toString(36).slice(2,9);
 let toastT;
-function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('on'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('on'),2200); }
+function toast(m, action){
+  const t=$('#toast'); $('#toastMsg').textContent=m;
+  const old=t.querySelector('button'); if(old) old.remove();
+  if(action){ const b=document.createElement('button'); b.textContent=action.label; b.onclick=()=>{ action.fn(); t.classList.remove('on'); }; t.appendChild(b); }
+  t.classList.add('on'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('on'), action?4500:2200);
+}
 
 /* ---------- calcolo ---------- */
 function calc(){
@@ -383,7 +556,7 @@ function render(){
     const x=c.roles[r];
     const over = x.rem<0;
     return `<div class="cell ${r}">
-      <div class="t"><span>${RNAME[r]}</span></div>
+      <div class="t">${RNAME[r]}</div>
       <div class="v" style="${over?'color:var(--bad)':''}">${x.left>0?fmt(Math.max(0,x.avg)):'✓'}<small>${x.left>0?'a testa · '+x.left+' da prendere':'completo'}</small></div>
       <div class="d">${over?'sforato di '+fmt(-x.rem):'restano '+fmt(x.rem)+' su '+fmt(x.budget)}</div>
     </div>`;
@@ -409,10 +582,10 @@ function render(){
         <span class="chip ${r}">${r}</span>
         <div class="n">${esc(p.name)}<small>${esc(p.team||'')}</small></div>
         <input class="price tab" type="number" min="0" step="1" value="${p.price}" aria-label="Prezzo pagato" data-buy="${p.id}">
-        <button class="x" title="Rimuovi" data-del="${p.id}">×</button>
+        <button class="x" title="Rimuovi" data-del="${p.id}">${ico('x')}</button>
       </div>`).join('');
     const empties = Math.max(0, n-list.length);
-    const emptyRows = Array.from({length:empties},()=>`<div class="row empty"><span class="chip ${r}" style="opacity:.35">${r}</span><div class="slot"></div><span></span><span></span></div>`).join('');
+    const emptyRows = Array.from({length:empties},()=>`<div class="row empty"><span class="chip ${r}" style="opacity:.3">${r}</span><div class="slot"></div><span></span><span></span></div>`).join('');
     const overflow = list.length>n ? `<div class="note" style="color:var(--bad)">Hai ${list.length-n} ${RNAME[r].toLowerCase()} oltre il limite.</div>`:'';
     return `<div class="role-block"><h3><span class="chip ${r}">${r}</span>${RNAME[r]}<span class="spent">${fmt(spentRole(r))} cr</span><span class="cnt">${list.length}/${n}</span></h3>${rows}${emptyRows}${overflow}</div>`;
   }).join('');
@@ -431,7 +604,7 @@ function render(){
         <div class="n">${esc(w.name)}<small>${esc(w.team||'')}</small></div>
         <span class="q">q. ${w.q||'–'}</span>
         <input class="price tab" type="number" min="0" step="1" value="${w.plan||''}" placeholder="0" title="Quanto vorresti spendere" data-plan="${w.id}">
-        <div style="display:flex;gap:4px"><button class="buy" data-wbuy="${w.id}">Preso</button><button class="x" title="Togli dalla lista" data-wdel="${w.id}">×</button></div>
+        <div style="display:flex;gap:2px;align-items:center"><button class="buy" data-wbuy="${w.id}">Preso</button><button class="x" title="Togli dalla lista" data-wdel="${w.id}">${ico('x')}</button></div>
       </div>`).join('') +
       `<div class="wl-foot"><span>Pianificato <b>${fmt(plan)}</b> per ${wl.length} obiettivi</span>
        <span class="${plan>c.rem?'over':''}">${plan>c.rem ? 'Supera i crediti rimasti di '+fmt(plan-c.rem) : 'Avanzerebbero '+fmt(c.rem-plan)+' per gli altri '+Math.max(0,c.left-wl.length)}</span></div>`;
@@ -440,12 +613,12 @@ function render(){
 
 /* ---------- ricerca ---------- */
 const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+const matches = (p, q) => { const parts = norm(q.trim()).split(/\s+/).filter(Boolean); const h = norm(p[1]+' '+p[2]); return parts.every(w=>h.includes(w)); };
 let results=[], sel=-1;
 function search(q){
   q = norm(q.trim());
   if(q.length<2){ results=[]; $('#results').innerHTML=''; return; }
-  const parts = q.split(/\s+/);
-  results = DB.filter(p=>{ const h = norm(p[1]+' '+p[2]); return parts.every(w=>h.includes(w)); }).sort((a,b)=>b[3]-a[3]).slice(0,12);
+  results = DB.filter(p=>matches(p,q)).sort((a,b)=>b[3]-a[3]).slice(0,12);
   sel = results.length?0:-1;
   const isBought = p => S.bought.some(b=>b.key===keyOf(p));
   $('#results').innerHTML = results.map((p0,i)=>{ const p=eff(p0); return `<div class="res ${i===sel?'sel':''}" data-i="${i}">
@@ -453,7 +626,7 @@ function search(q){
       <div class="n">${esc(p[1])}<small>${esc(p[2])}${isBought(p)?' · già preso':''}</small>
         <div class="meta-line">${p[7]?`<span class="${ratingCls(p[7])}">${p[7]}</span>`:''}${p[8]?`<span class="stars">${stars(p[8])}</span>`:''}${p[9]?`<span class="tag ${p[9]===1?'top':''}">${FASCIA[p[9]]}</span>`:''}${p[12]===2?'<span class="tag obj">Obiettivo</span>':''}${p.mine?'<span class="tag mine">mia</span>':''}</div></div>
       <span class="q">${p[3]}</span></div>`; }).join('') +
-    `<div class="res new"><span class="chip" style="background:var(--line);color:var(--muted)">+</span>
+    `<div class="res new"><span class="chip ghost-chip">+</span>
       <div class="n">Aggiungi «${esc(q)}» non in lista</div>
       <div class="roles">${ROLES.map(r=>`<button data-new="${r}">${r}</button>`).join('')}</div></div>`;
 }
@@ -466,19 +639,22 @@ function pick(p){
   const exist = S.wish.find(w=>w.key===p.key);
   const sugg = exist && exist.plan ? exist.plan : (rr.left>0 ? Math.round(rr.avg) : Math.round(c.avg));
   $('#picked').innerHTML = `<div class="picked">
-      <div class="who"><span class="chip ${p.role}">${p.role}</span>${esc(p.name)}<small>${esc(p.team||'')}</small></div>
-      <button class="x" data-unpick title="Chiudi">×</button>
+      <div class="who"><span class="chip ${p.role}">${p.role}</span><span class="nm">${esc(p.name)}</span><small>${esc(p.team||'')}</small></div>
+      <button class="x" data-unpick title="Chiudi">${ico('x')}</button>
       ${p.row?`<div class="meta">Qt.A <b>${p.row[3]}</b> · Qt.I <b>${p.row[4]}</b> · FVM <b>${p.row[5]}</b> · Mantra <b>${esc(p.row[6])}</b></div>
       <div class="meta meta-line">${p.row[7]?`Rating <span class="${ratingCls(p.row[7])}">${p.row[7]}</span>`:''}${p.row[8]?`<span class="stars">${stars(p.row[8])}</span>`:''}${p.row[9]?`<span class="tag ${p.row[9]===1?'top':''}">${FASCIA[p.row[9]]}</span>`:''}${p.row[10]?`<span class="tag">${TIT[p.row[10]]}</span>`:''}${p.row[11]?`<span class="tag">${RIG[p.row[11]]}</span>`:''}${p.row[12]===2?'<span class="tag obj">Obiettivo del socio</span>':''}${!p.row[7]&&!p.row[8]?'Non valutato nello studio':''}${p.row.mine?'<span class="tag mine">mia valutazione</span>':''}</div>`:''}
       <div class="meta">Suggerito per un ${RNAME[p.role].toLowerCase().replace(/i$/,'e')} <b>${rr.left>0?fmt(Math.max(1,rr.avg)):'ruolo completo'}</b> · max offerta <b>${fmt(Math.max(0,c.maxNow))}</b></div>
-      <div class="act"><input id="pPrice" type="number" min="1" step="1" value="${Math.max(1,sugg||1)}" aria-label="Prezzo"><button class="buy" data-buynow>Preso</button><button class="ghost" data-wish>${exist?'Aggiorna in lista':'In lista'}</button></div>
+      <div class="act">
+        <div class="stepper"><button type="button" data-step="-1" aria-label="Meno">${ico('minus')}</button><input id="pPrice" type="number" min="1" step="1" value="${Math.max(1,sugg||1)}" aria-label="Prezzo"><button type="button" data-step="1" aria-label="Più">${ico('plus')}</button></div>
+        <button class="buy" data-buynow>Preso</button><button class="ghost" data-wish>${exist?'Aggiorna in lista':'In lista'}</button>
+      </div>
       ${p.row?`<details class="study"${p.row.mine?' open':''}><summary>Valutazione personale ${p.row.mine?'· salvata':''}</summary>
         <div class="st-form">
-          <label>Rating<select id="eRating">${[0,1,2,3,4,5,6,7,8,9,10].map(n=>`<option value="${n}"${p.row[7]===n?' selected':''}>${n||'–'}</option>`).join('')}</select></label>
-          <label>Stelle<select id="eStars">${[0,1,2,3].map(n=>`<option value="${n}"${p.row[8]===n?' selected':''}>${n?'⭐'.repeat(n):'–'}</option>`).join('')}</select></label>
-          <label>Fascia<select id="eFascia">${FASCIA.map((f,i)=>`<option value="${i}"${p.row[9]===i?' selected':''}>${f||'–'}</option>`).join('')}</select></label>
-          <label>Titolare<select id="eTit">${TIT.map((f,i)=>`<option value="${i}"${p.row[10]===i?' selected':''}>${f||'–'}</option>`).join('')}</select></label>
-          <label>Rigori<select id="eRig">${RIG.map((f,i)=>`<option value="${i}"${p.row[11]===i?' selected':''}>${f||'–'}</option>`).join('')}</select></label>
+          <label>Rating<select class="sel" id="eRating">${[0,1,2,3,4,5,6,7,8,9,10].map(n=>`<option value="${n}"${p.row[7]===n?' selected':''}>${n||'–'}</option>`).join('')}</select></label>
+          <label>Stelle<select class="sel" id="eStars">${[0,1,2,3].map(n=>`<option value="${n}"${p.row[8]===n?' selected':''}>${n?'★'.repeat(n):'–'}</option>`).join('')}</select></label>
+          <label>Fascia<select class="sel" id="eFascia">${FASCIA.map((f,i)=>`<option value="${i}"${p.row[9]===i?' selected':''}>${f||'–'}</option>`).join('')}</select></label>
+          <label>Titolare<select class="sel" id="eTit">${TIT.map((f,i)=>`<option value="${i}"${p.row[10]===i?' selected':''}>${f||'–'}</option>`).join('')}</select></label>
+          <label>Rigori<select class="sel" id="eRig">${RIG.map((f,i)=>`<option value="${i}"${p.row[11]===i?' selected':''}>${f||'–'}</option>`).join('')}</select></label>
           <div class="st-act"><button class="buy" data-savestudy>Salva valutazione</button>${p.row.mine?'<button class="ghost" data-clearstudy>Torna ai valori del socio</button>':''}</div>
         </div></details>`:''}
     </div>`;
@@ -504,7 +680,7 @@ $('#q').addEventListener('input', e=>search(e.target.value));
 $('#q').addEventListener('keydown', e=>{
   if(e.key==='ArrowDown'&&results.length){ sel=(sel+1)%results.length; search($('#q').value); e.preventDefault(); }
   else if(e.key==='ArrowUp'&&results.length){ sel=(sel-1+results.length)%results.length; search($('#q').value); e.preventDefault(); }
-  else if(e.key==='Enter'){ if(sel>=0&&results[sel]) pick(fromDB(results[sel])); else if($('#q').value.trim().length>=2){ /* nessun match: chiedi ruolo cliccando */ } e.preventDefault(); }
+  else if(e.key==='Enter'){ if(sel>=0&&results[sel]) pick(fromDB(results[sel])); e.preventDefault(); }
   else if(e.key==='Escape'){ $('#results').innerHTML=''; }
 });
 $('#results').addEventListener('mousedown', e=>{
@@ -516,9 +692,11 @@ $('#results').addEventListener('mousedown', e=>{
 document.addEventListener('click', e=>{ if(!e.target.closest('.search')) $('#results').innerHTML=''; });
 
 $('#picked').addEventListener('click', e=>{
+  const st=e.target.closest('[data-step]'); if(st){ const i=$('#pPrice'); i.value=Math.max(1,(Math.round(+i.value)||0)+(+st.dataset.step)); return; }
   if(e.target.closest('[data-unpick]')){ picked=null; $('#picked').innerHTML=''; return; }
   if(e.target.closest('[data-savestudy]')){
     S.study[picked.key] = {rating:+$('#eRating').value, stars:+$('#eStars').value, fascia:+$('#eFascia').value, tit:+$('#eTit').value, rig:+$('#eRig').value};
+    if(S.stList[picked.key]===false) delete S.stList[picked.key]; // una valutazione mia lo rimette nello studio
     save(); render(); toast(`Valutazione di ${picked.name} salvata`); pick({...picked, row:eff(byKey[picked.key])}); return;
   }
   if(e.target.closest('[data-clearstudy]')){ delete S.study[picked.key]; save(); render(); toast('Ripristinati i valori del socio'); pick({...picked, row:eff(byKey[picked.key])}); return; }
@@ -541,7 +719,7 @@ $('#wishlist').addEventListener('change', e=>{
   const w=S.wish.find(x=>x.id===id); if(w){ w.plan=Math.max(0,Math.round(+e.target.value)||0); save(); render(); }
 });
 $('#wishlist').addEventListener('click', e=>{
-  const d=e.target.closest('[data-wdel]'); if(d){ S.wish=S.wish.filter(x=>x.id!==d.dataset.wdel); save(); render(); return; }
+  const d=e.target.closest('[data-wdel]'); if(d){ const w=S.wish.find(x=>x.id===d.dataset.wdel); S.wish=S.wish.filter(x=>x.id!==d.dataset.wdel); save(); render(); if(w) toast(`${w.name} tolto dagli obiettivi`,{label:'Annulla',fn:()=>{ S.wish.push(w); save(); render(); }}); return; }
   const b=e.target.closest('[data-wbuy]'); if(b){ const w=S.wish.find(x=>x.id===b.dataset.wbuy); if(w) pick({key:w.key,role:w.role,name:w.name,team:w.team,q:w.q,row:byKey[w.key]&&eff(byKey[w.key])}); }
 });
 
@@ -557,7 +735,7 @@ $('#btnBkCopy').addEventListener('click', async ()=>{ const t=JSON.stringify(S);
 $('#btnBkLoad').addEventListener('click', ()=>{
   try{ const o=JSON.parse($('#fBackup').value); if(!o||!o.slots) throw 0;
     if(!confirm('Sostituire rosa, lista e valutazioni con questo backup?')) return;
-    S=Object.assign(JSON.parse(JSON.stringify(DEF)), o); if(!S.study) S.study={}; save(); render(); dlg.close(); toast('Backup caricato');
+    S=Object.assign(JSON.parse(JSON.stringify(DEF)), o); if(!S.study) S.study={}; if(!S.stList) S.stList={}; save(); render(); dlg.close(); toast('Backup caricato');
   }catch(e){ toast('Testo non valido: incolla un backup copiato da FantAsta'); }
 });
 $('#btnSave').addEventListener('click', ()=>{
@@ -597,35 +775,65 @@ window.addEventListener('beforeprint', buildPrint);
 function scrollToPicked(){ const el=$('#picked'); if(el) el.scrollIntoView({behavior:'smooth',block:'center'}); }
 
 /* ---------- studio ---------- */
-const F = {role:'', stars:0, fascia:0, rated:true, limit:60};
+const F = {role:'', stars:0, fascia:0, mine:true, sort:'rating', q:''};
+const socioRated = p => !!(p[7]||p[8]||p[9]||p[12]===2);
+// nello studio: valutato dal socio o da me, oppure aggiunto a mano; mai se l'ho rimosso
+function inStudio(p){ const v=S.stList[keyOf(p)]; if(v===true) return true; if(v===false) return false; return socioRated(p) || !!S.study[keyOf(p)]; }
+function stAdd(k){ const p=byKey[k]; if(socioRated(p)||S.study[k]) delete S.stList[k]; else S.stList[k]=true; }
+function stRemove(k){ const p=byKey[k]; if(socioRated(p)||S.study[k]) S.stList[k]=false; else delete S.stList[k]; }
+const SORTS = {
+  rating:(a,b)=>(b[7]-a[7])||(b[8]-a[8])||(b[3]-a[3]),
+  qa:(a,b)=>(b[3]-a[3])||(b[7]-a[7]),
+  fvm:(a,b)=>(b[5]-a[5])||(b[3]-a[3]),
+  name:(a,b)=>a[1].localeCompare(b[1],'it'),
+  team:(a,b)=>a[2].localeCompare(b[2],'it')||ROLES.indexOf(a[0])-ROLES.indexOf(b[0])||(b[3]-a[3]),
+};
 function renderStudio(){
-  let list = DB.map(eff).filter(p => (!F.role||p[0]===F.role) && p[8]>=F.stars && (!F.fascia||p[9]===F.fascia) && (!F.rated || p[7]||p[8]||p[9]||p[12]===2));
-  list.sort((a,b)=> (b[7]-a[7]) || (b[8]-a[8]) || (b[3]-a[3]));
-  const total=list.length; list=list.slice(0,F.limit);
+  const searching = F.q.trim().length>=2;
+  let list = DB.map(eff).filter(p => (!F.role||p[0]===F.role) && p[8]>=F.stars && (!F.fascia||p[9]===F.fascia));
+  // con una ricerca attiva si guarda tutto il listone, così si può aggiungere chi manca
+  if(searching) list = list.filter(p=>matches(p,F.q)); else if(F.mine) list = list.filter(inStudio);
+  list.sort(SORTS[F.sort]||SORTS.rating);
   const inWish = k => S.wish.some(w=>w.key===k), inRosa = k => S.bought.some(b=>b.key===k);
-  const mine = Object.keys(S.study).length; $('#stSub').textContent = `${total} giocatori${mine?' · '+mine+' valutati da te':''}`;
+  const mine = Object.keys(S.study).length, added = Object.values(S.stList).filter(v=>v===true).length, removed = Object.values(S.stList).filter(v=>v===false).length;
+  const tot = DB.filter(inStudio).length;
+  $('#stSub').textContent = (searching||!F.mine ? `${list.length} nel listone · ` : '') + `${tot} in lista` + (mine?` · ${mine} valutati da te`:'') + (added?` · ${added} aggiunti`:'') + (removed?` · ${removed} rimossi`:'');
+  $('#stQClr').hidden = !F.q;
   $('#stTable').innerHTML = `<div class="st-head"><span></span><span>Giocatore</span><span class="hide-m">Valutazione</span><span>Rating</span><span>Qt.A</span><span></span></div>` +
-    list.map(p=>{ const k=keyOf(p);
+    (list.length ? list.map(p=>{ const k=keyOf(p); const inst=inStudio(p); const isAdded=S.stList[k]===true;
+      const tags = `${p[8]?`<span class="stars">${stars(p[8])}</span>`:''}${p[9]?`<span class="tag ${p[9]===1?'top':''}">${FASCIA[p[9]]}</span>`:''}`;
+      const tagsFull = tags + `${p[10]===1?'<span class="tag">Tit.</span>':''}${p[11]===1?'<span class="tag">Rig.</span>':''}${p[12]===2?'<span class="tag obj">Obiettivo</span>':''}${p.mine?'<span class="tag mine">mia</span>':''}${isAdded?'<span class="tag add">aggiunto</span>':''}`;
+      const membership = inst
+        ? `<button class="iconbtn icon" data-strm="${k}" title="Togli dalla mia lista">${ico('x')}</button>`
+        : `<button class="iconbtn icon" data-stadd="${k}" title="Aggiungi alla mia lista">${ico('plus')}</button>`;
+      const status = inRosa(k) ? '<span class="done">in rosa</span>'
+        : (inWish(k) ? `<button class="iconbtn icon on" title="Già negli obiettivi" disabled>${ico('target')}</button>` : `<button class="iconbtn icon" data-stw="${k}" title="Metti negli obiettivi">${ico('target')}</button>`) + `<button class="buy" data-stb="${k}">Preso</button>`;
       return `<div>
-        <span class="chip ${p[0]}">${p[0]}</span>
-        <div class="n" data-open="${k}" role="button" tabindex="0">${esc(p[1])}<small>${esc(p[2])}</small><div class="meta-line show-m">${p[8]?`<span class="stars">${stars(p[8])}</span>`:''}${p[9]?`<span class="tag ${p[9]===1?'top':''}">${FASCIA[p[9]]}</span>`:''}${p.mine?'<span class="tag mine">mia</span>':''}</div></div>
-        <div class="meta-line hide-m">${p[8]?`<span class="stars">${stars(p[8])}</span>`:''}${p[9]?`<span class="tag ${p[9]===1?'top':''}">${FASCIA[p[9]]}</span>`:''}${p[10]===1?'<span class="tag">Tit.</span>':''}${p[11]===1?'<span class="tag">Rig.</span>':''}${p[12]===2?'<span class="tag obj">Obiettivo</span>':''}${p.mine?'<span class="tag mine">mia</span>':''}</div>
+        <span class="cc"><span class="chip ${p[0]}">${p[0]}</span></span>
+        <div class="n" data-open="${k}" role="button" tabindex="0">${esc(p[1])}<small>${esc(p[2])}</small><div class="meta-line show-m">${tags}${p.mine?'<span class="tag mine">mia</span>':''}${isAdded?'<span class="tag add">aggiunto</span>':''}</div></div>
+        <div class="meta-line hide-m">${tagsFull}</div>
         <span>${p[7]?`<span class="${ratingCls(p[7])}">${p[7]}</span>`:'<span class="rating">–</span>'}</span>
         <span class="qa">${p[3]}</span>
-        <div class="act">${inRosa(k)?'<span class="done">in rosa</span>':(inWish(k)?'<span class="done">in lista ✓</span>':`<button class="ghost" data-stw="${k}" title="Metti in lista">+<span class="hide-m"> lista</span></button>`)+`<button class="buy" data-stb="${k}">Preso</button>`}</div>
-      </div>`; }).join('') +
-    (total>F.limit ? `<div><button class="ghost more" style="grid-column:1/-1" data-more>Mostra altri ${Math.min(60,total-F.limit)} (${total-F.limit} rimasti)</button></div>`:'');
+        <div class="act">${status}${membership}</div>
+      </div>`; }).join('')
+    : `<div><div class="st-empty">${searching?'Nessun giocatore trovato nel listone.':(F.mine?'La tua lista è vuota con questi filtri. Cerca un nome qui sopra per aggiungere giocatori.':'Nessun giocatore con questi filtri.')}</div></div>`);
 }
-$('#fRole').addEventListener('click', e=>{ const b=e.target.closest('[data-r]'); if(!b) return; F.role=b.dataset.r; F.limit=60; [...$('#fRole').children].forEach(x=>x.classList.toggle('on',x===b)); renderStudio(); });
-$('#fStars').addEventListener('change', e=>{ F.stars=+e.target.value; F.limit=60; renderStudio(); });
-$('#fFascia').addEventListener('change', e=>{ F.fascia=+e.target.value; F.limit=60; renderStudio(); });
-$('#fRated').addEventListener('change', e=>{ F.rated=e.target.checked; F.limit=60; renderStudio(); });
+$('#fRole').addEventListener('click', e=>{ const b=e.target.closest('[data-r]'); if(!b) return; F.role=b.dataset.r; [...$('#fRole').children].forEach(x=>x.classList.toggle('on',x===b)); renderStudio(); });
+$('#fStars').addEventListener('change', e=>{ F.stars=+e.target.value; renderStudio(); });
+$('#fFascia').addEventListener('change', e=>{ F.fascia=+e.target.value; renderStudio(); });
+$('#fSort').addEventListener('change', e=>{ F.sort=e.target.value; renderStudio(); });
+$('#fRated').addEventListener('change', e=>{ F.mine=e.target.checked; renderStudio(); });
+$('#stQ').addEventListener('input', e=>{ F.q=e.target.value; renderStudio(); });
+$('#stQ').addEventListener('keydown', e=>{ if(e.key==='Escape'){ F.q=''; e.target.value=''; renderStudio(); } });
+$('#stQClr').addEventListener('click', ()=>{ F.q=''; $('#stQ').value=''; renderStudio(); $('#stQ').focus(); });
 $('#stTable').addEventListener('click', e=>{
-  if(e.target.closest('[data-more]')){ F.limit+=60; renderStudio(); return; }
+  const a=e.target.closest('[data-stadd]'); if(a){ const k=a.dataset.stadd; stAdd(k); save(); renderStudio(); toast(`${byKey[k][1]} aggiunto alla tua lista`,{label:'Annulla',fn:()=>{ stRemove(k); save(); renderStudio(); }}); return; }
+  const rm=e.target.closest('[data-strm]'); if(rm){ const k=rm.dataset.strm; stRemove(k); save(); renderStudio(); toast(`${byKey[k][1]} tolto dalla tua lista`,{label:'Annulla',fn:()=>{ stAdd(k); save(); renderStudio(); }}); return; }
   const w=e.target.closest('[data-stw]'); if(w){ const p=byKey[w.dataset.stw]; toWish(fromDB(p), p[3]); return; }
   const b=e.target.closest('[data-stb]'); if(b){ pick(fromDB(byKey[b.dataset.stb])); scrollToPicked(); return; }
   const o=e.target.closest('[data-open]'); if(o){ pick(fromDB(byKey[o.dataset.open])); scrollToPicked(); }
 });
+$('#stTable').addEventListener('keydown', e=>{ if(e.key==='Enter'){ const o=e.target.closest('[data-open]'); if(o){ pick(fromDB(byKey[o.dataset.open])); scrollToPicked(); } } });
 $('#btnObj').addEventListener('click', ()=>{
   const objs = DB.filter(p=>p[12]===2 && !S.wish.some(w=>w.key===keyOf(p)) && !S.bought.some(b=>b.key===keyOf(p)));
   if(!objs.length){ toast('Gli obiettivi del socio sono già tutti in lista'); return; }
@@ -635,5 +843,22 @@ $('#btnObj').addEventListener('click', ()=>{
 const _render = render; render = function(){ _render(); renderStudio(); };
 $('#btnObj').textContent = `Metti in lista gli Obiettivi (${DB.filter(p=>p[12]===2).length})`;
 $('#dbCount').textContent = DB.length+' giocatori';
+
+/* ---------- testata e dock ---------- */
+const hdr = document.querySelector('header');
+function setHdr(){ document.documentElement.style.setProperty('--hdr', hdr.offsetHeight + 'px'); }
+new ResizeObserver(setHdr).observe(hdr); setHdr();
+document.querySelector('.dock').addEventListener('click', e=>{
+  const b=e.target.closest('[data-go]'); if(!b) return;
+  document.getElementById(b.dataset.go).scrollIntoView({behavior:'smooth',block:'start'});
+});
+const dockBtns = [...document.querySelectorAll('.dock [data-go]')];
+const io = new IntersectionObserver(entries=>{
+  const vis = entries.filter(x=>x.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+  if(!vis) return;
+  dockBtns.forEach(b=>b.classList.toggle('on', b.dataset.go===vis.target.id));
+},{rootMargin:'-40% 0px -50% 0px',threshold:[0,.1,.5,1]});
+['secRosa','secCerca','secObiettivi','secStudio'].forEach(id=>io.observe(document.getElementById(id)));
+
 render();
 </script>
