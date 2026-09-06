@@ -238,10 +238,12 @@ details.study[open] summary::before{transform:rotate(45deg)}
 .st-search input::-webkit-search-cancel-button{-webkit-appearance:none}
 .st-search .clr{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:26px;height:26px}
 .st-search .clr svg.i{width:14px;height:14px}
-.st-table{display:grid;grid-template-columns:24px minmax(0,1.4fr) minmax(0,1fr) auto auto auto;gap:0;align-items:center;padding:0 20px 16px}
+.st-table{display:grid;grid-template-columns:auto minmax(0,1.4fr) minmax(0,1fr) auto auto auto;gap:0;align-items:center;padding:0 20px 16px}
 .st-table > div{display:contents}
 .st-table > div > *{padding:7px 10px 7px 0;border-top:1px solid var(--hair);align-self:stretch;display:flex;align-items:center}
-.st-table > div > .n{display:block}
+.st-table > div > .cc{padding-right:12px}
+.st-table > div > .n{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:2px}
+.st-table .n .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .st-table > div > .qa{justify-content:flex-end}
 .st-table > div > .act{padding-right:0}
 .st-table .n{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;cursor:pointer}
@@ -316,8 +318,10 @@ footer{max-width:1360px;margin:0 auto;padding:6px 20px 32px;font-size:12px;color
   .seg button{padding:6px 10px;font-size:12px}
   .filters .sel{font-size:12px;padding:6px 26px 6px 10px}
   .st-search{flex-basis:100%}
-  .st-table{grid-template-columns:24px minmax(0,1fr) auto auto auto;padding:0 12px 12px}.st-table > div > *{padding-right:8px}
+  .st-table{grid-template-columns:auto minmax(0,1fr) auto auto auto;padding:0 12px 12px}.st-table > div > *{padding-right:8px}
   .meta-line.show-m{display:flex;margin-top:2px}
+  .st-table .n .nm{white-space:normal;line-height:1.25}
+  .st-table .n .nm small{white-space:nowrap}
   .st-table .act .buy{padding:6px 9px}
   .st-table .act{gap:2px}
   .picked{padding:12px}
@@ -423,7 +427,7 @@ footer{max-width:1360px;margin:0 auto;padding:6px 20px 32px;font-size:12px;color
   </aside>
 
   <section class="panel glass studio" id="secStudio">
-    <div class="panel-h"><h2>Studio del socio</h2><span class="sub" id="stSub"></span></div>
+    <div class="panel-h"><h2>Le mie valutazioni</h2><span class="sub" id="stSub"></span></div>
     <div class="filters">
       <div class="seg" id="fRole"><button data-r="" class="on">Tutti</button><button data-r="P">P</button><button data-r="D">D</button><button data-r="C">C</button><button data-r="A">A</button></div>
       <select class="sel" id="fStars"><option value="0">Tutte le stelle</option><option value="1">★ e oltre</option><option value="2">★★ e oltre</option><option value="3">solo ★★★</option></select>
@@ -447,7 +451,7 @@ footer{max-width:1360px;margin:0 auto;padding:6px 20px 32px;font-size:12px;color
   <button data-go="secRosa" class="on"><svg class="i"><use href="#i-shirt"/></svg>Rosa</button>
   <button data-go="secCerca"><svg class="i"><use href="#i-search"/></svg>Cerca</button>
   <button data-go="secObiettivi"><svg class="i"><use href="#i-target"/></svg>Obiettivi</button>
-  <button data-go="secStudio"><svg class="i"><use href="#i-list"/></svg>Studio</button>
+  <button data-go="secStudio"><svg class="i"><use href="#i-list"/></svg>Valutazioni</button>
 </nav>
 
 <div id="printView"></div>
@@ -824,7 +828,7 @@ function renderStudio(){
         : (inWish(k) ? `<button class="iconbtn icon on" title="Già negli obiettivi" disabled>${ico('target')}</button>` : `<button class="iconbtn icon" data-stw="${k}" title="Metti negli obiettivi">${ico('target')}</button>`) + `<button class="buy" data-stb="${k}">Preso</button>`;
       return `<div>
         <span class="cc"><span class="chip ${p[0]}">${p[0]}</span></span>
-        <div class="n" data-open="${k}" role="button" tabindex="0">${esc(p[1])}<small>${esc(p[2])}</small><div class="meta-line show-m">${tags}${p.mine?'<span class="tag mine">mia</span>':''}${isAdded?'<span class="tag add">aggiunto</span>':''}</div></div>
+        <div class="n" data-open="${k}" role="button" tabindex="0"><span class="nm">${esc(p[1])}<small>${esc(p[2])}</small></span><div class="meta-line show-m">${tags}${p.mine?'<span class="tag mine">mia</span>':''}${isAdded?'<span class="tag add">aggiunto</span>':''}</div></div>
         <div class="meta-line hide-m">${tagsFull}</div>
         <span>${p[7]?`<span class="${ratingCls(p[7])}">${p[7]}</span>`:'<span class="rating">–</span>'}</span>
         <span class="qa">${p[3]}</span>
