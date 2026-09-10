@@ -659,7 +659,7 @@ function search(q){
   $('#results').innerHTML = results.map((p0,i)=>{ const p=eff(p0); return `<div class="res ${i===sel?'sel':''}" data-i="${i}">
       <span class="chip ${p[0]}">${p[0]}</span>
       <div class="n">${esc(p[1])}<small>${esc(p[2])}${isBought(p)?' · già preso':''}</small>
-        <div class="meta-line">${p[7]?`<span class="${ratingCls(p[7])}">${p[7]}</span>`:''}${p[8]?`<span class="stars">${stars(p[8])}</span>`:''}${p[9]?`<span class="tag ${p[9]===1?'top':''}">${FASCIA[p[9]]}</span>`:''}${p[12]===2?'<span class="tag obj">Obiettivo</span>':''}${p.mine?'<span class="tag mine">mia</span>':''}</div></div>
+        <div class="meta-line">${p[7]?`<span class="${ratingCls(p[7])}">${p[7]}</span>`:''}${p[8]?`<span class="stars">${stars(p[8])}</span>`:''}${p[9]?`<span class="tag ${p[9]===1?'top':''}">${FASCIA[p[9]]}</span>`:''}${p[12]===2?'<span class="tag obj">Obiettivo</span>':''}</div></div>
       <span class="q">${p[3]}</span></div>`; }).join('') +
     `<div class="res new"><span class="chip ghost-chip">+</span>
       <div class="n">Aggiungi «${esc(q)}» non in lista</div>
@@ -683,7 +683,7 @@ function pick(p, mode){
       <div class="who"><span class="chip ${p.role}">${p.role}</span><span class="nm">${esc(p.name)}</span><small>${esc(p.team||'')}</small></div>
       <button class="x" data-unpick title="Chiudi">${ico('x')}</button>
       ${p.row?`<div class="meta">Qt.A <b>${p.row[3]}</b> · Qt.I <b>${p.row[4]}</b> · FVM <b>${p.row[5]}</b> · Mantra <b>${esc(p.row[6])}</b></div>
-      <div class="meta meta-line">${p.row[7]?`Rating <span class="${ratingCls(p.row[7])}">${p.row[7]}</span>`:''}${p.row[8]?`<span class="stars">${stars(p.row[8])}</span>`:''}${p.row[9]?`<span class="tag ${p.row[9]===1?'top':''}">${FASCIA[p.row[9]]}</span>`:''}${p.row[10]?`<span class="tag">${TIT[p.row[10]]}</span>`:''}${p.row[11]?`<span class="tag">${RIG[p.row[11]]}</span>`:''}${p.row[12]===2?'<span class="tag obj">Obiettivo del socio</span>':''}${!p.row[7]&&!p.row[8]?'Non valutato nello studio':''}${p.row.mine?'<span class="tag mine">mia valutazione</span>':''}</div>`:''}
+      <div class="meta meta-line">${p.row[7]?`Rating <span class="${ratingCls(p.row[7])}">${p.row[7]}</span>`:''}${p.row[8]?`<span class="stars">${stars(p.row[8])}</span>`:''}${p.row[9]?`<span class="tag ${p.row[9]===1?'top':''}">${FASCIA[p.row[9]]}</span>`:''}${p.row[10]?`<span class="tag">${TIT[p.row[10]]}</span>`:''}${p.row[11]?`<span class="tag">${RIG[p.row[11]]}</span>`:''}${p.row[12]===2?'<span class="tag obj">Obiettivo del socio</span>':''}${!p.row[7]&&!p.row[8]?'Non valutato nello studio':''}</div>`:''}
       <div class="meta">Budget ${RNAME[p.role].toLowerCase()}: ${rr.rem<0?'<b style="color:var(--bad)">superato di '+fmt(-rr.rem)+'</b>':'restano <b>'+fmt(rr.rem)+'</b> su '+fmt(rr.budget)}${rr.left<=0?' · <b>reparto completo</b>':' · '+rr.left+' da prendere'} · max offerta <b>${fmt(Math.max(0,c.maxNow))}</b></div>
       <div class="act">
         <div class="stepper"><button type="button" data-step="-1" aria-label="Meno">${ico('minus')}</button><input id="pPrice" type="number" min="1" step="1" value="${Math.max(1,sugg||1)}" aria-label="Prezzo"><button type="button" data-step="1" aria-label="Più">${ico('plus')}</button></div>
@@ -876,7 +876,7 @@ function renderStudio(){
     (list.length ? list.map(p=>{ const k=keyOf(p); const inst=inStudio(p); const isAdded=S.stList[k]===true;
       const fascia = p[9]?`<span class="tag ${p[9]===1?'top':''}">${FASCIA[p[9]]}</span>`:'';
       const tags = `${p[8]?`<span class="stars">${stars(p[8])}</span>`:''}${fascia}`;
-      const tagsFull = `${p[8]?`<span class="stars">${stars(p[8])}</span>`:''}` + `${p[10]===1?'<span class="tag">Tit.</span>':''}${p[11]===1?'<span class="tag">Rig.</span>':''}${p[12]===2?'<span class="tag obj">Obiettivo</span>':''}${p.mine?'<span class="tag mine">mia</span>':''}${isAdded?'<span class="tag add">aggiunto</span>':''}`;
+      const tagsFull = `${p[8]?`<span class="stars">${stars(p[8])}</span>`:''}` + `${p[10]===1?'<span class="tag">Tit.</span>':''}${p[11]===1?'<span class="tag">Rig.</span>':''}${p[12]===2?'<span class="tag obj">Obiettivo</span>':''}${isAdded?'<span class="tag add">aggiunto</span>':''}`;
       const membership = inst
         ? `<button class="iconbtn icon" data-strm="${k}" title="Togli dalla mia lista">${ico('x')}</button>`
         : `<button class="iconbtn icon" data-stadd="${k}" title="Aggiungi alla mia lista">${ico('plus')}</button>`;
@@ -884,7 +884,7 @@ function renderStudio(){
         : (inWish(k) ? `<button class="iconbtn icon on" title="Già negli obiettivi" disabled>${ico('target')}</button>` : `<button class="iconbtn icon" data-stw="${k}" title="Metti negli obiettivi">${ico('target')}</button>`) + `<button class="buy" data-stb="${k}">Preso</button>`;
       return `<div>
         <span class="cc"><span class="chip ${p[0]}">${p[0]}</span></span>
-        <div class="n" data-open="${k}" role="button" tabindex="0"><span class="nm">${esc(p[1])}<small>${esc(p[2])}</small></span><div class="meta-line show-m">${tags}${p.mine?'<span class="tag mine">mia</span>':''}${isAdded?'<span class="tag add">aggiunto</span>':''}</div></div>
+        <div class="n" data-open="${k}" role="button" tabindex="0"><span class="nm">${esc(p[1])}<small>${esc(p[2])}</small></span><div class="meta-line show-m">${tags}${isAdded?'<span class="tag add">aggiunto</span>':''}</div></div>
         <div class="meta-line hide-m">${tagsFull}</div>
         <span class="hide-m">${fascia||'<span class="tag" style="opacity:.4">–</span>'}</span>
         <span>${p[7]?`<span class="${ratingCls(p[7])}">${p[7]}</span>`:'<span class="rating">–</span>'}</span>
