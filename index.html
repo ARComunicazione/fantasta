@@ -240,7 +240,7 @@ details.study[open] summary::before{transform:rotate(45deg)}
 .st-search input::-webkit-search-cancel-button{-webkit-appearance:none}
 .st-search .clr{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:26px;height:26px}
 .st-search .clr svg.i{width:14px;height:14px}
-.st-table{display:grid;grid-template-columns:auto minmax(0,1.4fr) minmax(0,1fr) auto auto auto;gap:0;align-items:center;padding:0 20px 16px}
+.st-table{display:grid;grid-template-columns:auto minmax(0,1.4fr) minmax(0,1fr) auto auto auto auto;gap:0;align-items:center;padding:0 20px 16px}
 .st-table > div{display:contents}
 .st-table > div > *{padding:7px 10px 7px 0;border-top:1px solid var(--hair);align-self:stretch;display:flex;align-items:center}
 .st-table > div > .cc{padding-right:12px}
@@ -441,7 +441,7 @@ footer{max-width:1360px;margin:0 auto;padding:6px 20px 32px;font-size:12px;color
       <div class="seg" id="fRole"><button data-r="" class="on">Tutti</button><button data-r="P">P</button><button data-r="D">D</button><button data-r="C">C</button><button data-r="A">A</button></div>
       <select class="sel" id="fStars"><option value="0">Tutte le stelle</option><option value="1">★ e oltre</option><option value="2">★★ e oltre</option><option value="3">solo ★★★</option></select>
       <select class="sel" id="fFascia"><option value="0">Tutte le fasce</option><option value="1">Top</option><option value="2">1ª fascia</option><option value="3">2ª fascia</option><option value="4">Scommessa</option><option value="5">Low cost</option></select>
-      <select class="sel" id="fSort"><option value="rating">Per rating</option><option value="stars">Per valutazione</option><option value="qa">Per Qt.A</option><option value="fvm">Per FVM</option><option value="name">Per nome</option><option value="team">Per squadra</option></select>
+      <select class="sel" id="fSort"><option value="rating">Per rating</option><option value="stars">Per valutazione</option><option value="fascia">Per fascia</option><option value="qa">Per Qt.A</option><option value="fvm">Per FVM</option><option value="name">Per nome</option><option value="team">Per squadra</option></select>
       <label class="switch"><input type="checkbox" id="fRated" checked><span class="tr"></span>Solo la mia lista</label>
       <span class="sp"></span>
       <div class="st-search">
@@ -847,6 +847,8 @@ const SORTS = {
   rating:(a,b)=>(b[7]-a[7])||(b[8]-a[8])||(b[3]-a[3]),
   // valutazione: più stelle prima, poi fascia migliore (Top=1), poi rating e quotazione
   stars:(a,b)=>(b[8]-a[8])||((a[9]||9)-(b[9]||9))||(b[7]-a[7])||(b[3]-a[3]),
+  // fascia: Top, 1ª, 2ª, Scommessa, Low cost, poi chi non ha fascia; a parità stelle, rating e quotazione
+  fascia:(a,b)=>((a[9]||9)-(b[9]||9))||(b[8]-a[8])||(b[7]-a[7])||(b[3]-a[3]),
   qa:(a,b)=>(b[3]-a[3])||(b[7]-a[7]),
   fvm:(a,b)=>(b[5]-a[5])||(b[3]-a[3]),
   name:(a,b)=>a[1].localeCompare(b[1],'it'),
@@ -868,10 +870,11 @@ function renderStudio(){
   const tot = DB.filter(inStudio).length;
   $('#stSub').textContent = (searching||!F.mine ? `${list.length} nel listone · ` : '') + `${tot} in lista` + (mine?` · ${mine} valutati da te`:'') + (added?` · ${added} aggiunti`:'') + (removed?` · ${removed} rimossi`:'');
   $('#stQClr').hidden = !F.q;
-  $('#stTable').innerHTML = `<div class="st-head"><span></span><span class="sortable${F.sort==='name'?' on':''}" data-sort="name" role="button" tabindex="0" title="Ordina per nome">Giocatore</span><span class="hide-m sortable${F.sort==='stars'?' on':''}" data-sort="stars" role="button" tabindex="0" title="Ordina per valutazione">Valutazione</span><span class="sortable${F.sort==='rating'?' on':''}" data-sort="rating" role="button" tabindex="0" title="Ordina per rating">Rating</span><span class="sortable${F.sort==='qa'?' on':''}" data-sort="qa" role="button" tabindex="0" title="Ordina per quotazione">Qt.A</span><span></span></div>` +
+  $('#stTable').innerHTML = `<div class="st-head"><span></span><span class="sortable${F.sort==='name'?' on':''}" data-sort="name" role="button" tabindex="0" title="Ordina per nome">Giocatore</span><span class="hide-m sortable${F.sort==='stars'?' on':''}" data-sort="stars" role="button" tabindex="0" title="Ordina per valutazione">Valutazione</span><span class="hide-m sortable${F.sort==='fascia'?' on':''}" data-sort="fascia" role="button" tabindex="0" title="Ordina per fascia">Fascia</span><span class="sortable${F.sort==='rating'?' on':''}" data-sort="rating" role="button" tabindex="0" title="Ordina per rating">Rating</span><span class="sortable${F.sort==='qa'?' on':''}" data-sort="qa" role="button" tabindex="0" title="Ordina per quotazione">Qt.A</span><span></span></div>` +
     (list.length ? list.map(p=>{ const k=keyOf(p); const inst=inStudio(p); const isAdded=S.stList[k]===true;
-      const tags = `${p[8]?`<span class="stars">${stars(p[8])}</span>`:''}${p[9]?`<span class="tag ${p[9]===1?'top':''}">${FASCIA[p[9]]}</span>`:''}`;
-      const tagsFull = tags + `${p[10]===1?'<span class="tag">Tit.</span>':''}${p[11]===1?'<span class="tag">Rig.</span>':''}${p[12]===2?'<span class="tag obj">Obiettivo</span>':''}${p.mine?'<span class="tag mine">mia</span>':''}${isAdded?'<span class="tag add">aggiunto</span>':''}`;
+      const fascia = p[9]?`<span class="tag ${p[9]===1?'top':''}">${FASCIA[p[9]]}</span>`:'';
+      const tags = `${p[8]?`<span class="stars">${stars(p[8])}</span>`:''}${fascia}`;
+      const tagsFull = `${p[8]?`<span class="stars">${stars(p[8])}</span>`:''}` + `${p[10]===1?'<span class="tag">Tit.</span>':''}${p[11]===1?'<span class="tag">Rig.</span>':''}${p[12]===2?'<span class="tag obj">Obiettivo</span>':''}${p.mine?'<span class="tag mine">mia</span>':''}${isAdded?'<span class="tag add">aggiunto</span>':''}`;
       const membership = inst
         ? `<button class="iconbtn icon" data-strm="${k}" title="Togli dalla mia lista">${ico('x')}</button>`
         : `<button class="iconbtn icon" data-stadd="${k}" title="Aggiungi alla mia lista">${ico('plus')}</button>`;
@@ -881,6 +884,7 @@ function renderStudio(){
         <span class="cc"><span class="chip ${p[0]}">${p[0]}</span></span>
         <div class="n" data-open="${k}" role="button" tabindex="0"><span class="nm">${esc(p[1])}<small>${esc(p[2])}</small></span><div class="meta-line show-m">${tags}${p.mine?'<span class="tag mine">mia</span>':''}${isAdded?'<span class="tag add">aggiunto</span>':''}</div></div>
         <div class="meta-line hide-m">${tagsFull}</div>
+        <span class="hide-m">${fascia||'<span class="tag" style="opacity:.4">–</span>'}</span>
         <span>${p[7]?`<span class="${ratingCls(p[7])}">${p[7]}</span>`:'<span class="rating">–</span>'}</span>
         <span class="qa">${p[3]}</span>
         <div class="act">${status}${membership}</div>
