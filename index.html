@@ -451,13 +451,13 @@ footer{max-width:1360px;margin:0 auto;padding:6px 20px 32px;font-size:12px;color
         <input id="stQ" type="search" placeholder="Cerca nel listone o aggiungi alla lista…" autocomplete="off" spellcheck="false">
         <button class="x clr" id="stQClr" title="Pulisci" hidden><svg class="i"><use href="#i-x"/></svg></button>
       </div>
-      <button class="ghost" id="btnObj">Metti in lista gli Obiettivi</button>
+      <button class="ghost" id="btnObj">Importa gli obiettivi del file</button>
       <button class="ghost" id="btnCsv" title="Scarica la lista come la vedi, filtri compresi"><svg class="i"><use href="#i-download"/></svg> CSV</button>
     </div>
     <div class="st-table" id="stTable"></div>
   </section>
 </main>
-<footer>Listone ufficiale Fantacalcio.it (Qt.A, Qt.I, FVM, ruoli Mantra) e studio personale dal file «Fantacalcio 26/27» del socio. I dati dell'asta restano salvati in questo browser: da Impostazioni puoi esportarli in un file e importarli su un altro dispositivo.</footer>
+<footer>Listone ufficiale Fantacalcio.it (Qt.A, Qt.I, FVM, ruoli Mantra) e le mie valutazioni importate dal file «Fantacalcio 26/27». I dati dell'asta restano salvati in questo browser: da Impostazioni puoi esportarli in un file e importarli su un altro dispositivo.</footer>
 
 <nav class="dock" aria-label="Sezioni">
   <button data-go="secRosa" class="on"><svg class="i"><use href="#i-shirt"/></svg>Rosa</button>
@@ -522,7 +522,7 @@ const stars = n => n ? '★'.repeat(n) : '';
 const ratingCls = r => r>=9?'rating hi':(r>=7?'rating mid':'rating');
 const ico = (n,cls='') => `<svg class="i ${cls}"><use href="#i-${n}"/></svg>`;
 const byKey = {};
-// riga effettiva: dati del socio + valutazione personale (S.study[key] = {rating,stars,fascia,tit,rig})
+// riga effettiva: valori del file + modifiche fatte qui (S.study[key] = {rating,stars,fascia,tit,rig})
 function eff(p){ const o = S.study['fc'+p[13]]; if(!o) return p; const q = p.slice(); q[7]=o.rating??p[7]; q[8]=o.stars??p[8]; q[9]=o.fascia??p[9]; q[10]=o.tit??p[10]; q[11]=o.rig??p[11]; q.mine=true; return q; }
 
 const RNAME = {P:'Portieri',D:'Difensori',C:'Centrocampisti',A:'Attaccanti'};
@@ -683,20 +683,20 @@ function pick(p, mode){
       <div class="who"><span class="chip ${p.role}">${p.role}</span><span class="nm">${esc(p.name)}</span><small>${esc(p.team||'')}</small></div>
       <button class="x" data-unpick title="Chiudi">${ico('x')}</button>
       ${p.row?`<div class="meta">Qt.A <b>${p.row[3]}</b> · Qt.I <b>${p.row[4]}</b> · FVM <b>${p.row[5]}</b> · Mantra <b>${esc(p.row[6])}</b></div>
-      <div class="meta meta-line">${p.row[7]?`Rating <span class="${ratingCls(p.row[7])}">${p.row[7]}</span>`:''}${p.row[8]?`<span class="stars">${stars(p.row[8])}</span>`:''}${p.row[9]?`<span class="tag ${p.row[9]===1?'top':''}">${FASCIA[p.row[9]]}</span>`:''}${p.row[10]?`<span class="tag">${TIT[p.row[10]]}</span>`:''}${p.row[11]?`<span class="tag">${RIG[p.row[11]]}</span>`:''}${S.wish.some(w=>w.key===p.key)?'<span class="tag obj">Obiettivo</span>':''}${!p.row[7]&&!p.row[8]?'Non valutato nello studio':''}</div>`:''}
+      <div class="meta meta-line">${p.row[7]?`Rating <span class="${ratingCls(p.row[7])}">${p.row[7]}</span>`:''}${p.row[8]?`<span class="stars">${stars(p.row[8])}</span>`:''}${p.row[9]?`<span class="tag ${p.row[9]===1?'top':''}">${FASCIA[p.row[9]]}</span>`:''}${p.row[10]?`<span class="tag">${TIT[p.row[10]]}</span>`:''}${p.row[11]?`<span class="tag">${RIG[p.row[11]]}</span>`:''}${S.wish.some(w=>w.key===p.key)?'<span class="tag obj">Obiettivo</span>':''}${!p.row[7]&&!p.row[8]?'Non ancora valutato':''}</div>`:''}
       <div class="meta">Budget ${RNAME[p.role].toLowerCase()}: ${rr.rem<0?'<b style="color:var(--bad)">superato di '+fmt(-rr.rem)+'</b>':'restano <b>'+fmt(rr.rem)+'</b> su '+fmt(rr.budget)}${rr.left<=0?' · <b>reparto completo</b>':' · '+rr.left+' da prendere'} · max offerta <b>${fmt(Math.max(0,c.maxNow))}</b></div>
       <div class="act">
         <div class="stepper"><button type="button" data-step="-1" aria-label="Meno">${ico('minus')}</button><input id="pPrice" type="number" min="1" step="1" value="${Math.max(1,sugg||1)}" aria-label="Prezzo"><button type="button" data-step="1" aria-label="Più">${ico('plus')}</button></div>
         <button class="buy" data-buynow>Preso</button><button class="ghost" data-wish>${exist?'Aggiorna in lista':'In lista'}</button>
       </div>
-      ${p.row?`<details class="study"${p.row.mine?' open':''}><summary>Valutazione personale ${p.row.mine?'· salvata':''}</summary>
+      ${p.row?`<details class="study"${p.row.mine?' open':''}><summary>Modifica valutazione ${p.row.mine?'· modificata':''}</summary>
         <div class="st-form">
           <label>Rating<select class="sel" id="eRating">${[0,1,2,3,4,5,6,7,8,9,10].map(n=>`<option value="${n}"${p.row[7]===n?' selected':''}>${n||'–'}</option>`).join('')}</select></label>
           <label>Stelle<select class="sel" id="eStars">${[0,1,2,3].map(n=>`<option value="${n}"${p.row[8]===n?' selected':''}>${n?'★'.repeat(n):'–'}</option>`).join('')}</select></label>
           <label>Fascia<select class="sel" id="eFascia">${FASCIA.map((f,i)=>`<option value="${i}"${p.row[9]===i?' selected':''}>${f||'–'}</option>`).join('')}</select></label>
           <label>Titolare<select class="sel" id="eTit">${TIT.map((f,i)=>`<option value="${i}"${p.row[10]===i?' selected':''}>${f||'–'}</option>`).join('')}</select></label>
           <label>Rigori<select class="sel" id="eRig">${RIG.map((f,i)=>`<option value="${i}"${p.row[11]===i?' selected':''}>${f||'–'}</option>`).join('')}</select></label>
-          <div class="st-act"><button class="buy" data-savestudy>Salva valutazione</button>${p.row.mine?'<button class="ghost" data-clearstudy>Torna ai valori del socio</button>':''}</div>
+          <div class="st-act"><button class="buy" data-savestudy>Salva valutazione</button>${p.row.mine?'<button class="ghost" data-clearstudy>Torna ai valori del file</button>':''}</div>
         </div></details>`:''}
     </div>`;
   if(pickMode==='modal' && !$('#pdlg').open) $('#pdlg').showModal();
@@ -741,7 +741,7 @@ function onPickClick(e){
     if(S.stList[picked.key]===false) delete S.stList[picked.key]; // una valutazione mia lo rimette nello studio
     save(); render(); toast(`Valutazione di ${picked.name} salvata`); pick({...picked, row:eff(byKey[picked.key])}); return;
   }
-  if(e.target.closest('[data-clearstudy]')){ delete S.study[picked.key]; save(); render(); toast('Ripristinati i valori del socio'); pick({...picked, row:eff(byKey[picked.key])}); return; }
+  if(e.target.closest('[data-clearstudy]')){ delete S.study[picked.key]; save(); render(); toast('Ripristinati i valori del file'); pick({...picked, row:eff(byKey[picked.key])}); return; }
   if(e.target.closest('[data-buynow]')){ if(buy(picked, $('#pPrice').value)){ const m=pickMode; closePick(); if(m==='panel') $('#q').focus(); } }
   if(e.target.closest('[data-wish]')){ toWish(picked, Math.round(+$('#pPrice').value)||0); const m=pickMode; closePick(); if(m==='panel') $('#q').focus(); }
 }
@@ -840,11 +840,11 @@ window.addEventListener('beforeprint', buildPrint);
 
 /* ---------- studio ---------- */
 const F = {role:'', stars:0, fascia:0, mine:true, sort:'rating', q:''};
-const socioRated = p => !!(p[7]||p[8]||p[9]||p[12]===2);
-// nello studio: valutato dal socio o da me, oppure aggiunto a mano; mai se l'ho rimosso
-function inStudio(p){ const v=S.stList[keyOf(p)]; if(v===true) return true; if(v===false) return false; return socioRated(p) || !!S.study[keyOf(p)]; }
-function stAdd(k){ const p=byKey[k]; if(socioRated(p)||S.study[k]) delete S.stList[k]; else S.stList[k]=true; }
-function stRemove(k){ const p=byKey[k]; if(socioRated(p)||S.study[k]) S.stList[k]=false; else delete S.stList[k]; }
+const fileRated = p => !!(p[7]||p[8]||p[9]||p[12]===2);
+// nella lista: valutato nel file o modificato qui, oppure aggiunto a mano; mai se l'ho rimosso
+function inStudio(p){ const v=S.stList[keyOf(p)]; if(v===true) return true; if(v===false) return false; return fileRated(p) || !!S.study[keyOf(p)]; }
+function stAdd(k){ const p=byKey[k]; if(fileRated(p)||S.study[k]) delete S.stList[k]; else S.stList[k]=true; }
+function stRemove(k){ const p=byKey[k]; if(fileRated(p)||S.study[k]) S.stList[k]=false; else delete S.stList[k]; }
 const SORTS = {
   rating:(a,b)=>(b[7]-a[7])||(b[8]-a[8])||(b[3]-a[3]),
   // valutazione: più stelle prima, poi fascia migliore (Top=1), poi rating e quotazione
@@ -870,7 +870,7 @@ function renderStudio(){
   const inWish = k => S.wish.some(w=>w.key===k), inRosa = k => S.bought.some(b=>b.key===k);
   const mine = Object.keys(S.study).length, added = Object.values(S.stList).filter(v=>v===true).length, removed = Object.values(S.stList).filter(v=>v===false).length;
   const tot = DB.filter(inStudio).length;
-  $('#stSub').textContent = (searching||!F.mine ? `${list.length} nel listone · ` : '') + `${tot} in lista` + (mine?` · ${mine} valutati da te`:'') + (added?` · ${added} aggiunti`:'') + (removed?` · ${removed} rimossi`:'');
+  $('#stSub').textContent = (searching||!F.mine ? `${list.length} nel listone · ` : '') + `${tot} in lista` + (mine?` · ${mine} modificati`:'') + (added?` · ${added} aggiunti`:'') + (removed?` · ${removed} rimossi`:'');
   $('#stQClr').hidden = !F.q;
   $('#stTable').innerHTML = `<div class="st-head"><span></span><span class="sortable${F.sort==='name'?' on':''}" data-sort="name" role="button" tabindex="0" title="Ordina per nome">Giocatore</span><span class="hide-m sortable${F.sort==='stars'?' on':''}" data-sort="stars" role="button" tabindex="0" title="Ordina per valutazione">Valutazione</span><span class="hide-m sortable${F.sort==='fascia'?' on':''}" data-sort="fascia" role="button" tabindex="0" title="Ordina per fascia">Fascia</span><span class="sortable${F.sort==='rating'?' on':''}" data-sort="rating" role="button" tabindex="0" title="Ordina per rating">Rating</span><span class="sortable${F.sort==='qa'?' on':''}" data-sort="qa" role="button" tabindex="0" title="Ordina per quotazione">Qt.A</span><span></span></div>` +
     (list.length ? list.map(p=>{ const k=keyOf(p); const inst=inStudio(p); const isAdded=S.stList[k]===true;
@@ -914,7 +914,7 @@ $('#stTable').addEventListener('click', e=>{
 $('#stTable').addEventListener('keydown', e=>{ if(e.key==='Enter'){ const h=e.target.closest('[data-sort]'); if(h){ setSort(h.dataset.sort); return; } const o=e.target.closest('[data-open]'); if(o){ pick(fromDB(byKey[o.dataset.open]), 'modal'); } } });
 $('#btnObj').addEventListener('click', ()=>{
   const objs = DB.filter(p=>p[12]===2 && !S.wish.some(w=>w.key===keyOf(p)) && !S.bought.some(b=>b.key===keyOf(p)));
-  if(!objs.length){ toast('Gli obiettivi del socio sono già tutti in lista'); return; }
+  if(!objs.length){ toast('Gli obiettivi del file sono già tutti in lista'); return; }
   objs.forEach(p=>S.wish.push({id:uid(), key:keyOf(p), name:p[1], team:p[2], role:p[0], q:p[3], plan:p[3]}));
   save(); render(); toast(`${objs.length} obiettivi aggiunti alla lista con la quotazione come prezzo di partenza`);
 });
@@ -923,7 +923,7 @@ function exportCsv(){
   const list = studioList();
   if(!list.length){ toast('Nessun giocatore da esportare con questi filtri'); return; }
   const q = v => '"'+String(v??'').replace(/"/g,'""')+'"';
-  const head = ['Ruolo','Giocatore','Squadra','Qt.A','Qt.I','FVM','Mantra','Rating','Stelle','Fascia','Titolare','Rigori','Stato socio','Mia valutazione','Nella mia lista','Obiettivo','Prezzo pianificato','In rosa','Pagato'];
+  const head = ['Ruolo','Giocatore','Squadra','Qt.A','Qt.I','FVM','Mantra','Rating','Stelle','Fascia','Titolare','Rigori','Stato','Modificata','Nella mia lista','Obiettivo','Prezzo pianificato','In rosa','Pagato'];
   const rows = list.map(p=>{ const k=keyOf(p); const w=S.wish.find(x=>x.key===k); const b=S.bought.find(x=>x.key===k);
     return [p[0],p[1],p[2],p[3],p[4],p[5],p[6],p[7]||'',p[8]||'',FASCIA[p[9]]||'',TIT[p[10]]||'',RIG[p[11]]||'',STATO[p[12]]||'',p.mine?'sì':'',inStudio(p)?'sì':'',w?'sì':'',w&&w.plan?w.plan:'',b?'sì':'',b?b.price:''].map(q).join(';'); });
   const csv = '\ufeff'+head.map(q).join(';')+'\r\n'+rows.join('\r\n');
@@ -936,7 +936,7 @@ function exportCsv(){
 }
 $('#btnCsv').addEventListener('click', exportCsv);
 const _render = render; render = function(){ _render(); renderStudio(); };
-$('#btnObj').textContent = `Metti in lista gli Obiettivi (${DB.filter(p=>p[12]===2).length})`;
+$('#btnObj').textContent = `Importa gli obiettivi del file (${DB.filter(p=>p[12]===2).length})`;
 const DB_DATE='6 settembre 2026';
 $('#dbCount').textContent = DB.length+' giocatori · listone del '+DB_DATE;
 
