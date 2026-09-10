@@ -3,7 +3,7 @@
 Webapp per gestire i crediti all'asta del fantacalcio, con listone Serie A 2026/27 integrato.
 Un solo file (`index.html`), nessun server: i dati restano salvati nel browser.
 
-Online: https://robygaiera.github.io/fantasta/
+Online: https://arcomunicazione.github.io/fantasta/
 
 Listone ufficiale Fantacalcio.it (Qt.A, Qt.I, FVM, ruoli Mantra, aggiornato al 6 settembre 2026) e studio personale (rating, stelle, fascia, titolari, rigoristi, obiettivi) importati dal file «Fantacalcio 26/27».
 
