@@ -1,44 +1,10 @@
 # FantAsta 26/27
 
-Due strumenti per l'asta del fantacalcio, Serie A 2026/27:
+Webapp per gestire i crediti all'asta del fantacalcio, con listone Serie A 2026/27 integrato.
+Un solo file (`index.html`), nessun server: i dati restano salvati nel browser.
 
-- **`/studio`** — il tool personale per preparare l'asta: crediti, rosa, obiettivi, «Le mie valutazioni» con il listone ufficiale Fantacalcio.it. È un singolo file statico (`public/studio/index.html`), i dati restano nel browser.
-- **Asta in tempo reale** — l'admin crea l'asta da `/admin`, i partecipanti entrano dal QR (`/a/CODICE`) scegliendo la squadra con il PIN, puntano dal telefono con timer che riparte a ogni offerta. `/a/CODICE/board` è la vista da proiettare.
+Online: https://robygaiera.github.io/fantasta/
 
-## Come funziona l'asta
+Listone ufficiale Fantacalcio.it (Qt.A, Qt.I, FVM, ruoli Mantra, aggiornato al 6 settembre 2026) e studio personale (rating, stelle, fascia, titolari, rigoristi, obiettivi) importati dal file «Fantacalcio 26/27».
 
-- L'admin cerca il giocatore chiamato e apre la chiamata: parte da 1 credito.
-- Ogni offerta fa ripartire il timer (default 5 s, configurabile per asta). Il timer è sul server: allo scadere la console admin (o il proiettore) chiede la chiusura e il server assegna il giocatore all'ultima offerta valida.
-- Regole di puntata: slot libero nel ruolo, e crediti sufficienti lasciando almeno 1 credito per ogni altro slot da riempire.
-- I partecipanti vedono le rose di tutti ma non i crediti: l'admin li rivela per reparto (o del tutto) quando vuole.
-- Correzioni: assegnazione manuale, annulla chiamata, annulla assegnazione.
-
-## Stack
-
-Next.js 15 (App Router) · Postgres su Neon via Drizzle (in locale PGlite, senza installare nulla) · Ably per il tempo reale (senza chiave i client fanno polling ogni 1,5 s) · deploy su Vercel.
-
-## Sviluppo locale
-
-```bash
-npm install
-npm run dev
-```
-
-Senza `.env` si entra in `/admin` senza password e il database è PGlite nella cartella temporanea di sistema (`PGLITE_DIR` per cambiarla).
-
-## Deploy su Vercel
-
-1. Importa il repo su Vercel (framework Next.js, nessuna impostazione particolare).
-2. Variabili d'ambiente:
-   - `ADMIN_PASSWORD` — password della console admin
-   - `AUTH_SECRET` — stringa lunga casuale per firmare i cookie
-   - `DATABASE_URL` — connection string di Neon (pooled, `sslmode=require`)
-   - `ABLY_API_KEY` — chiave Ably (root key va bene: il server crea token di sola lettura per i client)
-   - `NEXT_PUBLIC_BASE_URL` — opzionale, es. `https://fantasta.vercel.app`, usato per il QR
-3. Le migrazioni del database si applicano da sole al primo avvio. In alternativa: `DATABASE_URL=... npm run db:migrate`.
-
-Se cambi lo schema: `npm run db:generate` e committa la cartella `drizzle/`.
-
-## Listone
-
-`data/listone.json` (531 giocatori, Fantacalcio.it del 6 settembre 2026) è usato dall'asta; lo stesso listone è incorporato in `public/studio/index.html`.
+«Le mie valutazioni» è una lista personale senza limiti: si possono aggiungere giocatori dal listone (cercandoli dalla barra del pannello), toglierli con annulla, valutarli e ordinarli. Aggiunte e rimozioni finiscono nel backup insieme a rosa, obiettivi e valutazioni.
