@@ -443,6 +443,7 @@ footer{max-width:1360px;margin:0 auto;padding:6px 20px 32px;font-size:12px;color
         <button class="x clr" id="stQClr" title="Pulisci" hidden><svg class="i"><use href="#i-x"/></svg></button>
       </div>
       <button class="ghost" id="btnObj">Metti in lista gli Obiettivi</button>
+      <button class="ghost" id="btnCsv" title="Scarica la lista come la vedi, filtri compresi"><svg class="i"><use href="#i-download"/></svg> CSV</button>
     </div>
     <div class="st-table" id="stTable"></div>
   </section>
@@ -808,12 +809,17 @@ const SORTS = {
   name:(a,b)=>a[1].localeCompare(b[1],'it'),
   team:(a,b)=>a[2].localeCompare(b[2],'it')||ROLES.indexOf(a[0])-ROLES.indexOf(b[0])||(b[3]-a[3]),
 };
-function renderStudio(){
+function studioList(){
   const searching = F.q.trim().length>=2;
   let list = DB.map(eff).filter(p => (!F.role||p[0]===F.role) && p[8]>=F.stars && (!F.fascia||p[9]===F.fascia));
   // con una ricerca attiva si guarda tutto il listone, così si può aggiungere chi manca
   if(searching) list = list.filter(p=>matches(p,F.q)); else if(F.mine) list = list.filter(inStudio);
   list.sort(SORTS[F.sort]||SORTS.rating);
+  return list;
+}
+function renderStudio(){
+  const searching = F.q.trim().length>=2;
+  const list = studioList();
   const inWish = k => S.wish.some(w=>w.key===k), inRosa = k => S.bought.some(b=>b.key===k);
   const mine = Object.keys(S.study).length, added = Object.values(S.stList).filter(v=>v===true).length, removed = Object.values(S.stList).filter(v=>v===false).length;
   const tot = DB.filter(inStudio).length;
@@ -860,6 +866,23 @@ $('#btnObj').addEventListener('click', ()=>{
   objs.forEach(p=>S.wish.push({id:uid(), key:keyOf(p), name:p[1], team:p[2], role:p[0], q:p[3], plan:p[3]}));
   save(); render(); toast(`${objs.length} obiettivi aggiunti alla lista con la quotazione come prezzo di partenza`);
 });
+/* ---------- export CSV delle valutazioni ---------- */
+function exportCsv(){
+  const list = studioList();
+  if(!list.length){ toast('Nessun giocatore da esportare con questi filtri'); return; }
+  const q = v => '"'+String(v??'').replace(/"/g,'""')+'"';
+  const head = ['Ruolo','Giocatore','Squadra','Qt.A','Qt.I','FVM','Mantra','Rating','Stelle','Fascia','Titolare','Rigori','Stato socio','Mia valutazione','Nella mia lista','Obiettivo','Prezzo pianificato','In rosa','Pagato'];
+  const rows = list.map(p=>{ const k=keyOf(p); const w=S.wish.find(x=>x.key===k); const b=S.bought.find(x=>x.key===k);
+    return [p[0],p[1],p[2],p[3],p[4],p[5],p[6],p[7]||'',p[8]||'',FASCIA[p[9]]||'',TIT[p[10]]||'',RIG[p[11]]||'',STATO[p[12]]||'',p.mine?'sì':'',inStudio(p)?'sì':'',w?'sì':'',w&&w.plan?w.plan:'',b?'sì':'',b?b.price:''].map(q).join(';'); });
+  const csv = '\ufeff'+head.map(q).join(';')+'\r\n'+rows.join('\r\n');
+  const blob = new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  const parts = ['valutazioni', F.role||'', F.stars?F.stars+'stelle':'', F.fascia?FASCIA[F.fascia].toLowerCase().replace(/\s+/g,'-'):''].filter(Boolean);
+  a.download = parts.join('-')+'-'+new Date().toISOString().slice(0,10)+'.csv';
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+  toast(`Esportati ${list.length} giocatori in CSV`);
+}
+$('#btnCsv').addEventListener('click', exportCsv);
 const _render = render; render = function(){ _render(); renderStudio(); };
 $('#btnObj').textContent = `Metti in lista gli Obiettivi (${DB.filter(p=>p[12]===2).length})`;
 const DB_DATE='6 settembre 2026';
