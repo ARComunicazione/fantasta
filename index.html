@@ -259,6 +259,10 @@ details.study[open] summary::before{transform:rotate(45deg)}
 .st-table .act .icon svg.i{width:15px;height:15px}
 .st-table .done{font-size:12px;color:var(--muted);text-align:right;white-space:nowrap;padding-right:6px}
 .st-head > *{position:sticky;top:calc(var(--hdr) + 6px);z-index:2;background:var(--glass-strong);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;border-top:0 !important;padding:8px 10px 8px 0;display:flex;align-items:center}
+.st-head .sortable{cursor:pointer;user-select:none;border-radius:6px;transition:color .15s}
+.st-head .sortable:hover{color:var(--ink)}
+.st-head .sortable.on{color:var(--accent)}
+.st-head .sortable.on::after{content:'';width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid currentColor;margin-left:5px}
 .st-empty{grid-column:1/-1;padding:24px 0;text-align:center;color:var(--muted);font-size:14px}
 .res .extra{display:flex;gap:6px;align-items:center;justify-content:flex-end}
 
@@ -437,7 +441,7 @@ footer{max-width:1360px;margin:0 auto;padding:6px 20px 32px;font-size:12px;color
       <div class="seg" id="fRole"><button data-r="" class="on">Tutti</button><button data-r="P">P</button><button data-r="D">D</button><button data-r="C">C</button><button data-r="A">A</button></div>
       <select class="sel" id="fStars"><option value="0">Tutte le stelle</option><option value="1">★ e oltre</option><option value="2">★★ e oltre</option><option value="3">solo ★★★</option></select>
       <select class="sel" id="fFascia"><option value="0">Tutte le fasce</option><option value="1">Top</option><option value="2">1ª fascia</option><option value="3">2ª fascia</option><option value="4">Scommessa</option><option value="5">Low cost</option></select>
-      <select class="sel" id="fSort"><option value="rating">Per rating</option><option value="qa">Per Qt.A</option><option value="fvm">Per FVM</option><option value="name">Per nome</option><option value="team">Per squadra</option></select>
+      <select class="sel" id="fSort"><option value="rating">Per rating</option><option value="stars">Per valutazione</option><option value="qa">Per Qt.A</option><option value="fvm">Per FVM</option><option value="name">Per nome</option><option value="team">Per squadra</option></select>
       <label class="switch"><input type="checkbox" id="fRated" checked><span class="tr"></span>Solo la mia lista</label>
       <span class="sp"></span>
       <div class="st-search">
@@ -841,6 +845,8 @@ function stAdd(k){ const p=byKey[k]; if(socioRated(p)||S.study[k]) delete S.stLi
 function stRemove(k){ const p=byKey[k]; if(socioRated(p)||S.study[k]) S.stList[k]=false; else delete S.stList[k]; }
 const SORTS = {
   rating:(a,b)=>(b[7]-a[7])||(b[8]-a[8])||(b[3]-a[3]),
+  // valutazione: più stelle prima, poi fascia migliore (Top=1), poi rating e quotazione
+  stars:(a,b)=>(b[8]-a[8])||((a[9]||9)-(b[9]||9))||(b[7]-a[7])||(b[3]-a[3]),
   qa:(a,b)=>(b[3]-a[3])||(b[7]-a[7]),
   fvm:(a,b)=>(b[5]-a[5])||(b[3]-a[3]),
   name:(a,b)=>a[1].localeCompare(b[1],'it'),
@@ -862,7 +868,7 @@ function renderStudio(){
   const tot = DB.filter(inStudio).length;
   $('#stSub').textContent = (searching||!F.mine ? `${list.length} nel listone · ` : '') + `${tot} in lista` + (mine?` · ${mine} valutati da te`:'') + (added?` · ${added} aggiunti`:'') + (removed?` · ${removed} rimossi`:'');
   $('#stQClr').hidden = !F.q;
-  $('#stTable').innerHTML = `<div class="st-head"><span></span><span>Giocatore</span><span class="hide-m">Valutazione</span><span>Rating</span><span>Qt.A</span><span></span></div>` +
+  $('#stTable').innerHTML = `<div class="st-head"><span></span><span class="sortable${F.sort==='name'?' on':''}" data-sort="name" role="button" tabindex="0" title="Ordina per nome">Giocatore</span><span class="hide-m sortable${F.sort==='stars'?' on':''}" data-sort="stars" role="button" tabindex="0" title="Ordina per valutazione">Valutazione</span><span class="sortable${F.sort==='rating'?' on':''}" data-sort="rating" role="button" tabindex="0" title="Ordina per rating">Rating</span><span class="sortable${F.sort==='qa'?' on':''}" data-sort="qa" role="button" tabindex="0" title="Ordina per quotazione">Qt.A</span><span></span></div>` +
     (list.length ? list.map(p=>{ const k=keyOf(p); const inst=inStudio(p); const isAdded=S.stList[k]===true;
       const tags = `${p[8]?`<span class="stars">${stars(p[8])}</span>`:''}${p[9]?`<span class="tag ${p[9]===1?'top':''}">${FASCIA[p[9]]}</span>`:''}`;
       const tagsFull = tags + `${p[10]===1?'<span class="tag">Tit.</span>':''}${p[11]===1?'<span class="tag">Rig.</span>':''}${p[12]===2?'<span class="tag obj">Obiettivo</span>':''}${p.mine?'<span class="tag mine">mia</span>':''}${isAdded?'<span class="tag add">aggiunto</span>':''}`;
@@ -889,14 +895,16 @@ $('#fRated').addEventListener('change', e=>{ F.mine=e.target.checked; renderStud
 $('#stQ').addEventListener('input', e=>{ F.q=e.target.value; renderStudio(); });
 $('#stQ').addEventListener('keydown', e=>{ if(e.key==='Escape'){ F.q=''; e.target.value=''; renderStudio(); } });
 $('#stQClr').addEventListener('click', ()=>{ F.q=''; $('#stQ').value=''; renderStudio(); $('#stQ').focus(); });
+function setSort(v){ F.sort=v; $('#fSort').value=v; renderStudio(); }
 $('#stTable').addEventListener('click', e=>{
+  const h=e.target.closest('[data-sort]'); if(h){ setSort(h.dataset.sort); return; }
   const a=e.target.closest('[data-stadd]'); if(a){ const k=a.dataset.stadd; stAdd(k); save(); renderStudio(); toast(`${byKey[k][1]} aggiunto alla tua lista`,{label:'Annulla',fn:()=>{ stRemove(k); save(); renderStudio(); }}); return; }
   const rm=e.target.closest('[data-strm]'); if(rm){ const k=rm.dataset.strm; stRemove(k); save(); renderStudio(); toast(`${byKey[k][1]} tolto dalla tua lista`,{label:'Annulla',fn:()=>{ stAdd(k); save(); renderStudio(); }}); return; }
   const w=e.target.closest('[data-stw]'); if(w){ const p=byKey[w.dataset.stw]; toWish(fromDB(p), p[3]); return; }
   const b=e.target.closest('[data-stb]'); if(b){ pick(fromDB(byKey[b.dataset.stb]), 'modal'); return; }
   const o=e.target.closest('[data-open]'); if(o){ pick(fromDB(byKey[o.dataset.open]), 'modal'); }
 });
-$('#stTable').addEventListener('keydown', e=>{ if(e.key==='Enter'){ const o=e.target.closest('[data-open]'); if(o){ pick(fromDB(byKey[o.dataset.open]), 'modal'); } } });
+$('#stTable').addEventListener('keydown', e=>{ if(e.key==='Enter'){ const h=e.target.closest('[data-sort]'); if(h){ setSort(h.dataset.sort); return; } const o=e.target.closest('[data-open]'); if(o){ pick(fromDB(byKey[o.dataset.open]), 'modal'); } } });
 $('#btnObj').addEventListener('click', ()=>{
   const objs = DB.filter(p=>p[12]===2 && !S.wish.some(w=>w.key===keyOf(p)) && !S.bought.some(b=>b.key===keyOf(p)));
   if(!objs.length){ toast('Gli obiettivi del socio sono già tutti in lista'); return; }
