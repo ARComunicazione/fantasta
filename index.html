@@ -267,6 +267,9 @@ details.study[open] summary::before{transform:rotate(45deg)}
 
 /* ---------- impostazioni ---------- */
 dialog{border:1px solid var(--stroke);border-radius:26px;background:var(--panel);color:var(--ink);padding:0;width:min(540px,94vw);box-shadow:var(--shadow-lg);max-height:calc(100vh - 32px)}
+.pdlg{width:min(560px,94vw)}
+.pdlg #pdlgBody .picked{margin:0;border:0;border-radius:26px;padding:20px 22px 22px;background:linear-gradient(135deg,var(--accent-soft),transparent 55%),var(--panel);animation:none}
+.pdlg #pdlgBody .picked .who{font-size:20px}
 dialog::backdrop{background:rgba(8,12,16,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 dialog[open]{animation:pop .25s cubic-bezier(.2,.8,.2,1)}
 .dlg-h{padding:20px 22px 12px}
@@ -459,6 +462,7 @@ footer{max-width:1360px;margin:0 auto;padding:6px 20px 32px;font-size:12px;color
 
 <div id="printView"></div>
 
+<dialog id="pdlg" class="pdlg" aria-label="Scheda giocatore"><div id="pdlgBody"></div></dialog>
 <dialog id="dlg">
   <div class="dlg-h"><h2>Impostazioni asta</h2></div>
   <div class="dlg-b">
@@ -657,13 +661,19 @@ function search(q){
 }
 const keyOf = p => 'fc'+p[13];
 let picked=null;
-function pick(p){
+let pickMode='panel'; // 'panel' = scheda sotto la ricerca, 'modal' = finestra dalla lista valutazioni
+const pickHost = () => pickMode==='modal' ? $('#pdlgBody') : $('#picked');
+function closePick(){ picked=null; $('#picked').innerHTML=''; $('#pdlgBody').innerHTML=''; if($('#pdlg').open) $('#pdlg').close(); }
+function pick(p, mode){
+  if(mode) pickMode = mode;
   picked = p;
   $('#results').innerHTML=''; $('#q').value='';
+  // una sola scheda alla volta: svuota l'altra destinazione
+  if(pickMode==='modal'){ $('#picked').innerHTML=''; } else { $('#pdlgBody').innerHTML=''; if($('#pdlg').open) $('#pdlg').close(); }
   const c = calc(); const rr = c.roles[p.role];
   const exist = S.wish.find(w=>w.key===p.key);
   const sugg = Math.min(Math.max(1, exist && exist.plan ? exist.plan : (+p.q||1)), Math.max(1,c.maxNow));
-  $('#picked').innerHTML = `<div class="picked">
+  pickHost().innerHTML = `<div class="picked">
       <div class="who"><span class="chip ${p.role}">${p.role}</span><span class="nm">${esc(p.name)}</span><small>${esc(p.team||'')}</small></div>
       <button class="x" data-unpick title="Chiudi">${ico('x')}</button>
       ${p.row?`<div class="meta">Qt.A <b>${p.row[3]}</b> · Qt.I <b>${p.row[4]}</b> · FVM <b>${p.row[5]}</b> · Mantra <b>${esc(p.row[6])}</b></div>
@@ -683,6 +693,7 @@ function pick(p){
           <div class="st-act"><button class="buy" data-savestudy>Salva valutazione</button>${p.row.mine?'<button class="ghost" data-clearstudy>Torna ai valori del socio</button>':''}</div>
         </div></details>`:''}
     </div>`;
+  if(pickMode==='modal' && !$('#pdlg').open) $('#pdlg').showModal();
   const inp = $('#pPrice'); inp.focus(); inp.select();
 }
 function buy(p, price){
@@ -705,30 +716,37 @@ $('#q').addEventListener('input', e=>search(e.target.value));
 $('#q').addEventListener('keydown', e=>{
   if(e.key==='ArrowDown'&&results.length){ sel=(sel+1)%results.length; search($('#q').value); e.preventDefault(); }
   else if(e.key==='ArrowUp'&&results.length){ sel=(sel-1+results.length)%results.length; search($('#q').value); e.preventDefault(); }
-  else if(e.key==='Enter'){ if(sel>=0&&results[sel]) pick(fromDB(results[sel])); e.preventDefault(); }
+  else if(e.key==='Enter'){ if(sel>=0&&results[sel]) pick(fromDB(results[sel]), 'panel'); e.preventDefault(); }
   else if(e.key==='Escape'){ $('#results').innerHTML=''; }
 });
 $('#results').addEventListener('mousedown', e=>{
   const nb = e.target.closest('[data-new]');
-  if(nb){ const name=$('#q').value.trim(); pick({key:'custom|'+norm(name)+'|'+nb.dataset.new, role:nb.dataset.new, name, team:'', q:''}); e.preventDefault(); return; }
+  if(nb){ const name=$('#q').value.trim(); pick({key:'custom|'+norm(name)+'|'+nb.dataset.new, role:nb.dataset.new, name, team:'', q:''}, 'panel'); e.preventDefault(); return; }
   const r = e.target.closest('.res[data-i]');
-  if(r){ pick(fromDB(results[+r.dataset.i])); e.preventDefault(); }
+  if(r){ pick(fromDB(results[+r.dataset.i]), 'panel'); e.preventDefault(); }
 });
 document.addEventListener('click', e=>{ if(!e.target.closest('.search')) $('#results').innerHTML=''; });
 
-$('#picked').addEventListener('click', e=>{
+function onPickClick(e){
   const st=e.target.closest('[data-step]'); if(st){ const i=$('#pPrice'); i.value=Math.max(1,(Math.round(+i.value)||0)+(+st.dataset.step)); return; }
-  if(e.target.closest('[data-unpick]')){ picked=null; $('#picked').innerHTML=''; return; }
+  if(e.target.closest('[data-unpick]')){ closePick(); return; }
   if(e.target.closest('[data-savestudy]')){
     S.study[picked.key] = {rating:+$('#eRating').value, stars:+$('#eStars').value, fascia:+$('#eFascia').value, tit:+$('#eTit').value, rig:+$('#eRig').value};
     if(S.stList[picked.key]===false) delete S.stList[picked.key]; // una valutazione mia lo rimette nello studio
     save(); render(); toast(`Valutazione di ${picked.name} salvata`); pick({...picked, row:eff(byKey[picked.key])}); return;
   }
   if(e.target.closest('[data-clearstudy]')){ delete S.study[picked.key]; save(); render(); toast('Ripristinati i valori del socio'); pick({...picked, row:eff(byKey[picked.key])}); return; }
-  if(e.target.closest('[data-buynow]')){ if(buy(picked, $('#pPrice').value)){ picked=null; $('#picked').innerHTML=''; $('#q').focus(); } }
-  if(e.target.closest('[data-wish]')){ toWish(picked, Math.round(+$('#pPrice').value)||0); picked=null; $('#picked').innerHTML=''; $('#q').focus(); }
-});
-$('#picked').addEventListener('keydown', e=>{ if(e.key==='Enter'&&e.target.id==='pPrice'){ if(buy(picked, e.target.value)){ picked=null; $('#picked').innerHTML=''; $('#q').focus(); } } });
+  if(e.target.closest('[data-buynow]')){ if(buy(picked, $('#pPrice').value)){ const m=pickMode; closePick(); if(m==='panel') $('#q').focus(); } }
+  if(e.target.closest('[data-wish]')){ toWish(picked, Math.round(+$('#pPrice').value)||0); const m=pickMode; closePick(); if(m==='panel') $('#q').focus(); }
+}
+function onPickKey(e){ if(e.key==='Enter'&&e.target.id==='pPrice'){ e.preventDefault(); if(buy(picked, e.target.value)){ const m=pickMode; closePick(); if(m==='panel') $('#q').focus(); } } }
+$('#picked').addEventListener('click', onPickClick);
+$('#picked').addEventListener('keydown', onPickKey);
+$('#pdlgBody').addEventListener('click', onPickClick);
+$('#pdlgBody').addEventListener('keydown', onPickKey);
+// chiusura con Esc o clic fuori dalla finestra
+$('#pdlg').addEventListener('close', ()=>{ if(pickMode==='modal'){ picked=null; $('#pdlgBody').innerHTML=''; } });
+$('#pdlg').addEventListener('click', e=>{ if(e.target===$('#pdlg')) $('#pdlg').close(); });
 
 $('#roster').addEventListener('change', e=>{
   const id=e.target.dataset.buy; if(!id) return;
@@ -745,7 +763,7 @@ $('#wishlist').addEventListener('change', e=>{
 });
 $('#wishlist').addEventListener('click', e=>{
   const d=e.target.closest('[data-wdel]'); if(d){ const w=S.wish.find(x=>x.id===d.dataset.wdel); S.wish=S.wish.filter(x=>x.id!==d.dataset.wdel); save(); render(); if(w) toast(`${w.name} tolto dagli obiettivi`,{label:'Annulla',fn:()=>{ S.wish.push(w); save(); render(); }}); return; }
-  const b=e.target.closest('[data-wbuy]'); if(b){ const w=S.wish.find(x=>x.id===b.dataset.wbuy); if(w) pick({key:w.key,role:w.role,name:w.name,team:w.team,q:w.q,row:byKey[w.key]&&eff(byKey[w.key])}); }
+  const b=e.target.closest('[data-wbuy]'); if(b){ const w=S.wish.find(x=>x.id===b.dataset.wbuy); if(w) pick({key:w.key,role:w.role,name:w.name,team:w.team,q:w.q,row:byKey[w.key]&&eff(byKey[w.key])}, 'panel'); }
 });
 
 /* ---------- impostazioni ---------- */
@@ -813,7 +831,6 @@ function buildPrint(){
 $('#btnPdf').addEventListener('click', ()=>{ buildPrint(); window.print(); });
 window.addEventListener('beforeprint', buildPrint);
 
-function scrollToPicked(){ const el=$('#picked'); if(el) el.scrollIntoView({behavior:'smooth',block:'center'}); }
 
 /* ---------- studio ---------- */
 const F = {role:'', stars:0, fascia:0, mine:true, sort:'rating', q:''};
@@ -876,10 +893,10 @@ $('#stTable').addEventListener('click', e=>{
   const a=e.target.closest('[data-stadd]'); if(a){ const k=a.dataset.stadd; stAdd(k); save(); renderStudio(); toast(`${byKey[k][1]} aggiunto alla tua lista`,{label:'Annulla',fn:()=>{ stRemove(k); save(); renderStudio(); }}); return; }
   const rm=e.target.closest('[data-strm]'); if(rm){ const k=rm.dataset.strm; stRemove(k); save(); renderStudio(); toast(`${byKey[k][1]} tolto dalla tua lista`,{label:'Annulla',fn:()=>{ stAdd(k); save(); renderStudio(); }}); return; }
   const w=e.target.closest('[data-stw]'); if(w){ const p=byKey[w.dataset.stw]; toWish(fromDB(p), p[3]); return; }
-  const b=e.target.closest('[data-stb]'); if(b){ pick(fromDB(byKey[b.dataset.stb])); scrollToPicked(); return; }
-  const o=e.target.closest('[data-open]'); if(o){ pick(fromDB(byKey[o.dataset.open])); scrollToPicked(); }
+  const b=e.target.closest('[data-stb]'); if(b){ pick(fromDB(byKey[b.dataset.stb]), 'modal'); return; }
+  const o=e.target.closest('[data-open]'); if(o){ pick(fromDB(byKey[o.dataset.open]), 'modal'); }
 });
-$('#stTable').addEventListener('keydown', e=>{ if(e.key==='Enter'){ const o=e.target.closest('[data-open]'); if(o){ pick(fromDB(byKey[o.dataset.open])); scrollToPicked(); } } });
+$('#stTable').addEventListener('keydown', e=>{ if(e.key==='Enter'){ const o=e.target.closest('[data-open]'); if(o){ pick(fromDB(byKey[o.dataset.open]), 'modal'); } } });
 $('#btnObj').addEventListener('click', ()=>{
   const objs = DB.filter(p=>p[12]===2 && !S.wish.some(w=>w.key===keyOf(p)) && !S.bought.some(b=>b.key===keyOf(p)));
   if(!objs.length){ toast('Gli obiettivi del socio sono già tutti in lista'); return; }
