@@ -448,7 +448,7 @@ footer{max-width:1360px;margin:0 auto;padding:6px 20px 32px;font-size:12px;color
     <div class="st-table" id="stTable"></div>
   </section>
 </main>
-<footer>Listone ufficiale Fantacalcio.it (Qt.A, Qt.I, FVM, ruoli Mantra) e studio personale dal file «Fantacalcio 26/27» del socio. I dati dell'asta restano salvati in questo browser.</footer>
+<footer>Listone ufficiale Fantacalcio.it (Qt.A, Qt.I, FVM, ruoli Mantra) e studio personale dal file «Fantacalcio 26/27» del socio. I dati dell'asta restano salvati in questo browser: da Impostazioni puoi esportarli in un file e importarli su un altro dispositivo.</footer>
 
 <nav class="dock" aria-label="Sezioni">
   <button data-go="secRosa" class="on"><svg class="i"><use href="#i-shirt"/></svg>Rosa</button>
@@ -483,9 +483,13 @@ footer{max-width:1360px;margin:0 auto;padding:6px 20px 32px;font-size:12px;color
       <div class="note" id="pctNote" style="margin-top:6px">Serve solo per il suggerimento per ruolo. La media generale usa sempre tutti i crediti rimasti.</div>
     </div>
     <div>
-      <div class="eyebrow" style="margin-bottom:8px">Backup (rosa, lista, valutazioni, studio)</div>
-      <textarea id="fBackup" rows="3" spellcheck="false" placeholder="Premi «Copia» per ottenere il testo da inviare al socio, oppure incolla qui un backup e premi «Carica»."></textarea>
-      <div style="display:flex;gap:8px;margin-top:8px"><button class="ghost" id="btnBkCopy">Copia</button><button class="ghost" id="btnBkLoad">Carica</button></div>
+      <div class="eyebrow" style="margin-bottom:8px">Backup (rosa, obiettivi, valutazioni, lista, impostazioni)</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="buy" id="btnBkFile"><svg class="i"><use href="#i-download"/></svg> Esporta file</button><button class="ghost" id="btnBkImport">Importa file…</button><input type="file" id="fBkFile" accept=".json,application/json" hidden></div>
+      <div class="note" id="bkNote" style="margin-top:6px"></div>
+      <details style="margin-top:10px"><summary class="note" style="cursor:pointer">Oppure copia e incolla il testo</summary>
+        <textarea id="fBackup" rows="3" spellcheck="false" style="margin-top:8px" placeholder="Premi «Copia» per ottenere il testo, oppure incolla qui un backup e premi «Carica»."></textarea>
+        <div style="display:flex;gap:8px;margin-top:8px"><button class="ghost" id="btnBkCopy">Copia</button><button class="ghost" id="btnBkLoad">Carica</button></div>
+      </details>
     </div>
   </div>
   <div class="dlg-f">
@@ -749,16 +753,32 @@ const dlg=$('#dlg');
 $('#btnSettings').addEventListener('click', ()=>{
   $('#fBudget').value=S.budget;
   ROLES.forEach(r=>{ $('#f'+r).value=S.slots[r]; $('#fp'+r).value=S.pct[r]; });
-  dlg.showModal();
+  bkNote(); dlg.showModal();
 });
 $('#btnCancel').addEventListener('click', ()=>dlg.close());
 $('#btnBkCopy').addEventListener('click', async ()=>{ const t=JSON.stringify(S); $('#fBackup').value=t; try{ await navigator.clipboard.writeText(t); toast('Backup copiato negli appunti'); }catch(e){ $('#fBackup').select(); toast('Seleziona e copia il testo'); } });
-$('#btnBkLoad').addEventListener('click', ()=>{
-  try{ const o=JSON.parse($('#fBackup').value); if(!o||!o.slots) throw 0;
-    if(!confirm('Sostituire rosa, lista e valutazioni con questo backup?')) return;
-    S=Object.assign(JSON.parse(JSON.stringify(DEF)), o); if(!S.study) S.study={}; if(!S.stList) S.stList={}; save(); render(); dlg.close(); toast('Backup caricato');
-  }catch(e){ toast('Testo non valido: incolla un backup copiato da FantAsta'); }
+function loadBackup(text){
+  let o; try{ o=JSON.parse(text); }catch(e){ o=null; }
+  if(!o||!o.slots){ toast('File non valido: serve un backup esportato da FantAsta'); return false; }
+  const n = `${(o.bought||[]).length} in rosa, ${(o.wish||[]).length} obiettivi, ${Object.keys(o.study||{}).length} valutazioni`;
+  if(!confirm(`Sostituire i dati di questo browser con il backup (${n})?`)) return false;
+  S=Object.assign(JSON.parse(JSON.stringify(DEF)), o); if(!S.study) S.study={}; if(!S.stList) S.stList={};
+  S.savedAt = new Date().toISOString(); save(); render(); dlg.close(); toast('Backup importato: '+n); return true;
+}
+$('#btnBkLoad').addEventListener('click', ()=>loadBackup($('#fBackup').value));
+$('#btnBkFile').addEventListener('click', ()=>{
+  S.savedAt = new Date().toISOString(); save();
+  const blob = new Blob([JSON.stringify(S,null,1)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='fantasta-backup-'+S.savedAt.slice(0,10)+'.json';
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+  toast('Backup esportato: aprilo sull\'altro dispositivo con «Importa file»'); bkNote();
 });
+$('#btnBkImport').addEventListener('click', ()=>$('#fBkFile').click());
+$('#fBkFile').addEventListener('change', e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader(); r.onload=()=>loadBackup(String(r.result)); r.readAsText(f); e.target.value='';
+});
+function bkNote(){ $('#bkNote').textContent = S.savedAt ? 'Ultimo backup esportato il '+new Date(S.savedAt).toLocaleString('it-IT',{day:'numeric',month:'long',hour:'2-digit',minute:'2-digit'})+'. I dati vivono solo in questo browser: esporta il file per portarli su un altro dispositivo.' : 'I dati vivono solo in questo browser: esporta il file per portarli su un altro dispositivo o per sicurezza.'; }
 $('#btnSave').addEventListener('click', ()=>{
   S.budget=Math.max(1,Math.round(+$('#fBudget').value)||DEF.budget);
   ROLES.forEach(r=>{ S.slots[r]=Math.max(0,Math.round(+$('#f'+r).value)||0); S.pct[r]=Math.max(0,+$('#fp'+r).value||0); });
